@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maison Jacques & Cécile – Montgenèvre</title>
+  <meta name="description" content="Maison Jacques et Cécile, au cœur de Montgenèvre (05100). Appartements en location à 150m des pistes.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+
+<!-- ══ NAVIGATION ══ -->
+<nav class="nav">
+  <a class="nav__logo" href="index.html">Jacques <span>&</span> Cécile</a>
+  <ul class="nav__links">
+    <li><a href="#maison" data-lang="fr">La Maison</a><a href="#maison" data-lang="en" style="display:none">The House</a><a href="#maison" data-lang="it" style="display:none">La Casa</a></li>
+    <li><a href="#station" data-lang="fr">La Station</a><a href="#station" data-lang="en" style="display:none">The Resort</a><a href="#station" data-lang="it" style="display:none">La Stazione</a></li>
+    <li><a href="pages/rdc.html" data-lang="fr">Appt. RDC</a><a href="pages/rdc.html" data-lang="en" style="display:none">Apt. Ground</a><a href="pages/rdc.html" data-lang="it" style="display:none">App. PT</a></li>
+    <li><a href="pages/2eme.html" data-lang="fr">Appt. 2ème</a><a href="pages/2eme.html" data-lang="en" style="display:none">Apt. 2nd Floor</a><a href="pages/2eme.html" data-lang="it" style="display:none">App. 2° Piano</a></li>
+    <li><a href="pages/famille.html" data-lang="fr">Famille</a><a href="pages/famille.html" data-lang="en" style="display:none">Family</a><a href="pages/famille.html" data-lang="it" style="display:none">Famiglia</a></li>
+  </ul>
+  <ul class="nav__lang">
+    <li><a href="#" data-langbtn="fr" class="active">FR</a></li>
+    <li><a href="#" data-langbtn="en">EN</a></li>
+    <li><a href="#" data-langbtn="it">IT</a></li>
+  </ul>
+  <button class="nav__burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero__bg"></div>
+  <div class="hero__img-placeholder"></div>
+  <!-- Season toggle -->
+  <div class="season-toggle">
+    <button class="season-btn active" data-season="winter" data-lang="fr">❄ Hiver</button>
+    <button class="season-btn active" data-season="winter" data-lang="en" style="display:none">❄ Winter</button>
+    <button class="season-btn active" data-season="winter" data-lang="it" style="display:none">❄ Inverno</button>
+    <button class="season-btn" data-season="summer" data-lang="fr">☀ Été</button>
+    <button class="season-btn" data-season="summer" data-lang="en" style="display:none">☀ Summer</button>
+    <button class="season-btn" data-season="summer" data-lang="it" style="display:none">☀ Estate</button>
+  </div>
+  <div class="hero__content">
+    <!-- WINTER FR -->
+    <div data-lang="fr" data-season-content="winter">
+      <p class="hero__eyebrow">Montgenèvre · 1 860 m · Alpes du Sud</p>
+      <h1 class="hero__title">Maison<br>Jacques & Cécile</h1>
+      <p class="hero__subtitle">Au cœur du village, face à l'église, à 150 m des pistes</p>
+      <div class="hero__cta">
+        <a href="pages/rdc.html" class="btn btn--primary">Appartement RDC</a>
+        <a href="pages/2eme.html" class="btn btn--outline">Appartement 2e étage</a>
+      </div>
+    </div>
+    <!-- WINTER EN -->
+    <div data-lang="en" data-season-content="winter" style="display:none">
+      <p class="hero__eyebrow">Montgenèvre · 1,860 m · Southern Alps</p>
+      <h1 class="hero__title">Jacques & Cécile<br>House</h1>
+      <p class="hero__subtitle">In the heart of the village, facing the church, 150 m from the slopes</p>
+      <div class="hero__cta">
+        <a href="pages/rdc.html" class="btn btn--primary">Ground Floor Apt.</a>
+        <a href="pages/2eme.html" class="btn btn--outline">2nd Floor Apt.</a>
+      </div>
+    </div>
+    <!-- WINTER IT -->
+    <div data-lang="it" data-season-content="winter" style="display:none">
+      <p class="hero__eyebrow">Montgenèvre · 1.860 m · Alpi del Sud</p>
+      <h1 class="hero__title">Casa<br>Jacques & Cécile</h1>
+      <p class="hero__subtitle">Nel cuore del villaggio, di fronte alla chiesa, a 150 m dalle piste</p>
+      <div class="hero__cta">
+        <a href="pages/rdc.html" class="btn btn--primary">Appartamento PT</a>
+        <a href="pages/2eme.html" class="btn btn--outline">Appartamento 2° Piano</a>
+      </div>
+    </div>
+    <!-- SUMMER FR -->
+    <div data-lang="fr" data-season-content="summer" style="display:none">
+      <p class="hero__eyebrow">Montgenèvre · 1 860 m · Hautes-Alpes</p>
+      <h1 class="hero__title">Maison<br>Jacques & Cécile</h1>
+      <p class="hero__subtitle">Randonnées, fraîcheur alpine, Turin à portée de route</p>
+      <div class="hero__cta">
+        <a href="pages/rdc.html" class="btn btn--primary">Appartement RDC</a>
+        <a href="pages/2eme.html" class="btn btn--outline">Appartement 2e étage</a>
+      </div>
+    </div>
+    <!-- SUMMER EN -->
+    <div data-lang="en" data-season-content="summer" style="display:none">
+      <p class="hero__eyebrow">Montgenèvre · 1,860 m · Hautes-Alpes</p>
+      <h1 class="hero__title">Jacques & Cécile<br>House</h1>
+      <p class="hero__subtitle">Hiking, alpine freshness, Turin just a drive away</p>
+      <div class="hero__cta">
+        <a href="pages/rdc.html" class="btn btn--primary">Ground Floor Apt.</a>
+        <a href="pages/2eme.html" class="btn btn--outline">2nd Floor Apt.</a>
+      </div>
+    </div>
+    <!-- SUMMER IT -->
+    <div data-lang="it" data-season-content="summer" style="display:none">
+      <p class="hero__eyebrow">Montgenèvre · 1.860 m · Hautes-Alpes</p>
+      <h1 class="hero__title">Casa<br>Jacques & Cécile</h1>
+      <p class="hero__subtitle">Escursioni, fresca aria alpina, Torino a portata di strada</p>
+      <div class="hero__cta">
+        <a href="pages/rdc.html" class="btn btn--primary">Appartamento PT</a>
+        <a href="pages/2eme.html" class="btn btn--outline">Appartamento 2° Piano</a>
+      </div>
+    </div>
+  </div>
+  <!-- Scroll indicator -->
+  <div class="hero__scroll">
+    <span class="scroll-line"></span>
+  </div>
+</section>
+
+<!-- ══ KEY FACTS BAR ══ -->
+<div class="facts-bar">
+  <div class="container">
+    <div class="facts-bar__inner">
+      <div class="fact-item" data-lang="fr">
+        <span class="fact-num">1 860 m</span>
+        <span class="fact-label">Altitude</span>
+      </div>
+      <div class="fact-item" data-lang="en" style="display:none">
+        <span class="fact-num">1,860 m</span>
+        <span class="fact-label">Altitude</span>
+      </div>
+      <div class="fact-item" data-lang="it" style="display:none">
+        <span class="fact-num">1.860 m</span>
+        <span class="fact-label">Altitudine</span>
+      </div>
+      <div class="fact-sep"></div>
+      <div class="fact-item" data-lang="fr">
+        <span class="fact-num">150 m</span>
+        <span class="fact-label">Des pistes</span>
+      </div>
+      <div class="fact-item" data-lang="en" style="display:none">
+        <span class="fact-num">150 m</span>
+        <span class="fact-label">From slopes</span>
+      </div>
+      <div class="fact-item" data-lang="it" style="display:none">
+        <span class="fact-num">150 m</span>
+        <span class="fact-label">Dalle piste</span>
+      </div>
+      <div class="fact-sep"></div>
+      <div class="fact-item" data-lang="fr">
+        <span class="fact-num">3 appts</span>
+        <span class="fact-label">Indépendants</span>
+      </div>
+      <div class="fact-item" data-lang="en" style="display:none">
+        <span class="fact-num">3 apts</span>
+        <span class="fact-label">Independent</span>
+      </div>
+      <div class="fact-item" data-lang="it" style="display:none">
+        <span class="fact-num">3 app.</span>
+        <span class="fact-label">Indipendenti</span>
+      </div>
+      <div class="fact-sep"></div>
+      <div class="fact-item" data-lang="fr">
+        <span class="fact-num">400 km</span>
+        <span class="fact-label">De pistes – La Voie Lactée</span>
+      </div>
+      <div class="fact-item" data-lang="en" style="display:none">
+        <span class="fact-num">400 km</span>
+        <span class="fact-label">Slopes – Milky Way</span>
+      </div>
+      <div class="fact-item" data-lang="it" style="display:none">
+        <span class="fact-num">400 km</span>
+        <span class="fact-label">Piste – Via Lattea</span>
+      </div>
+      <div class="fact-sep"></div>
+      <div class="fact-item" data-lang="fr">
+        <span class="fact-num">JO 2030</span>
+        <span class="fact-label">Site officiel</span>
+      </div>
+      <div class="fact-item" data-lang="en" style="display:none">
+        <span class="fact-num">OG 2030</span>
+        <span class="fact-label">Official venue</span>
+      </div>
+      <div class="fact-item" data-lang="it" style="display:none">
+        <span class="fact-num">OI 2030</span>
+        <span class="fact-label">Sede ufficiale</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ LA MAISON ══ -->
+<section class="section" id="maison">
+  <div class="container">
+    <!-- FR -->
+    <div data-lang="fr">
+      <div class="section-intro reveal">
+        <span class="section__tag">La Maison</span>
+        <h2 class="section__title">Une maison de village<br><em>au cœur de Montgenèvre</em></h2>
+        <div class="divider"></div>
+        <p class="section__lead">Maison de village traditionnelle, idéalement située face à l'église, dans la rue la plus calme du centre. Trois appartements indépendants, chacun avec son propre caractère.</p>
+      </div>
+      <div class="house-layout reveal">
+        <div class="house-floor family-floor">
+          <div class="floor-badge">1<sup>er</sup> étage</div>
+          <div class="floor-content">
+            <h4>Appartement Famille</h4>
+            <p>Réservé à la famille Bouvet — non disponible à la location</p>
+          </div>
+          <div class="floor-icon">🏠</div>
+        </div>
+        <div class="house-floor rental-floor">
+          <div class="floor-badge">2<sup>e</sup> étage</div>
+          <div class="floor-content">
+            <h4>Appartement Location</h4>
+            <p>Disponible à la location — <a href="pages/2eme.html">Voir le détail →</a></p>
+          </div>
+          <div class="floor-icon">🔑</div>
+        </div>
+        <div class="house-floor rental-floor">
+          <div class="floor-badge">Rez-de-chaussée</div>
+          <div class="floor-content">
+            <h4>Appartement Location</h4>
+            <p>Disponible à la location — <a href="pages/rdc.html">Voir le détail →</a></p>
+          </div>
+          <div class="floor-icon">🔑</div>
+        </div>
+      </div>
+    </div>
+    <!-- EN -->
+    <div data-lang="en" style="display:none">
+      <div class="section-intro reveal">
+        <span class="section__tag">The House</span>
+        <h2 class="section__title">A village house<br><em>in the heart of Montgenèvre</em></h2>
+        <div class="divider"></div>
+        <p class="section__lead">Traditional village house, ideally located facing the church, on the quietest street in the centre. Three independent apartments, each with its own character.</p>
+      </div>
+      <div class="house-layout reveal">
+        <div class="house-floor family-floor">
+          <div class="floor-badge">1<sup>st</sup> floor</div>
+          <div class="floor-content">
+            <h4>Family Apartment</h4>
+            <p>Reserved for the Bouvet family — not available for rental</p>
+          </div>
+          <div class="floor-icon">🏠</div>
+        </div>
+        <div class="house-floor rental-floor">
+          <div class="floor-badge">2<sup>nd</sup> floor</div>
+          <div class="floor-content">
+            <h4>Rental Apartment</h4>
+            <p>Available for rental — <a href="pages/2eme.html">See details →</a></p>
+          </div>
+          <div class="floor-icon">🔑</div>
+        </div>
+        <div class="house-floor rental-floor">
+          <div class="floor-badge">Ground floor</div>
+          <div class="floor-content">
+            <h4>Rental Apartment</h4>
+            <p>Available for rental — <a href="pages/rdc.html">See details →</a></p>
+          </div>
+          <div class="floor-icon">🔑</div>
+        </div>
+      </div>
+    </div>
+    <!-- IT -->
+    <div data-lang="it" style="display:none">
+      <div class="section-intro reveal">
+        <span class="section__tag">La Casa</span>
+        <h2 class="section__title">Una casa di paese<br><em>nel cuore di Montgenèvre</em></h2>
+        <div class="divider"></div>
+        <p class="section__lead">Casa di paese tradizionale, situata idealmente di fronte alla chiesa, nella strada più tranquilla del centro. Tre appartamenti indipendenti, ognuno con il proprio carattere.</p>
+      </div>
+      <div class="house-layout reveal">
+        <div class="house-floor family-floor">
+          <div class="floor-badge">1° piano</div>
+          <div class="floor-content">
+            <h4>Appartamento Famiglia</h4>
+            <p>Riservato alla famiglia Bouvet — non disponibile per l'affitto</p>
+          </div>
+          <div class="floor-icon">🏠</div>
+        </div>
+        <div class="house-floor rental-floor">
+          <div class="floor-badge">2° piano</div>
+          <div class="floor-content">
+            <h4>Appartamento in Affitto</h4>
+            <p>Disponibile per l'affitto — <a href="pages/2eme.html">Vedi dettagli →</a></p>
+          </div>
+          <div class="floor-icon">🔑</div>
+        </div>
+        <div class="house-floor rental-floor">
+          <div class="floor-badge">Piano terra</div>
+          <div class="floor-content">
+            <h4>Appartamento in Affitto</h4>
+            <p>Disponibile per l'affitto — <a href="pages/rdc.html">Vedi dettagli →</a></p>
+          </div>
+          <div class="floor-icon">🔑</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOCATION AVANTAGES -->
+    <div class="location-cards reveal mt-3">
+      <div data-lang="fr">
+        <h3 style="margin-bottom:1.5rem;">À proximité immédiate</h3>
+        <div class="prox-grid">
+          <div class="prox-item"><span class="prox-icon">⛷</span><span>Départ des pistes</span><strong>150 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">🎟</span><span>Caisses remontées mécaniques</span><strong>150 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">🎿</span><span>Écoles de ski</span><strong>200 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">🧸</span><span>Garderie</span><strong>200 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">🏥</span><span>Cabinet médical</span><strong>100 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">🛍</span><span>Commerces & restaurants</span><strong>50 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">⛪</span><span>Église (face à la maison)</span><strong>0 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">🇮🇹</span><span>Italie (Clavière)</span><strong>3 km</strong></div>
+        </div>
+      </div>
+      <div data-lang="en" style="display:none">
+        <h3 style="margin-bottom:1.5rem;">Nearby</h3>
+        <div class="prox-grid">
+          <div class="prox-item"><span class="prox-icon">⛷</span><span>Ski slope access</span><strong>150 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">🎟</span><span>Ski lift ticket office</span><strong>150 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">🎿</span><span>Ski schools</span><strong>200 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">🧸</span><span>Childcare / nursery</span><strong>200 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">🏥</span><span>Medical practice</span><strong>100 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">🛍</span><span>Shops & restaurants</span><strong>50 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">⛪</span><span>Church (facing the house)</span><strong>0 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">🇮🇹</span><span>Italy (Clavière)</span><strong>3 km</strong></div>
+        </div>
+      </div>
+      <div data-lang="it" style="display:none">
+        <h3 style="margin-bottom:1.5rem;">Nelle vicinanze</h3>
+        <div class="prox-grid">
+          <div class="prox-item"><span class="prox-icon">⛷</span><span>Accesso alle piste</span><strong>150 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">🎟</span><span>Casse degli impianti</span><strong>150 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">🎿</span><span>Scuole di sci</span><strong>200 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">🧸</span><span>Asilo nido</span><strong>200 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">🏥</span><span>Studio medico</span><strong>100 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">🛍</span><span>Negozi & ristoranti</span><strong>50 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">⛪</span><span>Chiesa (di fronte alla casa)</span><strong>0 m</strong></div>
+          <div class="prox-item"><span class="prox-icon">🇮🇹</span><span>Italia (Clavière)</span><strong>3 km</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PHOTO PLACEHOLDER ══ -->
+<div class="photo-band reveal">
+  <div class="photo-band__item">
+    <div class="photo-ph"><span>📸</span><small data-lang="fr">Façade de la maison</small><small data-lang="en" style="display:none">House facade</small><small data-lang="it" style="display:none">Facciata della casa</small></div>
+  </div>
+  <div class="photo-band__item">
+    <div class="photo-ph"><span>📸</span><small data-lang="fr">Vue sur le village</small><small data-lang="en" style="display:none">Village view</small><small data-lang="it" style="display:none">Vista sul villaggio</small></div>
+  </div>
+  <div class="photo-band__item">
+    <div class="photo-ph"><span>📸</span><small data-lang="fr">Rue de l'Église</small><small data-lang="en" style="display:none">Rue de l'Église</small><small data-lang="it" style="display:none">Via della Chiesa</small></div>
+  </div>
+  <div class="photo-band__item">
+    <div class="photo-ph"><span>📸</span><small data-lang="fr">Pistes depuis la maison</small><small data-lang="en" style="display:none">Slopes from the house</small><small data-lang="it" style="display:none">Piste dalla casa</small></div>
+  </div>
+</div>
+
+<!-- ══ LA STATION ══ -->
+<section class="section section--alt" id="station">
+  <div class="container">
+
+    <!-- SEASON TABS -->
+    <div class="season-tabs reveal">
+      <div class="season-tab-nav">
+        <button class="season-tab-btn active" data-stab="winter">
+          <span data-lang="fr">❄ Hiver</span>
+          <span data-lang="en" style="display:none">❄ Winter</span>
+          <span data-lang="it" style="display:none">❄ Inverno</span>
+        </button>
+        <button class="season-tab-btn" data-stab="summer">
+          <span data-lang="fr">☀ Été</span>
+          <span data-lang="en" style="display:none">☀ Summer</span>
+          <span data-lang="it" style="display:none">☀ Estate</span>
+        </button>
+      </div>
+
+      <!-- WINTER CONTENT -->
+      <div class="season-tab-content active" data-stab-content="winter">
+        <div class="station-grid">
+          <div class="station-text">
+            <div data-lang="fr">
+              <span class="section__tag">La Station en hiver</span>
+              <h2>La doyenne des stations<br><em>françaises</em></h2>
+              <div class="divider"></div>
+              <p>Montgenèvre est la <strong>plus ancienne station de ski de France</strong> — un héritage exceptionnel allié à un dynamisme moderne. À 1 860 m d'altitude dans les Alpes du Sud, elle bénéficie d'un <strong>ensoleillement remarquable</strong> et d'un enneigement fiable.</p>
+              <p>La station est officiellement désignée <strong>site des Jeux Olympiques d'Hiver 2030</strong>, une reconnaissance de son niveau d'excellence.</p>
+              <p>Frontalière avec l'Italie, Montgenèvre est la porte d'entrée française du domaine skiable <strong>La Voie Lactée</strong> — 400 km de pistes reliant Sestrières, Sauze d'Oulx, Sansicario et Cesana, partagées avec plusieurs stations italiennes de renom.</p>
+              <ul class="features">
+                <li>400 km de pistes – domaine franco-italien</li>
+                <li>Enneigement naturel + enneigement artificiel</li>
+                <li>Station familiale avec toutes les écoles de ski</li>
+                <li>Ambiance village – calme et authentique</li>
+                <li>Accès direct Italie – Clavière à 3 km</li>
+              </ul>
+            </div>
+            <div data-lang="en" style="display:none">
+              <span class="section__tag">The Resort in winter</span>
+              <h2>France's oldest ski resort,<br><em>always ahead</em></h2>
+              <div class="divider"></div>
+              <p>Montgenèvre is <strong>France's oldest ski resort</strong> — an exceptional heritage combined with modern dynamism. At 1,860 m in the Southern Alps, it enjoys <strong>remarkable sunshine</strong> and reliable snowfall.</p>
+              <p>The resort is officially designated as a <strong>2030 Winter Olympics venue</strong>, a recognition of its excellence.</p>
+              <p>On the Italian border, Montgenèvre is the French gateway to the <strong>Milky Way</strong> ski area — 400 km of runs linking Sestrières, Sauze d'Oulx, Sansicario and Cesana.</p>
+              <ul class="features">
+                <li>400 km of slopes – Franco-Italian area</li>
+                <li>Natural + artificial snowmaking</li>
+                <li>Family resort with all ski schools</li>
+                <li>Village atmosphere – peaceful and authentic</li>
+                <li>Direct access to Italy – Clavière 3 km away</li>
+              </ul>
+            </div>
+            <div data-lang="it" style="display:none">
+              <span class="section__tag">La stazione in inverno</span>
+              <h2>La più antica stazione<br><em>di sci francese</em></h2>
+              <div class="divider"></div>
+              <p>Montgenèvre è la <strong>più antica stazione sciistica di Francia</strong> — un patrimonio eccezionale unito a un dinamismo moderno. A 1.860 m di altitudine nelle Alpi del Sud, gode di un <strong>soleggiamento straordinario</strong> e di un innevamento affidabile.</p>
+              <p>La stazione è ufficialmente designata <strong>sede dei Giochi Olimpici Invernali 2030</strong>.</p>
+              <p>Al confine con l'Italia, Montgenèvre è la porta d'ingresso francese del comprensorio sciistico <strong>Via Lattea</strong> — 400 km di piste che collegano Sestrières, Sauze d'Oulx, Sansicario e Cesana.</p>
+              <ul class="features">
+                <li>400 km di piste – comprensorio franco-italiano</li>
+                <li>Neve naturale + innevamento artificiale</li>
+                <li>Stazione familiare con tutte le scuole di sci</li>
+                <li>Atmosfera di paese – tranquilla e autentica</li>
+                <li>Accesso diretto all'Italia – Clavière a 3 km</li>
+              </ul>
+            </div>
+          </div>
+          <div class="station-aside">
+            <div class="station-photo-ph">
+              <span>📸</span>
+              <small data-lang="fr">Les pistes de Montgenèvre</small>
+              <small data-lang="en" style="display:none">Montgenèvre slopes</small>
+              <small data-lang="it" style="display:none">Le piste di Montgenèvre</small>
+            </div>
+            <div class="station-facts">
+              <div class="sfact"><span class="sfact-n">1 860 m</span><span class="sfact-l" data-lang="fr">Altitude village</span><span class="sfact-l" data-lang="en" style="display:none">Village altitude</span><span class="sfact-l" data-lang="it" style="display:none">Altitudine</span></div>
+              <div class="sfact"><span class="sfact-n">2 680 m</span><span class="sfact-l" data-lang="fr">Point culminant</span><span class="sfact-l" data-lang="en" style="display:none">Highest point</span><span class="sfact-l" data-lang="it" style="display:none">Punto più alto</span></div>
+              <div class="sfact"><span class="sfact-n">400 km</span><span class="sfact-l" data-lang="fr">Pistes Voie Lactée</span><span class="sfact-l" data-lang="en" style="display:none">Milky Way slopes</span><span class="sfact-l" data-lang="it" style="display:none">Piste Via Lattea</span></div>
+              <div class="sfact"><span class="sfact-n">100+</span><span class="sfact-l" data-lang="fr">Jours de soleil/an</span><span class="sfact-l" data-lang="en" style="display:none">Sunny days/year</span><span class="sfact-l" data-lang="it" style="display:none">Giorni di sole/anno</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUMMER CONTENT -->
+      <div class="season-tab-content" data-stab-content="summer" style="display:none">
+        <div class="station-grid">
+          <div class="station-text">
+            <div data-lang="fr">
+              <span class="section__tag">La Station en été</span>
+              <h2>L'été alpin<br><em>à la frontière italienne</em></h2>
+              <div class="divider"></div>
+              <p>En été, Montgenèvre se transforme en paradis pour les amoureux de la montagne. La fraîcheur alpine (1 860 m) offre une échappatoire idéale aux chaleurs estivales. Le village retrouve sa sérénité.</p>
+              <p>La <strong>frontière italienne</strong> n'est qu'à 3 km. Turin est à moins de 2 h, Milan à 3 h — l'occasion d'explorer la culture et la gastronomie italiennes.</p>
+              <ul class="features">
+                <li>Randonnées — sentiers balisés pour tous niveaux</li>
+                <li>VTT — pistes spécifiques</li>
+                <li>Piscine & tennis au village</li>
+                <li>Lac de Briançon à 10 km</li>
+                <li>Turin à 1h45 — Milan à 3h</li>
+                <li>Briançon (Patrimoine UNESCO) à 12 km</li>
+              </ul>
+            </div>
+            <div data-lang="en" style="display:none">
+              <span class="section__tag">The Resort in summer</span>
+              <h2>Alpine summer<br><em>on the Italian border</em></h2>
+              <div class="divider"></div>
+              <p>In summer, Montgenèvre becomes a paradise for mountain lovers. The alpine freshness (1,860 m) provides an ideal escape from summer heat. The village reclaims its serenity.</p>
+              <p>The <strong>Italian border</strong> is just 3 km away. Turin is under 2 hours, Milan 3 hours — the perfect chance to explore Italian culture and gastronomy.</p>
+              <ul class="features">
+                <li>Hiking — marked trails for all levels</li>
+                <li>Mountain biking — dedicated tracks</li>
+                <li>Swimming pool & tennis in the village</li>
+                <li>Briançon lake 10 km away</li>
+                <li>Turin 1h45 — Milan 3h</li>
+                <li>Briançon (UNESCO Heritage) 12 km</li>
+              </ul>
+            </div>
+            <div data-lang="it" style="display:none">
+              <span class="section__tag">La stazione in estate</span>
+              <h2>Estate alpina<br><em>al confine italiano</em></h2>
+              <div class="divider"></div>
+              <p>In estate, Montgenèvre diventa un paradiso per gli amanti della montagna. La fresca aria alpina (1.860 m) offre una fuga ideale dal caldo estivo.</p>
+              <p>Il <strong>confine italiano</strong> è a soli 3 km. Torino è a meno di 2 ore, Milano a 3 ore — l'occasione perfetta per esplorare la cultura e la gastronomia italiana.</p>
+              <ul class="features">
+                <li>Escursioni — sentieri segnalati per tutti i livelli</li>
+                <li>Mountain bike — percorsi dedicati</li>
+                <li>Piscina e tennis nel villaggio</li>
+                <li>Lago di Briançon a 10 km</li>
+                <li>Torino a 1h45 — Milano a 3h</li>
+                <li>Briançon (Patrimonio UNESCO) a 12 km</li>
+              </ul>
+            </div>
+          </div>
+          <div class="station-aside">
+            <div class="station-photo-ph summer-ph">
+              <span>📸</span>
+              <small data-lang="fr">Montgenèvre en été</small>
+              <small data-lang="en" style="display:none">Montgenèvre in summer</small>
+              <small data-lang="it" style="display:none">Montgenèvre in estate</small>
+            </div>
+            <div class="station-facts">
+              <div class="sfact"><span class="sfact-n">1 860 m</span><span class="sfact-l" data-lang="fr">Fraîcheur garantie</span><span class="sfact-l" data-lang="en" style="display:none">Guaranteed freshness</span><span class="sfact-l" data-lang="it" style="display:none">Frescura garantita</span></div>
+              <div class="sfact"><span class="sfact-n">300+</span><span class="sfact-l" data-lang="fr">km de sentiers</span><span class="sfact-l" data-lang="en" style="display:none">km of trails</span><span class="sfact-l" data-lang="it" style="display:none">km di sentieri</span></div>
+              <div class="sfact"><span class="sfact-n">1h45</span><span class="sfact-l" data-lang="fr">Turin en voiture</span><span class="sfact-l" data-lang="en" style="display:none">Turin by car</span><span class="sfact-l" data-lang="it" style="display:none">Torino in auto</span></div>
+              <div class="sfact"><span class="sfact-n">3h</span><span class="sfact-l" data-lang="fr">Milan en voiture</span><span class="sfact-l" data-lang="en" style="display:none">Milan by car</span><span class="sfact-l" data-lang="it" style="display:none">Milano in auto</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ APARTMENTS TEASER ══ -->
+<section class="section" id="appartements">
+  <div class="container">
+    <div class="text-center reveal mb-3">
+      <span class="section__tag" data-lang="fr">Les appartements</span>
+      <span class="section__tag" data-lang="en" style="display:none">The apartments</span>
+      <span class="section__tag" data-lang="it" style="display:none">Gli appartamenti</span>
+      <h2 data-lang="fr">Deux appartements<br><em>disponibles à la location</em></h2>
+      <h2 data-lang="en" style="display:none">Two apartments<br><em>available for rental</em></h2>
+      <h2 data-lang="it" style="display:none">Due appartamenti<br><em>disponibili per l'affitto</em></h2>
+    </div>
+    <div class="grid-2">
+      <!-- RDC -->
+      <div class="card reveal">
+        <div class="card__img-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span data-lang="fr">Photo à venir</span>
+          <span data-lang="en" style="display:none">Photo coming soon</span>
+          <span data-lang="it" style="display:none">Foto in arrivo</span>
+        </div>
+        <div class="card__body">
+          <span class="card__tag" data-lang="fr">Rez-de-chaussée</span>
+          <span class="card__tag" data-lang="en" style="display:none">Ground floor</span>
+          <span class="card__tag" data-lang="it" style="display:none">Piano terra</span>
+          <h3 class="card__title" data-lang="fr">Appartement RDC</h3>
+          <h3 class="card__title" data-lang="en" style="display:none">Ground Floor Apartment</h3>
+          <h3 class="card__title" data-lang="it" style="display:none">Appartamento Piano Terra</h3>
+          <p class="card__text" data-lang="fr">Appartement de plain-pied, idéal pour les familles. Entrée indépendante, séjour, cuisine équipée.</p>
+          <p class="card__text" data-lang="en" style="display:none">Ground floor apartment, ideal for families. Independent entrance, living room, fully equipped kitchen.</p>
+          <p class="card__text" data-lang="it" style="display:none">Appartamento al piano terra, ideale per le famiglie. Ingresso indipendente, soggiorno, cucina attrezzata.</p>
+          <a href="pages/rdc.html" class="card__link" data-lang="fr">Voir l'appartement</a>
+          <a href="pages/rdc.html" class="card__link" data-lang="en" style="display:none">View apartment</a>
+          <a href="pages/rdc.html" class="card__link" data-lang="it" style="display:none">Vedi appartamento</a>
+        </div>
+      </div>
+      <!-- 2eme -->
+      <div class="card reveal">
+        <div class="card__img-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span data-lang="fr">Photo à venir</span>
+          <span data-lang="en" style="display:none">Photo coming soon</span>
+          <span data-lang="it" style="display:none">Foto in arrivo</span>
+        </div>
+        <div class="card__body">
+          <span class="card__tag" data-lang="fr">2e étage</span>
+          <span class="card__tag" data-lang="en" style="display:none">2nd floor</span>
+          <span class="card__tag" data-lang="it" style="display:none">2° piano</span>
+          <h3 class="card__title" data-lang="fr">Appartement 2e étage</h3>
+          <h3 class="card__title" data-lang="en" style="display:none">2nd Floor Apartment</h3>
+          <h3 class="card__title" data-lang="it" style="display:none">Appartamento 2° Piano</h3>
+          <p class="card__text" data-lang="fr">Appartement lumineux en étage avec vue sur le village et les montagnes. Séjour spacieux, cuisine équipée.</p>
+          <p class="card__text" data-lang="en" style="display:none">Bright upper-floor apartment with views over the village and mountains. Spacious living room, equipped kitchen.</p>
+          <p class="card__text" data-lang="it" style="display:none">Luminoso appartamento al piano superiore con vista sul villaggio e le montagne. Soggiorno spazioso, cucina attrezzata.</p>
+          <a href="pages/2eme.html" class="card__link" data-lang="fr">Voir l'appartement</a>
+          <a href="pages/2eme.html" class="card__link" data-lang="en" style="display:none">View apartment</a>
+          <a href="pages/2eme.html" class="card__link" data-lang="it" style="display:none">Vedi appartamento</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section class="section section--dark" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="reveal">
+        <span class="section__tag">Contact</span>
+        <h2 data-lang="fr">Une question ?<br><em>Écrivez-nous</em></h2>
+        <h2 data-lang="en" style="display:none">A question?<br><em>Write to us</em></h2>
+        <h2 data-lang="it" style="display:none">Una domanda?<br><em>Scriveteci</em></h2>
+        <div class="divider"></div>
+        <div class="contact-info">
+          <div class="contact-item">
+            <span class="contact-label" data-lang="fr">Adresse</span>
+            <span class="contact-label" data-lang="en" style="display:none">Address</span>
+            <span class="contact-label" data-lang="it" style="display:none">Indirizzo</span>
+            <span class="contact-value">Indivision Bouvet<br>336 rue de l'Église<br>05100 Montgenèvre</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">Email</span>
+            <a href="mailto:montgenevre.indivision.bouvet@gmail.com" class="contact-value contact-link">montgenevre.indivision.bouvet@gmail.com</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label" data-lang="fr">Téléphone</span>
+            <span class="contact-label" data-lang="en" style="display:none">Phone</span>
+            <span class="contact-label" data-lang="it" style="display:none">Telefono</span>
+            <a href="tel:+33687534936" class="contact-value contact-link">06 87 53 49 36</a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form-wrap reveal">
+        <div data-lang="fr"><h3 style="color:var(--or-clair);margin-bottom:1.5rem;font-size:1.6rem;">Demande de renseignements</h3></div>
+        <div data-lang="en" style="display:none"><h3 style="color:var(--or-clair);margin-bottom:1.5rem;font-size:1.6rem;">Information request</h3></div>
+        <div data-lang="it" style="display:none"><h3 style="color:var(--or-clair);margin-bottom:1.5rem;font-size:1.6rem;">Richiesta di informazioni</h3></div>
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label data-lang="fr">Nom</label>
+            <label data-lang="en" style="display:none">Name</label>
+            <label data-lang="it" style="display:none">Nome</label>
+            <input type="text" name="name" required style="background:rgba(255,255,255,0.1);border-color:rgba(201,169,110,0.4);color:var(--blanc);">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email" required style="background:rgba(255,255,255,0.1);border-color:rgba(201,169,110,0.4);color:var(--blanc);">
+            </div>
+            <div class="form-group">
+              <label data-lang="fr">Appartement</label>
+              <label data-lang="en" style="display:none">Apartment</label>
+              <label data-lang="it" style="display:none">Appartamento</label>
+              <select name="apt" style="background:rgba(255,255,255,0.1);border-color:rgba(201,169,110,0.4);color:var(--blanc);">
+                <option data-lang="fr">RDC</option>
+                <option data-lang="fr">2e étage</option>
+                <option data-lang="fr">Renseignement général</option>
+                <option data-lang="en" style="display:none">Ground floor</option>
+                <option data-lang="en" style="display:none">2nd floor</option>
+                <option data-lang="en" style="display:none">General information</option>
+                <option data-lang="it" style="display:none">Piano terra</option>
+                <option data-lang="it" style="display:none">2° piano</option>
+                <option data-lang="it" style="display:none">Informazioni generali</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label data-lang="fr">Message</label>
+            <label data-lang="en" style="display:none">Message</label>
+            <label data-lang="it" style="display:none">Messaggio</label>
+            <textarea name="message" rows="4" style="background:rgba(255,255,255,0.1);border-color:rgba(201,169,110,0.4);color:var(--blanc);resize:vertical;"></textarea>
+          </div>
+          <button type="submit" class="btn btn--or" data-lang="fr">Envoyer le message</button>
+          <button type="submit" class="btn btn--or" data-lang="en" style="display:none">Send message</button>
+          <button type="submit" class="btn btn--or" data-lang="it" style="display:none">Invia messaggio</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__logo">Jacques <span>&</span> Cécile</div>
+        <p data-lang="fr">336 rue de l'Église · 05100 Montgenèvre<br>Indivision Bouvet</p>
+        <p data-lang="en" style="display:none">336 rue de l'Église · 05100 Montgenèvre<br>Indivision Bouvet</p>
+        <p data-lang="it" style="display:none">336 rue de l'Église · 05100 Montgenèvre<br>Indivision Bouvet</p>
+        <p style="margin-top:0.5rem;"><a href="mailto:montgenevre.indivision.bouvet@gmail.com" style="color:var(--or);">montgenevre.indivision.bouvet@gmail.com</a></p>
+        <p><a href="tel:+33687534936" style="color:var(--or);">06 87 53 49 36</a></p>
+      </div>
+      <div>
+        <h5 data-lang="fr">Appartements</h5>
+        <h5 data-lang="en" style="display:none">Apartments</h5>
+        <h5 data-lang="it" style="display:none">Appartamenti</h5>
+        <ul class="footer__links">
+          <li><a href="pages/rdc.html" data-lang="fr">Appartement RDC</a><a href="pages/rdc.html" data-lang="en" style="display:none">Ground Floor Apt.</a><a href="pages/rdc.html" data-lang="it" style="display:none">App. Piano Terra</a></li>
+          <li><a href="pages/2eme.html" data-lang="fr">Appartement 2e étage</a><a href="pages/2eme.html" data-lang="en" style="display:none">2nd Floor Apt.</a><a href="pages/2eme.html" data-lang="it" style="display:none">App. 2° Piano</a></li>
+          <li><a href="pages/famille.html" data-lang="fr">Espace famille</a><a href="pages/famille.html" data-lang="en" style="display:none">Family area</a><a href="pages/famille.html" data-lang="it" style="display:none">Area famiglia</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 data-lang="fr">La Station</h5>
+        <h5 data-lang="en" style="display:none">The Resort</h5>
+        <h5 data-lang="it" style="display:none">La Stazione</h5>
+        <ul class="footer__links">
+          <li><a href="https://www.montgenevre.com" target="_blank" rel="noopener">montgenevre.com</a></li>
+          <li><a href="https://www.vialattea.it" target="_blank" rel="noopener">La Voie Lactée / Via Lattea</a></li>
+          <li><a href="#contact" data-lang="fr">Nous contacter</a><a href="#contact" data-lang="en" style="display:none">Contact us</a><a href="#contact" data-lang="it" style="display:none">Contattaci</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span data-lang="fr">© 2024 Indivision Bouvet · Montgenèvre</span>
+      <span data-lang="en" style="display:none">© 2024 Indivision Bouvet · Montgenèvre</span>
+      <span data-lang="it" style="display:none">© 2024 Indivision Bouvet · Montgenèvre</span>
+      <span style="color:rgba(253,250,245,0.35);font-size:0.8rem;">Maison Jacques & Cécile</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast"></div>
+<script src="js/main.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>
