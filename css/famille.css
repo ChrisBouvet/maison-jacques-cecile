@@ -1,0 +1,33 @@
+/* ── FAMILLE PAGE ── */
+.planning-calendars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.planning-cal-block { }
+.planning-cal-label {
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Admin form */
+.admin-form-wrap {
+  background: var(--creme);
+  border: 1px solid var(--or-clair);
+  border-radius: var(--radius);
+  padding: 2rem;
+  margin-top: 1.5rem;
+}
+.admin-form-wrap h4 {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: var(--brun);
+}
+.admin-export { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+@media (max-width: 700px) {
+  .planning-calendars { grid-template-columns: 1fr; }
+}
