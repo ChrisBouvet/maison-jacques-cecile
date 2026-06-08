@@ -1,0 +1,254 @@
+/* ── APARTMENT PAGES CSS ── */
+
+.page-hero { text-align: center; }
+.page-hero .divider { margin: 1.5rem auto; }
+.hero-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--brun-clair);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Gallery */
+.apt-gallery {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0.5rem;
+  max-height: 500px;
+  overflow: hidden;
+}
+.apt-gallery__main { overflow: hidden; }
+.apt-gallery__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+.gallery-ph {
+  width: 100%;
+  height: 100%;
+  min-height: 120px;
+  background: var(--creme);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  color: var(--gris);
+  font-size: 1.4rem;
+  border: 1px solid var(--or-clair);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.gallery-ph:hover { background: var(--or-clair); }
+.gallery-ph.large { font-size: 2.5rem; min-height: 300px; }
+.gallery-ph small { font-size: 0.75rem; }
+
+/* Layout: main + sidebar */
+.apt-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 3rem;
+  align-items: start;
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
+.apt-main { min-width: 0; }
+.apt-sidebar { }
+.sidebar-sticky { position: sticky; top: 5.5rem; }
+
+/* Rooms grid */
+.rooms-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.room-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--creme);
+  border-radius: var(--radius);
+  border: 1px solid var(--or-clair);
+}
+.room-icon { font-size: 1.5rem; flex-shrink: 0; }
+.room-item strong { display: block; color: var(--brun); margin-bottom: 0.25rem; font-size: 0.95rem; }
+.room-item p { font-size: 0.82rem; color: var(--gris); margin: 0; }
+
+/* Equipment grid */
+.equip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+.equip-cat h4 {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  color: var(--brun);
+}
+
+/* Reservation note */
+.resa-note {
+  font-size: 0.78rem;
+  color: var(--gris);
+  text-align: center;
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+/* Famille page */
+.famille-hero-badge {
+  display: inline-block;
+  background: rgba(44,74,110,0.1);
+  color: var(--bleu-alpin);
+  border: 1px solid rgba(44,74,110,0.2);
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.password-gate {
+  background: var(--creme);
+  border: 1px solid var(--or-clair);
+  border-radius: var(--radius);
+  padding: 2rem;
+  text-align: center;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.password-gate h3 { margin-bottom: 0.5rem; }
+.password-gate p { font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+.private-content { display: none; }
+.private-content.unlocked { display: block; }
+
+/* Instructions steps */
+.instructions-list {
+  counter-reset: step-counter;
+  list-style: none;
+  margin: 1.5rem 0;
+}
+.instructions-list li {
+  counter-increment: step-counter;
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--or-clair);
+}
+.instructions-list li::before {
+  content: counter(step-counter);
+  width: 28px;
+  height: 28px;
+  background: var(--brun);
+  color: var(--blanc);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 500;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+.step-content strong { display: block; color: var(--brun); margin-bottom: 0.25rem; }
+.step-content p { font-size: 0.88rem; margin: 0; color: var(--texte-doux); }
+
+/* Emergency contacts */
+.emergency-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.emergency-card {
+  background: var(--blanc);
+  border: 1px solid var(--or-clair);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+.emergency-card__label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gris);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.emergency-card__name { font-size: 1rem; font-weight: 500; color: var(--brun); }
+.emergency-card__num {
+  font-size: 1.1rem;
+  color: var(--or);
+  font-family: 'Cormorant Garamond', serif;
+}
+
+/* Planning admin table */
+.planning-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  margin-top: 1rem;
+}
+.planning-table th {
+  background: var(--brun);
+  color: var(--blanc);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 400;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.planning-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--or-clair);
+  color: var(--texte-doux);
+}
+.planning-table tr:hover td { background: var(--creme); }
+.badge-family {
+  background: rgba(44,74,110,0.12);
+  color: var(--bleu-alpin);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+.badge-rdc {
+  background: rgba(201,169,110,0.2);
+  color: var(--brun);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+.badge-2eme {
+  background: rgba(92,74,50,0.1);
+  color: var(--brun-clair);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .apt-layout { grid-template-columns: 1fr; }
+  .sidebar-sticky { position: static; }
+  .apt-gallery { grid-template-columns: 1fr; max-height: none; }
+  .apt-gallery__grid { grid-template-columns: repeat(4, 1fr); }
+  .rooms-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .apt-gallery__grid { grid-template-columns: 1fr 1fr; }
+  .equip-grid { grid-template-columns: 1fr; }
+}
