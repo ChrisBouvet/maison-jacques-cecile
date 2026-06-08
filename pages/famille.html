@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espace Famille – Maison Jacques & Cécile · Montgenèvre</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/apartment.css">
+  <link rel="stylesheet" href="../css/famille.css">
+</head>
+<body>
+<nav class="nav"></nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container--narrow">
+    <p class="page-hero__breadcrumb"><a href="../index.html">Accueil</a> / <span data-lang="fr">Espace Famille</span><span data-lang="en" style="display:none">Family Area</span><span data-lang="it" style="display:none">Area Famiglia</span></p>
+    <div class="famille-hero-badge" data-lang="fr">🔒 Accès réservé à la famille Bouvet</div>
+    <div class="famille-hero-badge" data-lang="en" style="display:none">🔒 Reserved for the Bouvet family</div>
+    <div class="famille-hero-badge" data-lang="it" style="display:none">🔒 Riservato alla famiglia Bouvet</div>
+    <h1 data-lang="fr">Espace<br><em>Famille</em></h1>
+    <h1 data-lang="en" style="display:none">Family<br><em>Area</em></h1>
+    <h1 data-lang="it" style="display:none">Area<br><em>Famiglia</em></h1>
+    <div class="divider" style="margin:1.5rem auto;"></div>
+    <p class="hero-desc" data-lang="fr">Planning d'occupation, instructions de fermeture et informations pratiques pour la famille.</p>
+    <p class="hero-desc" data-lang="en" style="display:none">Occupancy planning, closing instructions and practical information for the family.</p>
+    <p class="hero-desc" data-lang="it" style="display:none">Pianificazione delle occupazioni, istruzioni di chiusura e informazioni pratiche per la famiglia.</p>
+  </div>
+</section>
+
+<!-- PASSWORD GATE -->
+<section class="section" id="access">
+  <div class="container--narrow">
+
+    <!-- PASSWORD FORM -->
+    <div class="password-gate" id="passwordGate">
+      <h3 data-lang="fr">Accès protégé</h3>
+      <h3 data-lang="en" style="display:none">Protected access</h3>
+      <h3 data-lang="it" style="display:none">Accesso protetto</h3>
+      <p data-lang="fr">Entrez le mot de passe famille pour accéder au contenu.</p>
+      <p data-lang="en" style="display:none">Enter the family password to access the content.</p>
+      <p data-lang="it" style="display:none">Inserire la password di famiglia per accedere al contenuto.</p>
+      <div class="form-group">
+        <input type="password" id="famillePassword" placeholder="••••••••" style="text-align:center;font-size:1.2rem;letter-spacing:0.3em;">
+      </div>
+      <button onclick="checkPassword()" class="btn btn--primary" style="width:100%;" data-lang="fr">Accéder</button>
+      <button onclick="checkPassword()" class="btn btn--primary" style="width:100%;display:none;" data-lang="en">Access</button>
+      <button onclick="checkPassword()" class="btn btn--primary" style="width:100%;display:none;" data-lang="it">Accedi</button>
+      <p id="pwError" style="color:#8B2E2E;font-size:0.85rem;margin-top:0.75rem;display:none;" data-lang="fr">Mot de passe incorrect.</p>
+      <p id="pwError" style="color:#8B2E2E;font-size:0.85rem;margin-top:0.75rem;display:none;" data-lang="en">Incorrect password.</p>
+      <p id="pwError" style="color:#8B2E2E;font-size:0.85rem;margin-top:0.75rem;display:none;" data-lang="it">Password errata.</p>
+    </div>
+
+    <!-- PRIVATE CONTENT (hidden until password) -->
+    <div class="private-content" id="privateContent">
+
+      <!-- TABS -->
+      <div class="tabs">
+        <div class="tab-nav">
+          <button class="tab-btn active" data-tab="planning">
+            <span data-lang="fr">📅 Planning</span>
+            <span data-lang="en" style="display:none">📅 Planning</span>
+            <span data-lang="it" style="display:none">📅 Pianificazione</span>
+          </button>
+          <button class="tab-btn" data-tab="instructions">
+            <span data-lang="fr">📋 Instructions</span>
+            <span data-lang="en" style="display:none">📋 Instructions</span>
+            <span data-lang="it" style="display:none">📋 Istruzioni</span>
+          </button>
+          <button class="tab-btn" data-tab="contacts">
+            <span data-lang="fr">📞 Contacts</span>
+            <span data-lang="en" style="display:none">📞 Contacts</span>
+            <span data-lang="it" style="display:none">📞 Contatti</span>
+          </button>
+          <button class="tab-btn" data-tab="admin">
+            <span data-lang="fr">⚙ Admin</span>
+            <span data-lang="en" style="display:none">⚙ Admin</span>
+            <span data-lang="it" style="display:none">⚙ Admin</span>
+          </button>
+        </div>
+
+        <!-- PLANNING TAB -->
+        <div class="tab-panel active" data-panel="planning">
+          <div data-lang="fr">
+            <h3>Planning d'occupation – Maison complète</h3>
+            <p>Vue consolidée des trois appartements. Les réservations sont gérées depuis l'onglet Admin.</p>
+          </div>
+          <div data-lang="en" style="display:none">
+            <h3>Occupancy planning – Full house</h3>
+            <p>Consolidated view of all three apartments. Reservations are managed from the Admin tab.</p>
+          </div>
+          <div data-lang="it" style="display:none">
+            <h3>Pianificazione occupazione – Casa completa</h3>
+            <p>Vista consolidata dei tre appartamenti. Le prenotazioni sono gestite dalla scheda Admin.</p>
+          </div>
+
+          <!-- THREE CALENDARS -->
+          <div class="planning-calendars">
+            <div class="planning-cal-block">
+              <div class="planning-cal-label">
+                <span class="badge-family" data-lang="fr">1er étage – Famille</span>
+                <span class="badge-family" data-lang="en" style="display:none">1st floor – Family</span>
+                <span class="badge-family" data-lang="it" style="display:none">1° piano – Famiglia</span>
+              </div>
+              <div class="calendar-wrap" data-calendar="famille">
+                <div class="calendar-nav">
+                  <button class="cal-btn cal-prev">←</button>
+                  <h4></h4>
+                  <button class="cal-btn cal-next">→</button>
+                </div>
+                <div class="calendar-grid">
+                  <div class="calendar-day-name">L</div><div class="calendar-day-name">M</div>
+                  <div class="calendar-day-name">M</div><div class="calendar-day-name">J</div>
+                  <div class="calendar-day-name">V</div><div class="calendar-day-name">S</div>
+                  <div class="calendar-day-name">D</div>
+                </div>
+                <div class="calendar-legend">
+                  <div class="legend-item"><div class="legend-dot" style="background:var(--bleu-alpin);"></div><span data-lang="fr">Occupé</span><span data-lang="en" style="display:none">Occupied</span><span data-lang="it" style="display:none">Occupato</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="planning-cal-block">
+              <div class="planning-cal-label">
+                <span class="badge-rdc" data-lang="fr">RDC – Location</span>
+                <span class="badge-rdc" data-lang="en" style="display:none">Ground – Rental</span>
+                <span class="badge-rdc" data-lang="it" style="display:none">PT – Affitto</span>
+              </div>
+              <div class="calendar-wrap" data-calendar="rdc">
+                <div class="calendar-nav">
+                  <button class="cal-btn cal-prev">←</button>
+                  <h4></h4>
+                  <button class="cal-btn cal-next">→</button>
+                </div>
+                <div class="calendar-grid">
+                  <div class="calendar-day-name">L</div><div class="calendar-day-name">M</div>
+                  <div class="calendar-day-name">M</div><div class="calendar-day-name">J</div>
+                  <div class="calendar-day-name">V</div><div class="calendar-day-name">S</div>
+                  <div class="calendar-day-name">D</div>
+                </div>
+                <div class="calendar-legend">
+                  <div class="legend-item"><div class="legend-dot" style="background:var(--or);"></div><span data-lang="fr">Loué</span><span data-lang="en" style="display:none">Booked</span><span data-lang="it" style="display:none">Affittato</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="planning-cal-block">
+              <div class="planning-cal-label">
+                <span class="badge-2eme" data-lang="fr">2e étage – Location</span>
+                <span class="badge-2eme" data-lang="en" style="display:none">2nd floor – Rental</span>
+                <span class="badge-2eme" data-lang="it" style="display:none">2° piano – Affitto</span>
+              </div>
+              <div class="calendar-wrap" data-calendar="2eme">
+                <div class="calendar-nav">
+                  <button class="cal-btn cal-prev">←</button>
+                  <h4></h4>
+                  <button class="cal-btn cal-next">→</button>
+                </div>
+                <div class="calendar-grid">
+                  <div class="calendar-day-name">L</div><div class="calendar-day-name">M</div>
+                  <div class="calendar-day-name">M</div><div class="calendar-day-name">J</div>
+                  <div class="calendar-day-name">V</div><div class="calendar-day-name">S</div>
+                  <div class="calendar-day-name">D</div>
+                </div>
+                <div class="calendar-legend">
+                  <div class="legend-item"><div class="legend-dot" style="background:var(--or);"></div><span data-lang="fr">Loué</span><span data-lang="en" style="display:none">Booked</span><span data-lang="it" style="display:none">Affittato</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reservation table -->
+          <h4 style="margin-top:2rem;margin-bottom:1rem;" data-lang="fr">Récapitulatif des réservations</h4>
+          <h4 style="margin-top:2rem;margin-bottom:1rem;" data-lang="en" style="display:none">Reservations summary</h4>
+          <h4 style="margin-top:2rem;margin-bottom:1rem;" data-lang="it" style="display:none">Riepilogo prenotazioni</h4>
+          <div style="overflow-x:auto;">
+            <table class="planning-table" id="reservationTable">
+              <thead>
+                <tr>
+                  <th data-lang="fr">Appartement</th><th data-lang="fr">Arrivée</th><th data-lang="fr">Départ</th><th data-lang="fr">Locataire</th><th data-lang="fr">Type</th><th data-lang="fr">Actions</th>
+                  <th data-lang="en" style="display:none">Apartment</th><th data-lang="en" style="display:none">Arrival</th><th data-lang="en" style="display:none">Departure</th><th data-lang="en" style="display:none">Tenant</th><th data-lang="en" style="display:none">Type</th><th data-lang="en" style="display:none">Actions</th>
+                  <th data-lang="it" style="display:none">Appartamento</th><th data-lang="it" style="display:none">Arrivo</th><th data-lang="it" style="display:none">Partenza</th><th data-lang="it" style="display:none">Locatario</th><th data-lang="it" style="display:none">Tipo</th><th data-lang="it" style="display:none">Azioni</th>
+                </tr>
+              </thead>
+              <tbody id="reservationTableBody">
+                <tr><td colspan="6" style="text-align:center;color:var(--gris);font-style:italic;" data-lang="fr">Aucune réservation enregistrée.</td></tr>
+                <tr><td colspan="6" style="text-align:center;color:var(--gris);font-style:italic;display:none;" data-lang="en">No reservations recorded.</td></tr>
+                <tr><td colspan="6" style="text-align:center;color:var(--gris);font-style:italic;display:none;" data-lang="it">Nessuna prenotazione registrata.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- INSTRUCTIONS TAB -->
+        <div class="tab-panel" data-panel="instructions">
+          <div data-lang="fr">
+            <h3>Instructions – Fermeture de la maison</h3>
+            <div class="warning-box" style="margin-bottom:2rem;">
+              <h4>⚠ À respecter impérativement</h4>
+              <p>Ces instructions sont valables pour tous les occupants. Merci de les suivre dans l'ordre et de vérifier chaque étape avant de quitter définitivement la maison.</p>
+            </div>
+
+            <div class="accordion">
+              <div class="accordion-item">
+                <button class="accordion-btn">Fermeture générale de la maison <span class="icon">+</span></button>
+                <div class="accordion-content">
+                  <div class="accordion-content-inner">
+                    <ol class="instructions-list">
+                      <li><div class="step-content"><strong>Vérifier toutes les pièces</strong><p>Parcourir chaque pièce pour s'assurer que rien n'a été oublié. Fenêtres, volets, portes intérieures.</p></div></li>
+                      <li><div class="step-content"><strong>Fermer les fenêtres et volets</strong><p>Toutes les fenêtres doivent être fermées et verrouillées. Les volets roulants baissés.</p></div></li>
+                      <li><div class="step-content"><strong>Couper l'eau</strong><p>Fermer le robinet général d'eau de l'appartement. En hiver, purger les tuyauteries si nécessaire.</p></div></li>
+                      <li><div class="step-content"><strong>Couper l'électricité</strong><p>Éteindre tous les appareils électriques. Voir section dédiée ci-dessous.</p></div></li>
+                      <li><div class="step-content"><strong>Chauffage</strong><p>Régler le thermostat sur la position « hors-gel » (7°C) — ne jamais couper le chauffage en hiver.</p></div></li>
+                      <li><div class="step-content"><strong>Fermer la porte principale</strong><p>Vérifier le verrouillage de la porte d'entrée. Déposer la clé selon les instructions convenues.</p></div></li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-btn">Électricité par étage <span class="icon">+</span></button>
+                <div class="accordion-content">
+                  <div class="accordion-content-inner">
+                    <div class="info-box"><h4>Rez-de-chaussée</h4><p>Tableau électrique situé dans l'entrée. Disjoncteur principal à droite. Éteindre : chauffe-eau (si absence longue), plaques de cuisson, lave-linge.</p></div>
+                    <div class="info-box" style="border-color:var(--bleu-alpin);"><h4>1er étage – Famille</h4><p>Tableau dans le couloir. Laisser le disjoncteur du chauffage en position ON en hiver. Éteindre tous les autres équipements.</p></div>
+                    <div class="info-box"><h4>2e étage</h4><p>Tableau électrique dans l'entrée de l'appartement. Même procédure que le RDC. Vérifier la terrasse (éclairage extérieur).</p></div>
+                    <div class="warning-box"><h4>Important – Parties communes</h4><p>L'éclairage des escaliers et du hall est sur une minuterie commune. Ne pas couper le disjoncteur principal de l'immeuble.</p></div>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-btn">Fermeture en hiver (spécifique) <span class="icon">+</span></button>
+                <div class="accordion-content">
+                  <div class="accordion-content-inner">
+                    <ol class="instructions-list">
+                      <li><div class="step-content"><strong>Ne jamais couper le chauffage</strong><p>Régler sur « hors-gel » (7°C). Risque de gel des canalisations si température trop basse.</p></div></li>
+                      <li><div class="step-content"><strong>Vérifier l'isolation</strong><p>S'assurer que les fenêtres ne laissent pas passer l'air froid. Poser des protections si nécessaire.</p></div></li>
+                      <li><div class="step-content"><strong>Local à skis</strong><p>Ranger et sécuriser le matériel de ski. Fermer à clé.</p></div></li>
+                      <li><div class="step-content"><strong>Chasse-neige</strong><p>Le trottoir devant la maison doit être déneigé régulièrement. Pelle disponible au RDC.</p></div></li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-btn">Fermeture en été (spécifique) <span class="icon">+</span></button>
+                <div class="accordion-content">
+                  <div class="accordion-content-inner">
+                    <ol class="instructions-list">
+                      <li><div class="step-content"><strong>Couper l'eau complètement</strong><p>En été, on peut couper l'eau au robinet général. Pas de risque de gel.</p></div></li>
+                      <li><div class="step-content"><strong>Vider le réfrigérateur</strong><p>Débrancher et laisser la porte ouverte si absence prolongée.</p></div></li>
+                      <li><div class="step-content"><strong>Volets fermés</strong><p>Fermer tous les volets pour éviter la surchauffe et protéger les meubles du soleil.</p></div></li>
+                      <li><div class="step-content"><strong>Aération</strong><p>Avant de fermer, aérer les appartements quelques heures si la saison a été humide.</p></div></li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-btn">Inventaire & état des lieux <span class="icon">+</span></button>
+                <div class="accordion-content">
+                  <div class="accordion-content-inner">
+                    <div class="info-box"><h4>En partant</h4><p>Photographier l'état de l'appartement. Signaler tout problème (fuites, pannes) par email à l'indivision.</p></div>
+                    <div class="info-box"><h4>Clés</h4><p>Déposer les clés selon le protocole défini lors de votre séjour (remise en main propre ou boîte sécurisée).</p></div>
+                    <div class="info-box"><h4>Compteurs</h4><p>Relever les compteurs d'eau et d'électricité à l'entrée et à la sortie si demandé.</p></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div data-lang="en" style="display:none">
+            <h3>Instructions – Closing the house</h3>
+            <div class="warning-box" style="margin-bottom:2rem;"><h4>⚠ Must be followed</h4><p>These instructions apply to all occupants. Please follow them in order and check each step before leaving the house.</p></div>
+            <div class="accordion">
+              <div class="accordion-item">
+                <button class="accordion-btn">General house closing <span class="icon">+</span></button>
+                <div class="accordion-content"><div class="accordion-content-inner">
+                  <ol class="instructions-list">
+                    <li><div class="step-content"><strong>Check all rooms</strong><p>Walk through every room — windows, shutters, interior doors.</p></div></li>
+                    <li><div class="step-content"><strong>Close windows and shutters</strong><p>All windows locked, roller shutters down.</p></div></li>
+                    <li><div class="step-content"><strong>Turn off water</strong><p>Close the main water valve. In winter, drain pipes if necessary.</p></div></li>
+                    <li><div class="step-content"><strong>Turn off electricity</strong><p>Switch off all electrical appliances. See dedicated section below.</p></div></li>
+                    <li><div class="step-content"><strong>Heating</strong><p>Set thermostat to frost-protection mode (7°C) — never turn off heating in winter.</p></div></li>
+                    <li><div class="step-content"><strong>Lock the front door</strong><p>Verify the main door is locked. Leave key as agreed.</p></div></li>
+                  </ol>
+                </div></div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-btn">Electricity per floor <span class="icon">+</span></button>
+                <div class="accordion-content"><div class="accordion-content-inner">
+                  <div class="info-box"><h4>Ground floor</h4><p>Fuse box in entrance. Main breaker on the right. Switch off: water heater (long absence), hob, washing machine.</p></div>
+                  <div class="info-box" style="border-color:var(--bleu-alpin);"><h4>1st floor – Family</h4><p>Fuse box in corridor. Keep heating breaker ON in winter. Switch off all other equipment.</p></div>
+                  <div class="info-box"><h4>2nd floor</h4><p>Fuse box in apartment entrance. Same procedure as ground floor. Check terrace lighting.</p></div>
+                  <div class="warning-box"><h4>Important – Common areas</h4><p>Stairwell and hall lighting runs on a shared timer. Do not cut the building main breaker.</p></div>
+                </div></div>
+              </div>
+            </div>
+          </div>
+          <div data-lang="it" style="display:none">
+            <h3>Istruzioni – Chiusura della casa</h3>
+            <div class="warning-box" style="margin-bottom:2rem;"><h4>⚠ Da seguire assolutamente</h4><p>Queste istruzioni si applicano a tutti gli occupanti. Si prega di seguirle in ordine e verificare ogni passaggio prima di lasciare definitivamente la casa.</p></div>
+            <div class="accordion">
+              <div class="accordion-item">
+                <button class="accordion-btn">Chiusura generale della casa <span class="icon">+</span></button>
+                <div class="accordion-content"><div class="accordion-content-inner">
+                  <ol class="instructions-list">
+                    <li><div class="step-content"><strong>Verificare tutte le stanze</strong><p>Percorrere ogni stanza — finestre, persiane, porte interne.</p></div></li>
+                    <li><div class="step-content"><strong>Chiudere finestre e persiane</strong><p>Tutte le finestre chiuse a chiave, persiane abbassate.</p></div></li>
+                    <li><div class="step-content"><strong>Chiudere l'acqua</strong><p>Chiudere il rubinetto generale. In inverno, svuotare i tubi se necessario.</p></div></li>
+                    <li><div class="step-content"><strong>Staccare l'elettricità</strong><p>Spegnere tutti gli apparecchi. Vedere sezione dedicata.</p></div></li>
+                    <li><div class="step-content"><strong>Riscaldamento</strong><p>Impostare il termostato su «antigelo» (7°C) — non spegnere mai il riscaldamento in inverno.</p></div></li>
+                    <li><div class="step-content"><strong>Chiudere la porta principale</strong><p>Verificare che la porta d'ingresso sia chiusa a chiave. Lasciare le chiavi come concordato.</p></div></li>
+                  </ol>
+                </div></div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-btn">Elettricità per piano <span class="icon">+</span></button>
+                <div class="accordion-content"><div class="accordion-content-inner">
+                  <div class="info-box"><h4>Piano terra</h4><p>Quadro elettrico nell'ingresso. Interruttore principale a destra. Spegnere: scaldabagno, piani cottura, lavatrice.</p></div>
+                  <div class="info-box" style="border-color:var(--bleu-alpin);"><h4>1° piano – Famiglia</h4><p>Quadro nel corridoio. Lasciare l'interruttore del riscaldamento ON in inverno.</p></div>
+                  <div class="info-box"><h4>2° piano</h4><p>Quadro nell'ingresso dell'appartamento. Stessa procedura del piano terra. Verificare l'illuminazione della terrazza.</p></div>
+                  <div class="warning-box"><h4>Importante – Parti comuni</h4><p>L'illuminazione delle scale è su un timer comune. Non staccare l'interruttore principale dell'edificio.</p></div>
+                </div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONTACTS TAB -->
+        <div class="tab-panel" data-panel="contacts">
+          <div data-lang="fr"><h3>Contacts d'urgence & prestataires</h3></div>
+          <div data-lang="en" style="display:none"><h3>Emergency contacts & service providers</h3></div>
+          <div data-lang="it" style="display:none"><h3>Contatti di emergenza & fornitori</h3></div>
+
+          <div class="emergency-grid">
+            <div class="emergency-card">
+              <span class="emergency-card__label" data-lang="fr">Indivision Bouvet</span>
+              <span class="emergency-card__label" data-lang="en" style="display:none">Bouvet Indivision</span>
+              <span class="emergency-card__label" data-lang="it" style="display:none">Indivisione Bouvet</span>
+              <div class="emergency-card__name">Contact principal</div>
+              <a href="tel:+33687534936" class="emergency-card__num">06 87 53 49 36</a>
+            </div>
+            <div class="emergency-card">
+              <span class="emergency-card__label" data-lang="fr">Urgences</span>
+              <span class="emergency-card__label" data-lang="en" style="display:none">Emergency</span>
+              <span class="emergency-card__label" data-lang="it" style="display:none">Emergenza</span>
+              <div class="emergency-card__name">SAMU / Pompiers</div>
+              <a href="tel:15" class="emergency-card__num">15 · 18 · 112</a>
+            </div>
+            <div class="emergency-card">
+              <span class="emergency-card__label" data-lang="fr">Cabinet médical</span>
+              <span class="emergency-card__label" data-lang="en" style="display:none">Medical practice</span>
+              <span class="emergency-card__label" data-lang="it" style="display:none">Studio medico</span>
+              <div class="emergency-card__name" data-lang="fr">À Montgenèvre</div>
+              <div class="emergency-card__name" data-lang="en" style="display:none">In Montgenèvre</div>
+              <div class="emergency-card__name" data-lang="it" style="display:none">A Montgenèvre</div>
+              <span class="emergency-card__num" style="color:var(--gris);font-size:0.9rem;" data-lang="fr">À compléter</span>
+              <span class="emergency-card__num" style="color:var(--gris);font-size:0.9rem;" data-lang="en" style="display:none">To complete</span>
+              <span class="emergency-card__num" style="color:var(--gris);font-size:0.9rem;" data-lang="it" style="display:none">Da completare</span>
+            </div>
+            <div class="emergency-card">
+              <span class="emergency-card__label" data-lang="fr">Plombier</span>
+              <span class="emergency-card__label" data-lang="en" style="display:none">Plumber</span>
+              <span class="emergency-card__label" data-lang="it" style="display:none">Idraulico</span>
+              <div class="emergency-card__name" data-lang="fr">À Montgenèvre</div>
+              <span class="emergency-card__num" style="color:var(--gris);font-size:0.9rem;" data-lang="fr">À compléter</span>
+            </div>
+            <div class="emergency-card">
+              <span class="emergency-card__label" data-lang="fr">Électricien</span>
+              <span class="emergency-card__label" data-lang="en" style="display:none">Electrician</span>
+              <span class="emergency-card__label" data-lang="it" style="display:none">Elettricista</span>
+              <div class="emergency-card__name" data-lang="fr">À Montgenèvre / Briançon</div>
+              <span class="emergency-card__num" style="color:var(--gris);font-size:0.9rem;" data-lang="fr">À compléter</span>
+            </div>
+            <div class="emergency-card">
+              <span class="emergency-card__label" data-lang="fr">Mairie de Montgenèvre</span>
+              <span class="emergency-card__label" data-lang="en" style="display:none">Town hall</span>
+              <span class="emergency-card__label" data-lang="it" style="display:none">Municipio</span>
+              <div class="emergency-card__name">Montgenèvre</div>
+              <a href="tel:0492219043" class="emergency-card__num">04 92 21 90 43</a>
+            </div>
+          </div>
+
+          <div class="info-box mt-2">
+            <h4 data-lang="fr">Email de l'indivision</h4>
+            <h4 data-lang="en" style="display:none">Indivision email</h4>
+            <h4 data-lang="it" style="display:none">Email dell'indivisione</h4>
+            <p><a href="mailto:montgenevre.indivision.bouvet@gmail.com" style="color:var(--bleu-alpin);">montgenevre.indivision.bouvet@gmail.com</a></p>
+          </div>
+        </div>
+
+        <!-- ADMIN TAB -->
+        <div class="tab-panel" data-panel="admin">
+          <div data-lang="fr"><h3>Administration – Gestion des réservations</h3><p>Ajoutez, modifiez ou confirmez les réservations pour les trois appartements.</p></div>
+          <div data-lang="en" style="display:none"><h3>Administration – Reservation management</h3><p>Add, edit or confirm reservations for all three apartments.</p></div>
+          <div data-lang="it" style="display:none"><h3>Amministrazione – Gestione prenotazioni</h3><p>Aggiungete, modificate o confermate le prenotazioni per i tre appartamenti.</p></div>
+
+          <div class="admin-form-wrap">
+            <div data-lang="fr"><h4>Ajouter une réservation</h4></div>
+            <div data-lang="en" style="display:none"><h4>Add a reservation</h4></div>
+            <div data-lang="it" style="display:none"><h4>Aggiungi una prenotazione</h4></div>
+
+            <form class="admin-resa-form" id="adminResaForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label data-lang="fr">Appartement</label>
+                  <label data-lang="en" style="display:none">Apartment</label>
+                  <label data-lang="it" style="display:none">Appartamento</label>
+                  <select name="apt">
+                    <option value="famille" data-lang="fr">1er étage – Famille</option>
+                    <option value="rdc" data-lang="fr">RDC – Location</option>
+                    <option value="2eme" data-lang="fr">2e étage – Location</option>
+                    <option value="famille" data-lang="en" style="display:none">1st floor – Family</option>
+                    <option value="rdc" data-lang="en" style="display:none">Ground floor – Rental</option>
+                    <option value="2eme" data-lang="en" style="display:none">2nd floor – Rental</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label data-lang="fr">Type</label>
+                  <label data-lang="en" style="display:none">Type</label>
+                  <label data-lang="it" style="display:none">Tipo</label>
+                  <select name="type">
+                    <option value="booked" data-lang="fr">Location / Occupé</option>
+                    <option value="family" data-lang="fr">Famille</option>
+                    <option value="booked" data-lang="en" style="display:none">Rental / Occupied</option>
+                    <option value="family" data-lang="en" style="display:none">Family</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label data-lang="fr">Date arrivée</label>
+                  <label data-lang="en" style="display:none">Arrival date</label>
+                  <label data-lang="it" style="display:none">Data arrivo</label>
+                  <input type="date" name="start" required>
+                </div>
+                <div class="form-group">
+                  <label data-lang="fr">Date départ</label>
+                  <label data-lang="en" style="display:none">Departure date</label>
+                  <label data-lang="it" style="display:none">Data partenza</label>
+                  <input type="date" name="end" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label data-lang="fr">Nom du locataire / membre famille</label>
+                <label data-lang="en" style="display:none">Tenant / family member name</label>
+                <label data-lang="it" style="display:none">Nome locatario / membro famiglia</label>
+                <input type="text" name="tenant" placeholder="Nom Prénom">
+              </div>
+              <div class="form-group">
+                <label data-lang="fr">Notes</label>
+                <label data-lang="en" style="display:none">Notes</label>
+                <label data-lang="it" style="display:none">Note</label>
+                <input type="text" name="notes" data-lang="fr" placeholder="Confirméé, acompte reçu...">
+                <input type="text" name="notes" data-lang="en" style="display:none" placeholder="Confirmed, deposit received...">
+              </div>
+              <button type="submit" class="btn btn--or" data-lang="fr">✓ Ajouter la réservation</button>
+              <button type="submit" class="btn btn--or" data-lang="en" style="display:none">✓ Add reservation</button>
+              <button type="submit" class="btn btn--or" data-lang="it" style="display:none">✓ Aggiungi prenotazione</button>
+            </form>
+          </div>
+
+          <div class="admin-export mt-2">
+            <button onclick="exportReservations()" class="btn btn--outline" data-lang="fr">Exporter les réservations (CSV)</button>
+            <button onclick="exportReservations()" class="btn btn--outline" data-lang="en" style="display:none">Export reservations (CSV)</button>
+            <button onclick="exportReservations()" class="btn btn--outline" data-lang="it" style="display:none">Esporta prenotazioni (CSV)</button>
+          </div>
+        </div>
+
+      </div><!-- /tabs -->
+    </div><!-- /private-content -->
+  </div><!-- /container -->
+</section>
+
+<footer class="footer"></footer>
+<div class="toast"></div>
+<script src="../js/nav-partial.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/famille.js"></script>
+<script>initNav('famille'); initFooter();</script>
+</body>
+</html>
