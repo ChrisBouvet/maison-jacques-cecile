@@ -28,6 +28,27 @@
 }
 .admin-export { display: flex; gap: 1rem; flex-wrap: wrap; }
 
+.whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+  padding: 0.45rem 0.9rem;
+  background: #25D366;
+  color: #fff;
+  border-radius: 2rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition: background 0.2s, transform 0.15s;
+  text-decoration: none;
+}
+.whatsapp-btn:hover {
+  background: #1ebe5d;
+  transform: translateY(-1px);
+}
+.whatsapp-btn svg { flex-shrink: 0; }
+
 @media (max-width: 700px) {
   .planning-calendars { grid-template-columns: 1fr; }
 }
