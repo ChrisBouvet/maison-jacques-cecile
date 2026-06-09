@@ -7,6 +7,12 @@
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/apartment.css">
   <link rel="stylesheet" href="../css/famille.css">
+  <script src="../js/nav-partial.js" defer></script>
+  <script src="../js/main.js" defer></script>
+  <script src="../js/famille.js" defer></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', () => { initNav('famille'); initFooter(); });
+  </script>
 </head>
 <body>
 <nav class="nav"></nav>
@@ -43,9 +49,9 @@
       <div class="form-group">
         <input type="password" id="famillePassword" placeholder="••••••••" style="text-align:center;font-size:1.2rem;letter-spacing:0.3em;">
       </div>
-      <button onclick="checkPassword()" class="btn btn--primary" style="width:100%;" data-lang="fr">Accéder</button>
-      <button onclick="checkPassword()" class="btn btn--primary" style="width:100%;display:none;" data-lang="en">Access</button>
-      <button onclick="checkPassword()" class="btn btn--primary" style="width:100%;display:none;" data-lang="it">Accedi</button>
+      <button id="pwSubmitFr" class="btn btn--primary" style="width:100%;" data-lang="fr">Accéder</button>
+      <button id="pwSubmitEn" class="btn btn--primary" style="width:100%;display:none;" data-lang="en">Access</button>
+      <button id="pwSubmitIt" class="btn btn--primary" style="width:100%;display:none;" data-lang="it">Accedi</button>
       <p id="pwError" style="color:#8B2E2E;font-size:0.85rem;margin-top:0.75rem;display:none;" data-lang="fr">Mot de passe incorrect.</p>
       <p id="pwError" style="color:#8B2E2E;font-size:0.85rem;margin-top:0.75rem;display:none;" data-lang="en">Incorrect password.</p>
       <p id="pwError" style="color:#8B2E2E;font-size:0.85rem;margin-top:0.75rem;display:none;" data-lang="it">Password errata.</p>
@@ -471,9 +477,5 @@
 
 <footer class="footer"></footer>
 <div class="toast"></div>
-<script src="../js/nav-partial.js"></script>
-<script src="../js/main.js"></script>
-<script src="../js/famille.js"></script>
-<script>initNav('famille'); initFooter();</script>
 </body>
 </html>
