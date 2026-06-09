@@ -131,8 +131,9 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .hero__img-placeholder {
   position: absolute; inset: 0;
-  background: url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80') center/cover no-repeat;
-  opacity: 0.18;
+  background: center/cover no-repeat;
+  opacity: 0;
+  transition: opacity 0.6s ease;
 }
 .hero__content {
   position: relative;
