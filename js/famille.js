@@ -1,6 +1,5 @@
 // ── FAMILLE PAGE JS ──
 
-// Password — change this to your actual family password
 const FAMILLE_PASSWORD = 'bouvet2024';
 
 function checkPassword() {
@@ -12,35 +11,69 @@ function checkPassword() {
     gate.style.display = 'none';
     content.classList.add('unlocked');
     sessionStorage.setItem('famille_auth', '1');
-    // Trigger calendar rendering now that elements are visible
     document.querySelectorAll('.calendar-wrap').forEach(el => {
       const apt = el.dataset.calendar;
-      if (window.calendars && window.calendars[apt]) {
-        window.calendars[apt].render();
-      }
+      if (window.calendars && window.calendars[apt]) window.calendars[apt].render();
     });
     refreshTable();
   } else {
-    const errors = document.querySelectorAll('#pwError');
-    errors.forEach(e => e.style.display = 'block');
+    document.querySelectorAll('#pwError').forEach(e => e.style.display = 'block');
     input.value = '';
     input.focus();
   }
 }
 
-// Auto-unlock if already authenticated this session
-if (sessionStorage.getItem('famille_auth') === '1') {
-  document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
+  // Attach password buttons
+  ['pwSubmitFr','pwSubmitEn','pwSubmitIt'].forEach(id => {
+    document.getElementById(id)?.addEventListener('click', checkPassword);
+  });
+
+  // Enter key
+  document.getElementById('famillePassword')?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkPassword();
+  });
+
+  // Auto-unlock if already authenticated this session
+  if (sessionStorage.getItem('famille_auth') === '1') {
     const gate = document.getElementById('passwordGate');
     const content = document.getElementById('privateContent');
     if (gate) gate.style.display = 'none';
     if (content) content.classList.add('unlocked');
-  });
-}
+  }
 
-// Enter key for password
-document.getElementById('famillePassword')?.addEventListener('keydown', e => {
-  if (e.key === 'Enter') checkPassword();
+  // Admin form
+  const adminForm = document.getElementById('adminResaForm');
+  if (adminForm) {
+    adminForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const apt = adminForm.querySelector('[name="apt"]').value;
+      const start = adminForm.querySelector('[name="start"]').value;
+      const end = adminForm.querySelector('[name="end"]').value;
+      const tenant = adminForm.querySelector('[name="tenant"]').value;
+      const type = adminForm.querySelector('[name="type"]').value;
+      const notes = adminForm.querySelector('[name="notes"]')?.value || '';
+
+      if (!start || !end) { showToast('Veuillez saisir les dates.', 'error'); return; }
+      if (start > end) { showToast('La date de départ doit être après l\'arrivée.', 'error'); return; }
+
+      const existing = JSON.parse(localStorage.getItem('reservations_' + apt) || '[]');
+      existing.push({ start, end, tenant, type, notes });
+      localStorage.setItem('reservations_' + apt, JSON.stringify(existing));
+
+      if (window.calendars && window.calendars[apt]) window.calendars[apt].render();
+      refreshTable();
+      showToast('Réservation ajoutée avec succès !', 'success');
+      adminForm.reset();
+    });
+  }
+
+  // Refresh table when switching to planning tab
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.dataset.tab === 'planning') setTimeout(refreshTable, 100);
+    });
+  });
 });
 
 // ── RESERVATION TABLE ──
@@ -105,32 +138,6 @@ function deleteReservation(apt, globalIndex) {
   showToast('Réservation supprimée.', '');
 }
 
-// ── ADMIN FORM ──
-const adminForm = document.getElementById('adminResaForm');
-if (adminForm) {
-  adminForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const apt = adminForm.querySelector('[name="apt"]').value;
-    const start = adminForm.querySelector('[name="start"]').value;
-    const end = adminForm.querySelector('[name="end"]').value;
-    const tenant = adminForm.querySelector('[name="tenant"]').value;
-    const type = adminForm.querySelector('[name="type"]').value;
-    const notes = adminForm.querySelector('[name="notes"]')?.value || '';
-
-    if (!start || !end) { showToast('Veuillez saisir les dates.', 'error'); return; }
-    if (start > end) { showToast('La date de départ doit être après l\'arrivée.', 'error'); return; }
-
-    const existing = JSON.parse(localStorage.getItem('reservations_' + apt) || '[]');
-    existing.push({ start, end, tenant, type, notes });
-    localStorage.setItem('reservations_' + apt, JSON.stringify(existing));
-
-    if (window.calendars && window.calendars[apt]) window.calendars[apt].render();
-    refreshTable();
-    showToast('Réservation ajoutée avec succès !', 'success');
-    adminForm.reset();
-  });
-}
-
 // ── EXPORT CSV ──
 function exportReservations() {
   const apts = ['famille', 'rdc', '2eme'];
@@ -151,10 +158,3 @@ function exportReservations() {
   a.click();
   URL.revokeObjectURL(url);
 }
-
-// ── REFRESH on tab switch ──
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (btn.dataset.tab === 'planning') setTimeout(refreshTable, 100);
-  });
-});
