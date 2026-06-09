@@ -1,3 +1,10 @@
+// ── HERO BACKGROUND PHOTO ──
+function setHeroBg(season) {
+  const el = document.getElementById('heroBg');
+  if (!el) return;
+  el.classList.toggle('summer', season === 'summer');
+}
+
 // ── SEASON TOGGLE (Hero) ──
 let currentSeason = 'winter';
 
@@ -18,17 +25,8 @@ document.querySelectorAll('.season-btn').forEach(btn => {
       el.style.display = (el.dataset.seasonContent === season && lang === activeLang) ? '' : 'none';
     });
 
-    // Update hero background feel
-    const heroImgPh = document.querySelector('.hero__img-placeholder');
-    if (heroImgPh) {
-      if (season === 'summer') {
-        heroImgPh.style.background = "url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80') center/cover no-repeat";
-        heroImgPh.style.opacity = '0.15';
-      } else {
-        heroImgPh.style.background = "url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1600&q=80') center/cover no-repeat";
-        heroImgPh.style.opacity = '0.18';
-      }
-    }
+    // Update hero background with real Montgenèvre photos
+    setHeroBg(season);
   });
 });
 
@@ -86,3 +84,6 @@ window.setLang = function(lang) {
     el.style.display = (el.dataset.seasonContent === currentSeason && el.dataset.lang === lang) ? '' : 'none';
   });
 };
+
+// Init hero photo on page load
+document.addEventListener('DOMContentLoaded', () => setHeroBg('winter'));
