@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../css/famille.css">
   <script src="../js/nav-partial.js" defer></script>
   <script src="../js/main.js" defer></script>
-  <script src="../js/famille.js" defer></script>
+  <script type="module" src="../js/famille-firebase.js"></script>
   <script defer>
     document.addEventListener('DOMContentLoaded', () => { initNav('famille'); initFooter(); });
   </script>
@@ -100,6 +100,12 @@
             <p>Vista consolidata dei tre appartamenti. Le prenotazioni sono gestite dalla scheda Admin.</p>
           </div>
 
+          <div class="firebase-status">
+            <span class="firebase-dot"></span>
+            <span data-lang="fr">Synchronisation temps réel · Firebase</span>
+            <span data-lang="en" style="display:none">Real-time sync · Firebase</span>
+            <span data-lang="it" style="display:none">Sincronizzazione in tempo reale · Firebase</span>
+          </div>
           <!-- THREE CALENDARS -->
           <div class="planning-calendars">
             <div class="planning-cal-block">
@@ -183,15 +189,15 @@
             <table class="planning-table" id="reservationTable">
               <thead>
                 <tr>
-                  <th data-lang="fr">Appartement</th><th data-lang="fr">Arrivée</th><th data-lang="fr">Départ</th><th data-lang="fr">Locataire</th><th data-lang="fr">Type</th><th data-lang="fr">Actions</th>
-                  <th data-lang="en" style="display:none">Apartment</th><th data-lang="en" style="display:none">Arrival</th><th data-lang="en" style="display:none">Departure</th><th data-lang="en" style="display:none">Tenant</th><th data-lang="en" style="display:none">Type</th><th data-lang="en" style="display:none">Actions</th>
-                  <th data-lang="it" style="display:none">Appartamento</th><th data-lang="it" style="display:none">Arrivo</th><th data-lang="it" style="display:none">Partenza</th><th data-lang="it" style="display:none">Locatario</th><th data-lang="it" style="display:none">Tipo</th><th data-lang="it" style="display:none">Azioni</th>
+                  <th data-lang="fr">Appartement</th><th data-lang="fr">Arrivée</th><th data-lang="fr">Départ</th><th data-lang="fr">Locataire</th><th data-lang="fr">Statut</th><th data-lang="fr">Message</th><th data-lang="fr">Actions</th>
+                  <th data-lang="en" style="display:none">Apartment</th><th data-lang="en" style="display:none">Arrival</th><th data-lang="en" style="display:none">Departure</th><th data-lang="en" style="display:none">Tenant</th><th data-lang="en" style="display:none">Status</th><th data-lang="en" style="display:none">Message</th><th data-lang="en" style="display:none">Actions</th>
+                  <th data-lang="it" style="display:none">Appartamento</th><th data-lang="it" style="display:none">Arrivo</th><th data-lang="it" style="display:none">Partenza</th><th data-lang="it" style="display:none">Locatario</th><th data-lang="it" style="display:none">Stato</th><th data-lang="it" style="display:none">Messaggio</th><th data-lang="it" style="display:none">Azioni</th>
                 </tr>
               </thead>
               <tbody id="reservationTableBody">
-                <tr><td colspan="6" style="text-align:center;color:var(--gris);font-style:italic;" data-lang="fr">Aucune réservation enregistrée.</td></tr>
-                <tr><td colspan="6" style="text-align:center;color:var(--gris);font-style:italic;display:none;" data-lang="en">No reservations recorded.</td></tr>
-                <tr><td colspan="6" style="text-align:center;color:var(--gris);font-style:italic;display:none;" data-lang="it">Nessuna prenotazione registrata.</td></tr>
+                <tr><td colspan="7" style="text-align:center;color:var(--gris);font-style:italic;" data-lang="fr">Aucune réservation enregistrée.</td></tr>
+                <tr><td colspan="7" style="text-align:center;color:var(--gris);font-style:italic;display:none;" data-lang="en">No reservations recorded.</td></tr>
+                <tr><td colspan="7" style="text-align:center;color:var(--gris);font-style:italic;display:none;" data-lang="it">Nessuna prenotazione registrata.</td></tr>
               </tbody>
             </table>
           </div>

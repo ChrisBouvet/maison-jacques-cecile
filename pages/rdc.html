@@ -371,11 +371,11 @@
 
 <footer class="footer"></footer>
 <div class="toast"></div>
-<script src="../js/nav-partial.js"></script>
-<script src="../js/main.js"></script>
-<script>
-  initNav('rdc');
-  initFooter();
+<script src="../js/nav-partial.js" defer></script>
+<script src="../js/main.js" defer></script>
+<script type="module" src="../js/apartment-firebase.js"></script>
+<script defer>
+  document.addEventListener('DOMContentLoaded', () => { initNav('rdc'); initFooter(); });
 </script>
 </body>
 </html>
