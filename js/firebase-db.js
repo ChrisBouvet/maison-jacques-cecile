@@ -30,13 +30,16 @@ export function subscribeReservations(callback) {
 }
 
 // ── LECTURE UNIQUE (pages publiques) ──
+// Note: on trie côté client pour éviter l'index composite apt+start
 export async function getReservations(apt = null) {
   try {
     const q = apt
-      ? query(collection(db, COL), where("apt", "==", apt), orderBy("start"))
+      ? query(collection(db, COL), where("apt", "==", apt))
       : query(collection(db, COL), orderBy("start"));
     const snap = await getDocs(q);
-    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    const docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    // Tri côté client par date de début
+    return docs.sort((a, b) => (a.start || "").localeCompare(b.start || ""));
   } catch (e) {
     console.error("Firestore read error:", e);
     return [];
