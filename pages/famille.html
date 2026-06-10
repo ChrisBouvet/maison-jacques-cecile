@@ -106,7 +106,38 @@
             <span data-lang="en" style="display:none">Real-time sync · Firebase</span>
             <span data-lang="it" style="display:none">Sincronizzazione in tempo reale · Firebase</span>
           </div>
-          <!-- THREE CALENDARS -->
+          <!-- COMBINED CALENDAR -->
+          <div class="combined-cal-section">
+            <h4 data-lang="fr">Vue d'ensemble — les 3 appartements</h4>
+            <h4 data-lang="en" style="display:none">Overview — all 3 apartments</h4>
+            <h4 data-lang="it" style="display:none">Panoramica — i 3 appartamenti</h4>
+
+            <div class="calendar-wrap" data-calendar="combined">
+              <div class="calendar-nav">
+                <button class="cal-btn cal-prev">←</button>
+                <h4></h4>
+                <button class="cal-btn cal-next">→</button>
+              </div>
+              <div class="calendar-grid combined-grid">
+                <div class="calendar-day-name">L</div><div class="calendar-day-name">M</div>
+                <div class="calendar-day-name">M</div><div class="calendar-day-name">J</div>
+                <div class="calendar-day-name">V</div><div class="calendar-day-name">S</div>
+                <div class="calendar-day-name">D</div>
+              </div>
+              <div class="calendar-legend combined-legend">
+                <div class="legend-item"><div class="legend-bar" style="background:var(--bleu-alpin);"></div><span data-lang="fr">1er — Famille</span><span data-lang="en" style="display:none">1st — Family</span><span data-lang="it" style="display:none">1° — Famiglia</span></div>
+                <div class="legend-item"><div class="legend-bar" style="background:var(--or);"></div><span data-lang="fr">RDC — Loué</span><span data-lang="en" style="display:none">Ground — Booked</span><span data-lang="it" style="display:none">PT — Affittato</span></div>
+                <div class="legend-item"><div class="legend-bar" style="background:var(--brun-clair);"></div><span data-lang="fr">2e — Loué</span><span data-lang="en" style="display:none">2nd — Booked</span><span data-lang="it" style="display:none">2° — Affittato</span></div>
+                <div class="legend-item"><div class="legend-bar" style="background:#EF9F27;"></div><span data-lang="fr">En attente</span><span data-lang="en" style="display:none">Pending</span><span data-lang="it" style="display:none">In attesa</span></div>
+                <div class="legend-item"><div class="legend-bar" style="background:var(--or-clair);opacity:0.4;"></div><span data-lang="fr">Libre</span><span data-lang="en" style="display:none">Free</span><span data-lang="it" style="display:none">Libero</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- THREE CALENDARS (vue détaillée) -->
+          <h4 class="mt-3" data-lang="fr">Vue détaillée par appartement</h4>
+          <h4 class="mt-3" data-lang="en" style="display:none">Detailed view per apartment</h4>
+          <h4 class="mt-3" data-lang="it" style="display:none">Vista dettagliata per appartamento</h4>
           <div class="planning-calendars">
             <div class="planning-cal-block">
               <div class="planning-cal-label">
