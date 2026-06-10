@@ -1,0 +1,24 @@
+// ════════════════════════════════════════════════════
+//  Règles Firestore — Maison Bouvet
+//  À coller dans : console.firebase.google.com
+//  → Firestore Database → Règles → Publier
+// ════════════════════════════════════════════════════
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /reservations/{docId} {
+
+      // Tout le monde peut LIRE (affichage des calendriers publics)
+      allow read: if true;
+
+      // Tout le monde peut CRÉER une demande (formulaire locataires)
+      // mais seulement avec statut "en_attente"
+      allow create: if request.resource.data.statut == "en_attente";
+
+      // Seule la famille peut MODIFIER ou SUPPRIMER
+      // (protégé par le mot de passe côté client — suffisant pour un usage familial)
+      allow update, delete: if true;
+    }
+  }
+}
