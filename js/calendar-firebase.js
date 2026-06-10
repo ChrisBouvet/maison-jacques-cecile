@@ -10,10 +10,24 @@ const MONTHS = {
   it: ["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"]
 };
 
+// Petit hash déterministe pour attribuer une variante de couleur par réservation
+function hashStr(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) { h = (h << 5) - h + str.charCodeAt(i); h |= 0; }
+  return Math.abs(h);
+}
+
+function fmtShort(dateStr) {
+  if (!dateStr) return "";
+  const [, m, d] = dateStr.split("-");
+  return `${d}/${m}`;
+}
+
 export class FirebaseCalendar {
   constructor(el, options = {}) {
     this.el       = el;
     this.apt      = options.apt || null;   // null = tous (page famille)
+    this.showNames = options.showNames || false; // afficher noms (page famille uniquement)
     this.current  = new Date();
     this.current.setDate(1);
     this.reservations = [];
@@ -78,17 +92,42 @@ export class FirebaseCalendar {
       );
 
       if (resa) {
+        let baseClass;
         if (resa.statut === "en_attente") {
-          cell.classList.add("pending");
+          baseClass = "pending";
         } else if (resa.type === "family" || resa.statut === "famille") {
-          cell.classList.add("reserved-family");
+          baseClass = "reserved-family";
         } else {
-          cell.classList.add("booked");
+          baseClass = "booked";
         }
+        cell.classList.add(baseClass);
+
+        // Variante de couleur par réservation (pour distinguer 2 réservations consécutives du même type)
+        const variant = (hashStr(String(resa.id || resa.start + resa.end)) % 4) + 1;
+        cell.classList.add(`variant-${variant}`);
+
+        // Marque le début / fin du séjour (coins arrondis pour délimiter le bloc)
+        if (resa.start === dateStr) cell.classList.add("resa-start");
+        if (resa.end === dateStr) cell.classList.add("resa-end");
+
         const dot = document.createElement("span");
         dot.className = "day-dot";
         cell.appendChild(dot);
-        cell.title = resa.tenant || resa.nom || "";
+
+        const range = `${fmtShort(resa.start)} → ${fmtShort(resa.end)}`;
+        const name  = (resa.tenant || resa.nom || "").trim();
+
+        if (this.showNames) {
+          if (name) {
+            const label = document.createElement("span");
+            label.className = "day-tenant";
+            label.textContent = name.split(/\s+/)[0];
+            cell.appendChild(label);
+          }
+          cell.title = name ? `${name} (${range})` : range;
+        } else {
+          cell.title = range;
+        }
       }
 
       const num = document.createElement("span");
@@ -120,10 +159,14 @@ export class CombinedCalendar {
 
   destroy() { if (this.unsubscribe) this.unsubscribe(); }
 
-  _statusFor(apt, dateStr) {
-    const resa = this.reservations.find(r =>
+  _resaFor(apt, dateStr) {
+    return this.reservations.find(r =>
       r.apt === apt && r.start <= dateStr && r.end >= dateStr
     );
+  }
+
+  _statusFor(apt, dateStr) {
+    const resa = this._resaFor(apt, dateStr);
     if (!resa) return "free";
     if (resa.statut === "en_attente") return "pending";
     if (apt === "famille" || resa.type === "family" || resa.statut === "famille") return "famille";
@@ -179,10 +222,13 @@ export class CombinedCalendar {
         if (status !== "free") {
           const labels = { famille: "1er", rdc: "RDC", "2eme": "2e" };
           const statusLabels = { booked: "loué", pending: "en attente", famille: "occupé" };
-          tooltips.push(`${labels[apt]}: ${statusLabels[status]}`);
+          const resa = this._resaFor(apt, dateStr);
+          const name = (resa?.tenant || resa?.nom || "").trim();
+          const suffix = name ? ` — ${name}` : "";
+          tooltips.push(`${labels[apt]}: ${statusLabels[status]}${suffix}`);
         }
       });
-      if (tooltips.length) cell.title = tooltips.join(" · ");
+      if (tooltips.length) cell.title = tooltips.join("\n");
 
       cell.appendChild(bars);
       grid.appendChild(cell);
@@ -203,7 +249,8 @@ export function initCalendars() {
       cal = new CombinedCalendar(el);
     } else {
       const apt = key === "all" ? null : key;
-      cal = new FirebaseCalendar(el, { apt });
+      const showNames = el.dataset.showNames === "true";
+      cal = new FirebaseCalendar(el, { apt, showNames });
     }
     cals[key] = cal;
     el.querySelector(".cal-prev")?.addEventListener("click", () => cal.prev());
