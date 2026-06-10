@@ -138,6 +138,9 @@
           <h4 class="mt-3" data-lang="fr">Vue détaillée par appartement</h4>
           <h4 class="mt-3" data-lang="en" style="display:none">Detailed view per apartment</h4>
           <h4 class="mt-3" data-lang="it" style="display:none">Vista dettagliata per appartamento</h4>
+          <p class="planning-hint" data-lang="fr">💡 Chaque réservation a sa propre couleur. Le nom du locataire (ou membre de la famille) apparaît sur les jours concernés et au survol.</p>
+          <p class="planning-hint" data-lang="en" style="display:none">💡 Each booking has its own colour. The tenant's (or family member's) name appears on the relevant days and on hover.</p>
+          <p class="planning-hint" data-lang="it" style="display:none">💡 Ogni prenotazione ha un proprio colore. Il nome del locatario (o del membro della famiglia) appare nei giorni interessati e al passaggio del mouse.</p>
           <div class="planning-calendars">
             <div class="planning-cal-block">
               <div class="planning-cal-label">
@@ -145,7 +148,7 @@
                 <span class="badge-family" data-lang="en" style="display:none">1st floor – Family</span>
                 <span class="badge-family" data-lang="it" style="display:none">1° piano – Famiglia</span>
               </div>
-              <div class="calendar-wrap" data-calendar="famille">
+              <div class="calendar-wrap" data-calendar="famille" data-show-names="true">
                 <div class="calendar-nav">
                   <button class="cal-btn cal-prev">←</button>
                   <h4></h4>
@@ -169,7 +172,7 @@
                 <span class="badge-rdc" data-lang="en" style="display:none">Ground – Rental</span>
                 <span class="badge-rdc" data-lang="it" style="display:none">PT – Affitto</span>
               </div>
-              <div class="calendar-wrap" data-calendar="rdc">
+              <div class="calendar-wrap" data-calendar="rdc" data-show-names="true">
                 <div class="calendar-nav">
                   <button class="cal-btn cal-prev">←</button>
                   <h4></h4>
@@ -193,7 +196,7 @@
                 <span class="badge-2eme" data-lang="en" style="display:none">2nd floor – Rental</span>
                 <span class="badge-2eme" data-lang="it" style="display:none">2° piano – Affitto</span>
               </div>
-              <div class="calendar-wrap" data-calendar="2eme">
+              <div class="calendar-wrap" data-calendar="2eme" data-show-names="true">
                 <div class="calendar-nav">
                   <button class="cal-btn cal-prev">←</button>
                   <h4></h4>
