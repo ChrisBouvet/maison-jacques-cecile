@@ -468,12 +468,13 @@
                 <label data-lang="fr">Notes</label>
                 <label data-lang="en" style="display:none">Notes</label>
                 <label data-lang="it" style="display:none">Note</label>
-                <input type="text" name="notes" data-lang="fr" placeholder="Confirméé, acompte reçu...">
-                <input type="text" name="notes" data-lang="en" style="display:none" placeholder="Confirmed, deposit received...">
+                <input type="text" id="adminNotes" name="notes" placeholder="Confirmée, acompte reçu...">
               </div>
-              <button type="submit" class="btn btn--or" data-lang="fr">✓ Ajouter la réservation</button>
-              <button type="submit" class="btn btn--or" data-lang="en" style="display:none">✓ Add reservation</button>
-              <button type="submit" class="btn btn--or" data-lang="it" style="display:none">✓ Aggiungi prenotazione</button>
+              <button type="button" id="adminSubmitBtn" class="btn btn--or">
+                <span data-lang="fr">✓ Ajouter la réservation</span>
+                <span data-lang="en" style="display:none">✓ Add reservation</span>
+                <span data-lang="it" style="display:none">✓ Aggiungi prenotazione</span>
+              </button>
             </form>
           </div>
 
