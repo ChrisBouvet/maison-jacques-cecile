@@ -52,3 +52,51 @@
 @media (max-width: 700px) {
   .planning-calendars { grid-template-columns: 1fr; }
 }
+
+/* ── COMBINED CALENDAR ── */
+.combined-cal-section h4 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+.combined-grid .calendar-day.combined {
+  min-height: 56px;
+  padding: 6px 4px;
+  cursor: default;
+  align-items: center;
+}
+.combined-grid .calendar-day.combined .day-num {
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+}
+.combined-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  padding: 0 2px;
+}
+.combined-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--or-clair);
+  opacity: 0.3;
+}
+.combined-bar.status-famille { background: var(--bleu-alpin); opacity: 1; }
+.combined-bar.bar-rdc.status-booked { background: var(--or); opacity: 1; }
+.combined-bar.bar-2eme.status-booked { background: var(--brun-clair); opacity: 1; }
+.combined-bar.status-pending { background: #EF9F27; opacity: 0.85; }
+
+.combined-legend {
+  flex-wrap: wrap;
+  gap: 1rem 1.25rem;
+}
+.legend-bar {
+  width: 16px;
+  height: 6px;
+  border-radius: 2px;
+}
+
+@media (max-width: 600px) {
+  .combined-grid .calendar-day.combined { min-height: 48px; }
+  .combined-bar { height: 3px; }
+}
