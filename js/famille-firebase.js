@@ -107,22 +107,24 @@ window.deleteResa = async (id) => {
 // ── FORMULAIRE ADMIN (ajout direct) ──
 function initAdminForm(cals) {
   const form = document.getElementById("adminResaForm");
-  if (!form) return;
+  const btn  = document.getElementById("adminSubmitBtn");
+  if (!form || !btn) return;
 
-  form.addEventListener("submit", async e => {
-    e.preventDefault();
-    const apt    = form.querySelector("[name='apt']").value;
-    const start  = form.querySelector("[name='start']").value;
-    const end    = form.querySelector("[name='end']").value;
-    const tenant = form.querySelector("[name='tenant']").value;
-    const type   = form.querySelector("[name='type']").value;
-    const notes  = form.querySelector("[name='notes']")?.value || "";
+  btn.addEventListener("click", async () => {
+    // Lecture directe par ID ou querySelector dans le form
+    const apt    = form.querySelector("select[name='apt']").value;
+    const start  = form.querySelector("input[name='start']").value;
+    const end    = form.querySelector("input[name='end']").value;
+    const tenant = form.querySelector("input[name='tenant']").value;
+    const type   = form.querySelector("select[name='type']").value;
+    const notes  = document.getElementById("adminNotes")?.value || "";
 
-    if (!start || !end) { showToast("Veuillez saisir les dates.", "error"); return; }
-    if (start > end)    { showToast("Date de départ invalide.", "error"); return; }
+    if (!start) { showToast("Veuillez saisir la date d'arrivée.", "error"); return; }
+    if (!end)   { showToast("Veuillez saisir la date de départ.", "error"); return; }
+    if (start > end) { showToast("La date de départ doit être après l'arrivée.", "error"); return; }
 
-    const btn = form.querySelector("[type='submit']");
     btn.disabled = true;
+    btn.textContent = "…";
     try {
       await addReservation({
         apt, start, end,
@@ -132,10 +134,13 @@ function initAdminForm(cals) {
       });
       showToast("Réservation ajoutée !", "success");
       form.reset();
-      // Refresh calendars
-      Object.values(cals).forEach(c => c._init && c._init());
-    } catch { showToast("Erreur d'enregistrement.", "error"); }
-    finally { btn.disabled = false; }
+    } catch (err) {
+      console.error(err);
+      showToast("Erreur d'enregistrement.", "error");
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '<span data-lang="fr">✓ Ajouter la réservation</span>';
+    }
   });
 }
 
