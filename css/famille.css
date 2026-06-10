@@ -100,3 +100,9 @@
   .combined-grid .calendar-day.combined { min-height: 48px; }
   .combined-bar { height: 3px; }
 }
+
+.planning-hint {
+  font-size: 0.85rem;
+  color: var(--gris);
+  margin-bottom: 1rem;
+}

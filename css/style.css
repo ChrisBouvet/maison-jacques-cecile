@@ -415,24 +415,66 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .calendar-day {
   text-align: center;
-  padding: 0.6rem 0.3rem;
+  padding: 0.5rem 0.3rem;
   font-size: 0.88rem;
   color: var(--texte-doux);
   border: 0.5px solid rgba(201,169,110,0.15);
   cursor: pointer;
   transition: background 0.15s;
-  min-height: 48px;
+  min-height: 54px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 2px;
+  overflow: hidden;
 }
 .calendar-day:hover { background: var(--neige); }
 .calendar-day.empty { cursor: default; background: none; }
+
+/* Statut de base */
 .calendar-day.booked { background: rgba(201,169,110,0.18); }
 .calendar-day.booked span.day-dot { display: block; width: 5px; height: 5px; border-radius: 50%; background: var(--or); }
 .calendar-day.reserved-family { background: rgba(44,74,110,0.12); }
 .calendar-day.reserved-family span.day-dot { background: var(--bleu-alpin); }
+
+/* Variantes de couleur — pour distinguer 2 réservations consécutives du même type */
+.calendar-day.booked.variant-1 { background: rgba(201,169,110,0.20); }
+.calendar-day.booked.variant-1 span.day-dot { background: #C9A96E; }
+.calendar-day.booked.variant-2 { background: rgba(186,117,23,0.16); }
+.calendar-day.booked.variant-2 span.day-dot { background: #BA7517; }
+.calendar-day.booked.variant-3 { background: rgba(214,90,48,0.14); }
+.calendar-day.booked.variant-3 span.day-dot { background: #D85A30; }
+.calendar-day.booked.variant-4 { background: rgba(153,53,86,0.13); }
+.calendar-day.booked.variant-4 span.day-dot { background: #993556; }
+
+.calendar-day.reserved-family.variant-1 { background: rgba(44,74,110,0.14); }
+.calendar-day.reserved-family.variant-1 span.day-dot { background: #2C4A6E; }
+.calendar-day.reserved-family.variant-2 { background: rgba(83,74,183,0.12); }
+.calendar-day.reserved-family.variant-2 span.day-dot { background: #534AB7; }
+.calendar-day.reserved-family.variant-3 { background: rgba(15,110,86,0.13); }
+.calendar-day.reserved-family.variant-3 span.day-dot { background: #0F6E56; }
+.calendar-day.reserved-family.variant-4 { background: rgba(56,138,221,0.14); }
+.calendar-day.reserved-family.variant-4 span.day-dot { background: #378ADD; }
+
+/* Délimitation visuelle d'un séjour (premier / dernier jour) */
+.calendar-day.resa-start { border-radius: 6px 0 0 6px; }
+.calendar-day.resa-end   { border-radius: 0 6px 6px 0; }
+.calendar-day.resa-start.resa-end { border-radius: 6px; }
+
+/* Nom du locataire / membre famille affiché sur le jour */
+.day-tenant {
+  display: block;
+  width: 100%;
+  font-size: 0.6rem;
+  line-height: 1.1;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0.85;
+}
+
 .calendar-day.today { font-weight: 500; color: var(--brun); }
 .calendar-day.today .day-num { background: var(--brun); color: var(--blanc); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
 .calendar-legend {
