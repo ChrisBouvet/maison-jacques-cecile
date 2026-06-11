@@ -85,15 +85,6 @@
           </button>
         </div>
 
-        <!-- TOOLBAR (verrouillage) -->
-        <div class="famille-toolbar">
-          <button id="lockBtn" class="lock-btn" title="Verrouiller l'accès">
-            <span data-lang="fr">🔒 Verrouiller</span>
-            <span data-lang="en" style="display:none">🔒 Lock</span>
-            <span data-lang="it" style="display:none">🔒 Blocca</span>
-          </button>
-        </div>
-
         <!-- PLANNING TAB -->
         <div class="tab-panel active" data-panel="planning">
           <div data-lang="fr">
@@ -251,14 +242,17 @@
             </div>
             <div class="form-group">
               <label>Email</label>
-              <input type="email" name="email" required>
+              <input type="email" name="email">
             </div>
             <div class="form-group">
-              <label data-lang="fr">Téléphone (optionnel)</label>
-              <label data-lang="en" style="display:none">Phone (optional)</label>
-              <label data-lang="it" style="display:none">Telefono (opzionale)</label>
+              <label data-lang="fr">Téléphone</label>
+              <label data-lang="en" style="display:none">Phone</label>
+              <label data-lang="it" style="display:none">Telefono</label>
               <input type="tel" name="phone" placeholder="+33 6 12 34 56 78">
             </div>
+            <p class="form-hint" data-lang="fr">💡 Merci de renseigner au moins l'un des deux : email ou téléphone.</p>
+            <p class="form-hint" data-lang="en" style="display:none">💡 Please provide at least one: email or phone.</p>
+            <p class="form-hint" data-lang="it" style="display:none">💡 Si prega di indicare almeno uno tra email e telefono.</p>
             <div class="form-row">
               <div class="form-group">
                 <label data-lang="fr">Arrivée</label>
