@@ -92,17 +92,30 @@ function sortReservations(resas) {
   });
 }
 
+const PAGE_SIZE = 10;
+let _currentPage = 1;
+
 function renderTable(resas) {
   const tbody = document.getElementById("reservationTableBody");
   if (!tbody) return;
 
-  if (!resas || resas.length === 0) {
+  const sorted = sortReservations(resas || []);
+  window._reservationsCache = sorted;
+
+  if (sorted.length === 0) {
     tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--gris);font-style:italic;padding:1.5rem;">Aucune réservation.</td></tr>`;
+    renderPagination(0);
     return;
   }
 
-  const sorted = sortReservations(resas);
-  tbody.innerHTML = sorted.map(r => `
+  const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
+  if (_currentPage > totalPages) _currentPage = totalPages;
+  if (_currentPage < 1) _currentPage = 1;
+
+  const startIdx = (_currentPage - 1) * PAGE_SIZE;
+  const pageItems = sorted.slice(startIdx, startIdx + PAGE_SIZE);
+
+  tbody.innerHTML = pageItems.map(r => `
     <tr data-id="${r.id}">
       <td>${APT_LABELS[r.apt] || r.apt || "—"}</td>
       <td>${fmt(r.start)}</td>
@@ -123,9 +136,26 @@ function renderTable(resas) {
     </tr>
   `).join("");
 
-  // Conserve une copie pour l'édition
-  window._reservationsCache = sorted;
+  renderPagination(totalPages);
 }
+
+function renderPagination(totalPages) {
+  const container = document.getElementById("reservationPagination");
+  if (!container) return;
+  if (totalPages <= 1) { container.innerHTML = ""; return; }
+
+  let html = `<button class="page-btn" ${_currentPage===1?"disabled":""} onclick="changeResaPage(${_currentPage-1})">←</button>`;
+  for (let i = 1; i <= totalPages; i++) {
+    html += `<button class="page-btn ${i===_currentPage?"active":""}" onclick="changeResaPage(${i})">${i}</button>`;
+  }
+  html += `<button class="page-btn" ${_currentPage===totalPages?"disabled":""} onclick="changeResaPage(${_currentPage+1})">→</button>`;
+  container.innerHTML = html;
+}
+
+window.changeResaPage = (p) => {
+  _currentPage = p;
+  renderTable(window._reservationsCache || []);
+};
 
 // ══════════════════════════════════════════════════
 //  ACTIONS ADMIN
@@ -191,9 +221,46 @@ window.editResa = (id) => {
 
   document.getElementById("adminCancelEditBtn").style.display = "";
 
+  // Affiche les informations complètes de la demande d'origine (lecture seule)
+  renderEditRequestInfo(r);
+
   // Scroll jusqu'au formulaire
   document.querySelector(".admin-form-wrap")?.scrollIntoView({ behavior: "smooth", block: "start" });
 };
+
+// Affiche un récapitulatif en lecture seule des informations fournies
+// par le demandeur (email, téléphone, adultes/enfants, animal, message).
+function renderEditRequestInfo(r) {
+  const box = document.getElementById("editRequestInfo");
+  if (!box) return;
+
+  const hasRequestInfo = r.email || r.phone || r.adults || r.children || r.pets || r.message;
+  if (!hasRequestInfo) {
+    box.style.display = "none";
+    box.innerHTML = "";
+    return;
+  }
+
+  const petsLabel = r.pets ? "Oui 🐾" : "Non";
+  const adults    = r.adults || "—";
+  const children  = r.children || "0";
+
+  box.innerHTML = `
+    <h4 data-lang="fr">Détails de la demande</h4>
+    <h4 data-lang="en" style="display:none">Request details</h4>
+    <h4 data-lang="it" style="display:none">Dettagli della richiesta</h4>
+    <div class="edit-request-grid">
+      <div><strong data-lang="fr">Email</strong><strong data-lang="en" style="display:none">Email</strong><strong data-lang="it" style="display:none">Email</strong><br>${r.email || "—"}</div>
+      <div><strong data-lang="fr">Téléphone</strong><strong data-lang="en" style="display:none">Phone</strong><strong data-lang="it" style="display:none">Telefono</strong><br>${r.phone || "—"}</div>
+      <div><strong data-lang="fr">Adultes</strong><strong data-lang="en" style="display:none">Adults</strong><strong data-lang="it" style="display:none">Adulti</strong><br>${adults}</div>
+      <div><strong data-lang="fr">Enfants</strong><strong data-lang="en" style="display:none">Children</strong><strong data-lang="it" style="display:none">Bambini</strong><br>${children}</div>
+      <div><strong data-lang="fr">Animal</strong><strong data-lang="en" style="display:none">Pet</strong><strong data-lang="it" style="display:none">Animale</strong><br>${petsLabel}</div>
+    </div>
+    ${r.message ? `<div class="mt-1"><strong data-lang="fr">Message</strong><strong data-lang="en" style="display:none">Message</strong><strong data-lang="it" style="display:none">Messaggio</strong><p style="margin:0.25rem 0 0;">${r.message}</p></div>` : ""}
+  `;
+  applyCurrentLang(box);
+  box.style.display = "";
+}
 
 function resetAdminForm() {
   const form = document.getElementById("adminResaForm");
@@ -202,6 +269,10 @@ function resetAdminForm() {
   form.querySelector("input[name='end']")?.removeAttribute("min");
   window._editingId = null;
   document.getElementById("adminEditId").value = "";
+
+  const box = document.getElementById("editRequestInfo");
+  if (box) { box.style.display = "none"; box.innerHTML = ""; }
+
   const submitBtn = document.getElementById("adminSubmitBtn");
   submitBtn.innerHTML = `
     <span data-lang="fr">✓ Ajouter la réservation</span>
@@ -279,10 +350,12 @@ function initAdminForm() {
 window.exportReservations = async () => {
   const { getReservations } = await import("./firebase-db.js");
   const resas = await getReservations();
-  const rows  = [["Appartement","Arrivée","Départ","Locataire","Email","Statut","Notes"]];
+  const rows  = [["Appartement","Arrivée","Départ","Locataire","Email","Téléphone","Adultes","Enfants","Animal","Statut","Notes"]];
   sortReservations(resas).forEach(r => rows.push([
     APT_LABELS[r.apt]||r.apt, r.start, r.end,
-    r.nom||r.tenant||"", r.email||"", r.statut, r.notes||r.message||""
+    r.nom||r.tenant||"", r.email||"", r.phone||"",
+    r.adults||"", r.children||"0", r.pets ? "Oui" : "Non",
+    r.statut, r.notes||r.message||""
   ]));
   const csv  = rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(",")).join("\n");
   const blob = new Blob(["\uFEFF"+csv], { type:"text/csv;charset=utf-8;" });

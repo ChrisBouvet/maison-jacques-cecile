@@ -158,7 +158,7 @@ export class FirebaseCalendar {
 // ══════════════════════════════════════════════════
 //  CALENDRIER COMBINÉ (3 appartements en un seul)
 // ══════════════════════════════════════════════════
-const APT_ORDER = ["famille", "rdc", "2eme"];
+const APT_ORDER = ["rdc", "famille", "2eme"];
 
 export class CombinedCalendar {
   constructor(el) {
@@ -315,19 +315,22 @@ export function initResaForms() {
       const aptSelect = form.querySelector("[name='apt']");
       const apt = aptSelect ? aptSelect.value : form.dataset.apt;
 
-      const nom     = form.querySelector("[name='name']").value.trim();
-      const email   = form.querySelector("[name='email']").value.trim();
-      const start   = arrivalInput.value;
-      const end     = departureInput.value;
-      const guests  = form.querySelector("[name='guests']")?.value || "";
-      const message = form.querySelector("[name='message']")?.value || "";
+      const nom      = form.querySelector("[name='name']").value.trim();
+      const email    = form.querySelector("[name='email']").value.trim();
+      const phone    = form.querySelector("[name='phone']")?.value.trim() || "";
+      const start    = arrivalInput.value;
+      const end      = departureInput.value;
+      const adults   = form.querySelector("[name='adults']")?.value || "1";
+      const children = form.querySelector("[name='children']")?.value || "0";
+      const pets     = form.querySelector("[name='pets']")?.checked || false;
+      const message  = form.querySelector("[name='message']")?.value || "";
 
       const btns = form.querySelectorAll("[type='submit']");
       btns.forEach(b => b.disabled = true);
 
       try {
         await addReservation({
-          apt, nom, email, start, end, guests, message,
+          apt, nom, email, phone, start, end, adults, children, pets, message,
           statut: "en_attente",
           type: apt === "famille" ? "family" : "locataire"
         });
