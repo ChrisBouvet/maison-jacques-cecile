@@ -129,3 +129,46 @@
   border-color: var(--brun);
   background: var(--creme);
 }
+
+/* ── PAGINATION ── */
+.pagination {
+  display: flex;
+  gap: 0.4rem;
+  justify-content: center;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+.page-btn {
+  min-width: 32px;
+  height: 32px;
+  padding: 0 0.6rem;
+  border: 1px solid var(--or-clair);
+  border-radius: var(--radius);
+  background: var(--blanc);
+  color: var(--brun-clair);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.page-btn:hover:not(:disabled) { background: var(--creme); color: var(--brun); }
+.page-btn.active { background: var(--brun); color: var(--blanc); border-color: var(--brun); }
+.page-btn:disabled { opacity: 0.35; cursor: default; }
+
+/* ── EDIT REQUEST INFO ── */
+#editRequestInfo { margin-bottom: 1.5rem; }
+.edit-request-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 0.75rem;
+  font-size: 0.88rem;
+}
+.edit-request-grid strong {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bleu-alpin);
+  margin-bottom: 0.2rem;
+}
