@@ -106,3 +106,26 @@
   color: var(--gris);
   margin-bottom: 1rem;
 }
+
+/* ── TOOLBAR / VERROUILLAGE ── */
+.famille-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+.lock-btn {
+  background: none;
+  border: 1px solid var(--or-clair);
+  border-radius: 2rem;
+  padding: 0.4rem 1rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.78rem;
+  color: var(--gris);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.lock-btn:hover {
+  color: var(--brun);
+  border-color: var(--brun);
+  background: var(--creme);
+}
