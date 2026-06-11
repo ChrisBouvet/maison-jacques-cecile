@@ -1,8 +1,15 @@
-import { addReservation, updateReservation, deleteReservation, subscribeReservations } from "./firebase-db.js";
-import { initCalendars } from "./calendar-firebase.js";
+import { addReservation, updateReservation, deleteReservation } from "./firebase-db.js";
+import { initCalendars, initResaForms, subscribeAll, linkArrivalDeparture } from "./calendar-firebase.js";
 
-// ── MOT DE PASSE FAMILLE ──
-const FAMILLE_PASSWORD = "bouvet2024";
+// ══════════════════════════════════════════════════
+//  RÔLES & MOTS DE PASSE
+//  "famille" → accès planning / instructions / contacts
+//  "admin"   → accès complet + onglet Admin
+// ══════════════════════════════════════════════════
+const PASSWORDS = {
+  "bouvet2024": "famille",
+  "bouvetadmin2024": "admin"
+};
 
 function checkPassword() {
   const input   = document.getElementById("famillePassword");
@@ -10,11 +17,13 @@ function checkPassword() {
   const content = document.getElementById("privateContent");
   if (!input) return;
 
-  if (input.value === FAMILLE_PASSWORD) {
+  const role = PASSWORDS[input.value];
+  if (role) {
     gate.style.display = "none";
     content.classList.add("unlocked");
     sessionStorage.setItem("famille_auth", "1");
-    startFamilleApp();
+    sessionStorage.setItem("famille_role", role);
+    startFamilleApp(role);
   } else {
     document.querySelectorAll("#pwError").forEach(e => e.style.display = "block");
     input.value = "";
@@ -22,18 +31,41 @@ function checkPassword() {
   }
 }
 
-function startFamilleApp() {
-  // Initialise les 3 calendriers (apt=null = tous)
-  const cals = initCalendars();
-
-  // Écoute temps réel → mise à jour table
-  window.refreshFamilleTable = renderTable;
-  subscribeReservations(renderTable);
-
-  initAdminForm(cals);
+function applyRole(role) {
+  const adminTabBtn = document.getElementById("adminTabBtn");
+  if (!adminTabBtn) return;
+  if (role === "admin") {
+    adminTabBtn.style.display = "";
+  } else {
+    adminTabBtn.style.display = "none";
+    // Si on était sur l'onglet admin (session précédente) et qu'on n'a plus le rôle, basculer sur planning
+    if (adminTabBtn.classList.contains("active")) {
+      document.querySelector('.tab-btn[data-tab="planning"]')?.click();
+    }
+  }
 }
 
-// ── TABLE DES RÉSERVATIONS ──
+let _started = false;
+function startFamilleApp(role) {
+  applyRole(role);
+  if (_started) return;
+  _started = true;
+
+  // Calendriers (combiné + 3 détaillés) — temps réel via store partagé
+  initCalendars();
+
+  // Formulaire de demande de réservation (onglet Planning)
+  initResaForms();
+
+  // Tableau récapitulatif (onglet Admin) — temps réel via store partagé
+  subscribeAll(renderTable);
+
+  initAdminForm();
+}
+
+// ══════════════════════════════════════════════════
+//  TABLE DES RÉSERVATIONS (onglet Admin)
+// ══════════════════════════════════════════════════
 const APT_LABELS = { famille: "1er étage – Famille", rdc: "RDC", "2eme": "2e étage" };
 
 function statusBadge(statut) {
@@ -49,6 +81,17 @@ function statusBadge(statut) {
 
 function fmt(d) { if (!d) return "—"; const [y,m,j]=d.split("-"); return `${j}/${m}/${y}`; }
 
+// Tri : réservations "en attente" en premier, puis du séjour le plus
+// récent au plus ancien (date d'arrivée décroissante).
+function sortReservations(resas) {
+  return [...resas].sort((a, b) => {
+    const aPending = a.statut === "en_attente" ? 0 : 1;
+    const bPending = b.statut === "en_attente" ? 0 : 1;
+    if (aPending !== bPending) return aPending - bPending;
+    return (b.start || "").localeCompare(a.start || ""); // décroissant
+  });
+}
+
 function renderTable(resas) {
   const tbody = document.getElementById("reservationTableBody");
   if (!tbody) return;
@@ -58,7 +101,7 @@ function renderTable(resas) {
     return;
   }
 
-  const sorted = [...resas].sort((a,b) => (a.start||"").localeCompare(b.start||""));
+  const sorted = sortReservations(resas);
   tbody.innerHTML = sorted.map(r => `
     <tr data-id="${r.id}">
       <td>${APT_LABELS[r.apt] || r.apt || "—"}</td>
@@ -70,21 +113,31 @@ function renderTable(resas) {
       <td>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
           ${r.statut === "en_attente" ? `
-            <button onclick="confirmResa('${r.id}')" class="btn-action btn-confirm" title="Confirmer">✓</button>
+            <button onclick="validateResa('${r.id}')" class="btn-action btn-confirm" title="Valider">✓</button>
             <button onclick="refuseResa('${r.id}')" class="btn-action btn-refuse" title="Refuser">✗</button>
           ` : ""}
+          <button onclick="editResa('${r.id}')" class="btn-action btn-edit" title="Modifier">✎</button>
           <button onclick="deleteResa('${r.id}')" class="btn-action btn-delete" title="Supprimer">🗑</button>
         </div>
       </td>
     </tr>
   `).join("");
+
+  // Conserve une copie pour l'édition
+  window._reservationsCache = sorted;
 }
 
-// ── ACTIONS ADMIN ──
-window.confirmResa = async (id) => {
+// ══════════════════════════════════════════════════
+//  ACTIONS ADMIN
+// ══════════════════════════════════════════════════
+
+// "Valider" : passe une demande en attente en confirmée (ou "famille" si apt = famille)
+window.validateResa = async (id) => {
+  const r = (window._reservationsCache || []).find(x => x.id === id);
+  const statut = (r && r.apt === "famille") ? "famille" : "confirmee";
   try {
-    await updateReservation(id, { statut: "confirmee" });
-    showToast("Réservation confirmée !", "success");
+    await updateReservation(id, { statut });
+    showToast("Réservation validée !", "success");
   } catch { showToast("Erreur de mise à jour.", "error"); }
 };
 
@@ -101,22 +154,91 @@ window.deleteResa = async (id) => {
   try {
     await deleteReservation(id);
     showToast("Supprimée.", "");
+    if (window._editingId === id) resetAdminForm();
   } catch { showToast("Erreur de suppression.", "error"); }
 };
 
-// ── FORMULAIRE ADMIN (ajout direct) ──
-function initAdminForm(cals) {
+// "Modifier" : charge la réservation dans le formulaire admin
+window.editResa = (id) => {
+  const r = (window._reservationsCache || []).find(x => x.id === id);
+  if (!r) return;
+
+  const form = document.getElementById("adminResaForm");
+  if (!form) return;
+
+  form.querySelector("select[name='apt']").value    = r.apt || "famille";
+  form.querySelector("select[name='statut']").value = r.statut || "confirmee";
+
+  const startInput = form.querySelector("input[name='start']");
+  const endInput   = form.querySelector("input[name='end']");
+  startInput.value = r.start || "";
+  endInput.min     = r.start || "";
+  endInput.value   = r.end || "";
+
+  form.querySelector("input[name='tenant']").value  = r.tenant || r.nom || "";
+  document.getElementById("adminNotes").value       = r.notes || r.message || "";
+
+  window._editingId = id;
+  document.getElementById("adminEditId").value = id;
+
+  // Met à jour le bouton et affiche "Annuler"
+  const submitBtn = document.getElementById("adminSubmitBtn");
+  submitBtn.innerHTML = `
+    <span data-lang="fr">💾 Enregistrer les modifications</span>
+    <span data-lang="en" style="display:none">💾 Save changes</span>
+    <span data-lang="it" style="display:none">💾 Salva modifiche</span>`;
+  applyCurrentLang(submitBtn);
+
+  document.getElementById("adminCancelEditBtn").style.display = "";
+
+  // Scroll jusqu'au formulaire
+  document.querySelector(".admin-form-wrap")?.scrollIntoView({ behavior: "smooth", block: "start" });
+};
+
+function resetAdminForm() {
+  const form = document.getElementById("adminResaForm");
+  if (!form) return;
+  form.reset();
+  form.querySelector("input[name='end']")?.removeAttribute("min");
+  window._editingId = null;
+  document.getElementById("adminEditId").value = "";
+  const submitBtn = document.getElementById("adminSubmitBtn");
+  submitBtn.innerHTML = `
+    <span data-lang="fr">✓ Ajouter la réservation</span>
+    <span data-lang="en" style="display:none">✓ Add reservation</span>
+    <span data-lang="it" style="display:none">✓ Aggiungi prenotazione</span>`;
+  applyCurrentLang(submitBtn);
+  document.getElementById("adminCancelEditBtn").style.display = "none";
+}
+
+// Applique la langue courante aux éléments [data-lang] nouvellement injectés
+function applyCurrentLang(container) {
+  const lang = localStorage.getItem("lang") || "fr";
+  container.querySelectorAll("[data-lang]").forEach(el => {
+    el.style.display = el.dataset.lang === lang ? "" : "none";
+  });
+}
+
+// ══════════════════════════════════════════════════
+//  FORMULAIRE ADMIN (ajout / modification)
+// ══════════════════════════════════════════════════
+function initAdminForm() {
   const form = document.getElementById("adminResaForm");
   const btn  = document.getElementById("adminSubmitBtn");
+  const cancelBtn = document.getElementById("adminCancelEditBtn");
   if (!form || !btn) return;
 
+  // Contrainte départ >= arrivée
+  linkArrivalDeparture(form.querySelector("input[name='start']"), form.querySelector("input[name='end']"));
+
+  cancelBtn?.addEventListener("click", resetAdminForm);
+
   btn.addEventListener("click", async () => {
-    // Lecture directe par ID ou querySelector dans le form
     const apt    = form.querySelector("select[name='apt']").value;
+    const statut = form.querySelector("select[name='statut']").value;
     const start  = form.querySelector("input[name='start']").value;
     const end    = form.querySelector("input[name='end']").value;
     const tenant = form.querySelector("input[name='tenant']").value;
-    const type   = form.querySelector("select[name='type']").value;
     const notes  = document.getElementById("adminNotes")?.value || "";
 
     if (!start) { showToast("Veuillez saisir la date d'arrivée.", "error"); return; }
@@ -124,32 +246,41 @@ function initAdminForm(cals) {
     if (start > end) { showToast("La date de départ doit être après l'arrivée.", "error"); return; }
 
     btn.disabled = true;
-    btn.textContent = "…";
+    const editingId = window._editingId;
+
     try {
-      await addReservation({
+      const data = {
         apt, start, end,
         nom: tenant, tenant,
-        type, notes,
-        statut: type === "family" ? "famille" : "confirmee"
-      });
-      showToast("Réservation ajoutée !", "success");
-      form.reset();
+        statut, notes,
+        type: statut === "famille" ? "family" : "locataire"
+      };
+
+      if (editingId) {
+        await updateReservation(editingId, data);
+        showToast("Réservation modifiée !", "success");
+      } else {
+        await addReservation(data);
+        showToast("Réservation ajoutée !", "success");
+      }
+      resetAdminForm();
     } catch (err) {
       console.error(err);
       showToast("Erreur d'enregistrement.", "error");
     } finally {
       btn.disabled = false;
-      btn.innerHTML = '<span data-lang="fr">✓ Ajouter la réservation</span>';
     }
   });
 }
 
-// ── EXPORT CSV ──
+// ══════════════════════════════════════════════════
+//  EXPORT CSV
+// ══════════════════════════════════════════════════
 window.exportReservations = async () => {
   const { getReservations } = await import("./firebase-db.js");
   const resas = await getReservations();
   const rows  = [["Appartement","Arrivée","Départ","Locataire","Email","Statut","Notes"]];
-  resas.forEach(r => rows.push([
+  sortReservations(resas).forEach(r => rows.push([
     APT_LABELS[r.apt]||r.apt, r.start, r.end,
     r.nom||r.tenant||"", r.email||"", r.statut, r.notes||r.message||""
   ]));
@@ -162,7 +293,9 @@ window.exportReservations = async () => {
   a.click(); URL.revokeObjectURL(a.href);
 };
 
-// ── INIT PAGE ──
+// ══════════════════════════════════════════════════
+//  INIT PAGE
+// ══════════════════════════════════════════════════
 document.addEventListener("DOMContentLoaded", () => {
   // Boutons mot de passe
   ["pwSubmitFr","pwSubmitEn","pwSubmitIt"].forEach(id =>
@@ -174,19 +307,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Auto-unlock si déjà authentifié cette session
   if (sessionStorage.getItem("famille_auth") === "1") {
+    const role    = sessionStorage.getItem("famille_role") || "famille";
     const gate    = document.getElementById("passwordGate");
     const content = document.getElementById("privateContent");
     if (gate)    gate.style.display = "none";
     if (content) content.classList.add("unlocked");
-    startFamilleApp();
+    startFamilleApp(role);
   }
-
-  // Refresh table sur onglet planning
-  document.querySelectorAll(".tab-btn").forEach(btn =>
-    btn.addEventListener("click", () => {
-      if (btn.dataset.tab === "planning") setTimeout(() => {
-        subscribeReservations(renderTable);
-      }, 100);
-    })
-  );
 });

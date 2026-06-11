@@ -1,8 +1,7 @@
 // ══════════════════════════════════════════════════
 //  CALENDRIER connecté à Firebase
-//  Remplace l'ancien Calendar qui utilisait localStorage
 // ══════════════════════════════════════════════════
-import { subscribeReservations, getReservations, addReservation } from "./firebase-db.js";
+import { subscribeReservations, addReservation } from "./firebase-db.js";
 
 const MONTHS = {
   fr: ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"],
@@ -23,32 +22,46 @@ function fmtShort(dateStr) {
   return `${d}/${m}`;
 }
 
+// ══════════════════════════════════════════════════
+//  STORE PARTAGÉ — un seul listener Firestore pour
+//  toute la page (calendriers + tableau récapitulatif)
+// ══════════════════════════════════════════════════
+const _store = { data: [], loaded: false, listeners: new Set(), unsub: null };
+
+function _ensureStore() {
+  if (!_store.unsub) {
+    _store.unsub = subscribeReservations(resas => {
+      _store.data = resas;
+      _store.loaded = true;
+      _store.listeners.forEach(fn => fn(resas));
+    });
+  }
+}
+
+// S'abonne aux changements de réservations (temps réel).
+// Retourne une fonction de désabonnement.
+export function subscribeAll(callback) {
+  _ensureStore();
+  _store.listeners.add(callback);
+  if (_store.loaded) callback(_store.data);
+  return () => _store.listeners.delete(callback);
+}
+
+// ══════════════════════════════════════════════════
+//  CALENDRIER PAR APPARTEMENT
+// ══════════════════════════════════════════════════
 export class FirebaseCalendar {
   constructor(el, options = {}) {
-    this.el       = el;
-    this.apt      = options.apt || null;   // null = tous (page famille)
+    this.el        = el;
+    this.apt       = options.apt || null;        // null = tous (vue famille)
     this.showNames = options.showNames || false; // afficher noms (page famille uniquement)
-    this.current  = new Date();
+    this.current   = new Date();
     this.current.setDate(1);
     this.reservations = [];
-    this.unsubscribe  = null;
-    this._init();
-  }
-
-  _init() {
-    // Écoute temps réel si page famille (apt=null), lecture simple sinon
-    if (this.apt === null) {
-      this.unsubscribe = subscribeReservations(resas => {
-        this.reservations = resas;
-        this.render();
-        if (window.refreshFamilleTable) window.refreshFamilleTable(resas);
-      });
-    } else {
-      getReservations(this.apt).then(resas => {
-        this.reservations = resas;
-        this.render();
-      });
-    }
+    this.unsubscribe = subscribeAll(resas => {
+      this.reservations = this.apt ? resas.filter(r => r.apt === this.apt) : resas;
+      this.render();
+    });
   }
 
   destroy() { if (this.unsubscribe) this.unsubscribe(); }
@@ -142,7 +155,9 @@ export class FirebaseCalendar {
   next() { this.current.setMonth(this.current.getMonth()+1); this.render(); }
 }
 
-// ── CALENDRIER COMBINÉ (3 appartements en un seul) ──
+// ══════════════════════════════════════════════════
+//  CALENDRIER COMBINÉ (3 appartements en un seul)
+// ══════════════════════════════════════════════════
 const APT_ORDER = ["famille", "rdc", "2eme"];
 
 export class CombinedCalendar {
@@ -151,7 +166,7 @@ export class CombinedCalendar {
     this.current = new Date();
     this.current.setDate(1);
     this.reservations = [];
-    this.unsubscribe = subscribeReservations(resas => {
+    this.unsubscribe = subscribeAll(resas => {
       this.reservations = resas;
       this.render();
     });
@@ -239,7 +254,9 @@ export class CombinedCalendar {
   next() { this.current.setMonth(this.current.getMonth()+1); this.render(); }
 }
 
-// ── INIT DE TOUS LES CALENDRIERS SUR LA PAGE ──
+// ══════════════════════════════════════════════════
+//  INIT DE TOUS LES CALENDRIERS SUR LA PAGE
+// ══════════════════════════════════════════════════
 export function initCalendars() {
   const cals = {};
   document.querySelectorAll("[data-calendar]").forEach(el => {
@@ -260,33 +277,69 @@ export function initCalendars() {
   return cals;
 }
 
-// ── FORMULAIRE DE DEMANDE (locataires) ──
+// ══════════════════════════════════════════════════
+//  CONTRAINTE DE DATES — la date de départ ne peut
+//  pas être antérieure à la date d'arrivée
+// ══════════════════════════════════════════════════
+export function linkArrivalDeparture(arrivalInput, departureInput) {
+  if (!arrivalInput || !departureInput) return;
+  const sync = () => {
+    if (arrivalInput.value) {
+      departureInput.min = arrivalInput.value;
+      if (departureInput.value && departureInput.value < arrivalInput.value) {
+        departureInput.value = "";
+      }
+    } else {
+      departureInput.removeAttribute("min");
+    }
+  };
+  arrivalInput.addEventListener("change", sync);
+  sync();
+}
+
+// ══════════════════════════════════════════════════
+//  FORMULAIRE DE DEMANDE (locataires & famille)
+// ══════════════════════════════════════════════════
 export function initResaForms() {
-  document.querySelectorAll(".resa-form").forEach(form => {
+  document.querySelectorAll("form.resa-form").forEach(form => {
+    const arrivalInput   = form.querySelector("[name='arrival']");
+    const departureInput = form.querySelector("[name='departure']");
+    linkArrivalDeparture(arrivalInput, departureInput);
+
     form.addEventListener("submit", async e => {
       e.preventDefault();
-      const lang    = localStorage.getItem("lang") || "fr";
-      const apt     = form.dataset.apt;
+      const lang = localStorage.getItem("lang") || "fr";
+
+      // L'appartement vient soit d'un <select name="apt"> (page famille),
+      // soit de l'attribut data-apt (pages RDC / 2e étage)
+      const aptSelect = form.querySelector("[name='apt']");
+      const apt = aptSelect ? aptSelect.value : form.dataset.apt;
+
       const nom     = form.querySelector("[name='name']").value.trim();
       const email   = form.querySelector("[name='email']").value.trim();
-      const start   = form.querySelector("[name='arrival']").value;
-      const end     = form.querySelector("[name='departure']").value;
-      const guests  = form.querySelector("[name='guests']").value;
+      const start   = arrivalInput.value;
+      const end     = departureInput.value;
+      const guests  = form.querySelector("[name='guests']")?.value || "";
       const message = form.querySelector("[name='message']")?.value || "";
 
-      const btn = form.querySelector("[type='submit']");
-      btn.disabled = true;
+      const btns = form.querySelectorAll("[type='submit']");
+      btns.forEach(b => b.disabled = true);
 
       try {
-        await addReservation({ apt, nom, email, start, end, guests, message, statut: "en_attente", type: "locataire" });
+        await addReservation({
+          apt, nom, email, start, end, guests, message,
+          statut: "en_attente",
+          type: apt === "famille" ? "family" : "locataire"
+        });
         const msgs = { fr: "Demande envoyée ! Nous vous répondrons sous 48h.", en: "Request sent! We'll reply within 48h.", it: "Richiesta inviata! Risponderemo entro 48h." };
         showToast(msgs[lang] || msgs.fr, "success");
         form.reset();
+        departureInput.removeAttribute("min");
       } catch {
         const msgs = { fr: "Erreur d'envoi. Contactez-nous par email.", en: "Send error. Please contact us by email.", it: "Errore. Contattateci per email." };
         showToast(msgs[lang] || msgs.fr, "error");
       } finally {
-        btn.disabled = false;
+        btns.forEach(b => b.disabled = false);
       }
     });
   });
