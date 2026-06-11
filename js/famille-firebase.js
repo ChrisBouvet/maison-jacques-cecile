@@ -305,13 +305,25 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.key === "Enter") checkPassword();
   });
 
-  // Auto-unlock si déjà authentifié cette session
-  if (sessionStorage.getItem("famille_auth") === "1") {
-    const role    = sessionStorage.getItem("famille_role") || "famille";
+  // Auto-unlock si déjà authentifié cette session (et rôle valide)
+  const validRoles = Object.values(PASSWORDS); // ["famille", "admin"]
+  const storedRole = sessionStorage.getItem("famille_role");
+  if (sessionStorage.getItem("famille_auth") === "1" && validRoles.includes(storedRole)) {
     const gate    = document.getElementById("passwordGate");
     const content = document.getElementById("privateContent");
     if (gate)    gate.style.display = "none";
     if (content) content.classList.add("unlocked");
-    startFamilleApp(role);
+    startFamilleApp(storedRole);
+  } else {
+    // Session invalide ou absente : on s'assure que l'accès reste verrouillé
+    sessionStorage.removeItem("famille_auth");
+    sessionStorage.removeItem("famille_role");
   }
+
+  // Bouton "Verrouiller"
+  document.getElementById("lockBtn")?.addEventListener("click", () => {
+    sessionStorage.removeItem("famille_auth");
+    sessionStorage.removeItem("famille_role");
+    location.reload();
+  });
 });
