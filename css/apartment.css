@@ -282,3 +282,6 @@
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
 }
+
+.btn-edit { border-color: var(--bleu-alpin); color: var(--bleu-alpin); }
+.btn-edit:hover { background: rgba(44,74,110,0.08); }
