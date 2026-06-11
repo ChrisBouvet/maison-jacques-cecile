@@ -82,8 +82,7 @@
   opacity: 0.3;
 }
 .combined-bar.status-famille { background: var(--bleu-alpin); opacity: 1; }
-.combined-bar.bar-rdc.status-booked { background: var(--or); opacity: 1; }
-.combined-bar.bar-2eme.status-booked { background: var(--brun-clair); opacity: 1; }
+.combined-bar.status-booked  { background: var(--or); opacity: 1; }
 .combined-bar.status-pending { background: #EF9F27; opacity: 0.85; }
 
 .combined-legend {
