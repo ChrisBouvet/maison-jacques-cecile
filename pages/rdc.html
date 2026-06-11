@@ -329,6 +329,12 @@
           <label>Email</label>
           <input type="email" name="email" required>
         </div>
+        <div class="form-group">
+          <label data-lang="fr">Téléphone (optionnel)</label>
+          <label data-lang="en" style="display:none">Phone (optional)</label>
+          <label data-lang="it" style="display:none">Telefono (opzionale)</label>
+          <input type="tel" name="phone" placeholder="+33 6 12 34 56 78">
+        </div>
         <div class="form-row">
           <div class="form-group">
             <label data-lang="fr">Arrivée</label>
@@ -343,14 +349,32 @@
             <input type="date" name="departure" required>
           </div>
         </div>
-        <div class="form-group">
-          <label data-lang="fr">Nombre de personnes</label>
-          <label data-lang="en" style="display:none">Number of guests</label>
-          <label data-lang="it" style="display:none">Numero di persone</label>
-          <select name="guests">
-            <option>1</option><option>2</option><option>3</option>
-            <option>4</option><option>5</option><option>6+</option>
-          </select>
+        <div class="form-row">
+          <div class="form-group">
+            <label data-lang="fr">Adultes</label>
+            <label data-lang="en" style="display:none">Adults</label>
+            <label data-lang="it" style="display:none">Adulti</label>
+            <select name="adults">
+              <option>1</option><option selected>2</option><option>3</option>
+              <option>4</option><option>5</option><option>6</option><option>7</option><option>8</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label data-lang="fr">Enfants</label>
+            <label data-lang="en" style="display:none">Children</label>
+            <label data-lang="it" style="display:none">Bambini</label>
+            <select name="children">
+              <option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group form-group-checkbox">
+          <label>
+            <input type="checkbox" name="pets">
+            <span data-lang="fr">Nous avons un animal de compagnie</span>
+            <span data-lang="en" style="display:none">We have a pet</span>
+            <span data-lang="it" style="display:none">Abbiamo un animale domestico</span>
+          </label>
         </div>
         <div class="form-group">
           <label data-lang="fr">Message (optionnel)</label>
