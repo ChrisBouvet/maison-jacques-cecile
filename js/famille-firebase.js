@@ -92,7 +92,7 @@ function sortReservations(resas) {
   });
 }
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 5;
 let _currentPage = 1;
 
 function renderTable(resas) {
@@ -392,11 +392,4 @@ document.addEventListener("DOMContentLoaded", () => {
     sessionStorage.removeItem("famille_auth");
     sessionStorage.removeItem("famille_role");
   }
-
-  // Bouton "Verrouiller"
-  document.getElementById("lockBtn")?.addEventListener("click", () => {
-    sessionStorage.removeItem("famille_auth");
-    sessionStorage.removeItem("famille_role");
-    location.reload();
-  });
 });

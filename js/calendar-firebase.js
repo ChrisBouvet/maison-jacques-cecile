@@ -325,6 +325,14 @@ export function initResaForms() {
       const pets     = form.querySelector("[name='pets']")?.checked || false;
       const message  = form.querySelector("[name='message']")?.value || "";
 
+      // Email et téléphone sont individuellement optionnels,
+      // mais au moins l'un des deux doit être renseigné.
+      if (!email && !phone) {
+        const msgs = { fr: "Merci de renseigner votre email ou votre téléphone.", en: "Please provide your email or phone number.", it: "Si prega di indicare email o telefono." };
+        showToast(msgs[lang] || msgs.fr, "error");
+        return;
+      }
+
       const btns = form.querySelectorAll("[type='submit']");
       btns.forEach(b => b.disabled = true);
 
