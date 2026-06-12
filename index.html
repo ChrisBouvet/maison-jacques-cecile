@@ -154,31 +154,31 @@
         <span class="fact-label">Indipendenti</span>
       </div>
       <div class="fact-sep"></div>
-      <div class="fact-item" data-lang="fr">
+      <a class="fact-item fact-item--link" href="https://www.vialattea.it" target="_blank" rel="noopener" data-lang="fr">
         <span class="fact-num">400 km</span>
         <span class="fact-label">De pistes – La Voie Lactée</span>
-      </div>
-      <div class="fact-item" data-lang="en" style="display:none">
+      </a>
+      <a class="fact-item fact-item--link" href="https://www.vialattea.it" target="_blank" rel="noopener" data-lang="en" style="display:none">
         <span class="fact-num">400 km</span>
         <span class="fact-label">Slopes – Milky Way</span>
-      </div>
-      <div class="fact-item" data-lang="it" style="display:none">
+      </a>
+      <a class="fact-item fact-item--link" href="https://www.vialattea.it" target="_blank" rel="noopener" data-lang="it" style="display:none">
         <span class="fact-num">400 km</span>
         <span class="fact-label">Piste – Via Lattea</span>
-      </div>
+      </a>
       <div class="fact-sep"></div>
-      <div class="fact-item" data-lang="fr">
+      <a class="fact-item fact-item--link" href="https://www.olympics.com/cio/jeux-olympiques/alpes-francaises-2030" target="_blank" rel="noopener" data-lang="fr">
         <span class="fact-num">JO 2030</span>
         <span class="fact-label">Site officiel</span>
-      </div>
-      <div class="fact-item" data-lang="en" style="display:none">
+      </a>
+      <a class="fact-item fact-item--link" href="https://www.olympics.com/cio/jeux-olympiques/alpes-francaises-2030" target="_blank" rel="noopener" data-lang="en" style="display:none">
         <span class="fact-num">OG 2030</span>
         <span class="fact-label">Official venue</span>
-      </div>
-      <div class="fact-item" data-lang="it" style="display:none">
+      </a>
+      <a class="fact-item fact-item--link" href="https://www.olympics.com/cio/jeux-olympiques/alpes-francaises-2030" target="_blank" rel="noopener" data-lang="it" style="display:none">
         <span class="fact-num">OI 2030</span>
         <span class="fact-label">Sede ufficiale</span>
-      </div>
+      </a>
     </div>
   </div>
 </div>
@@ -186,6 +186,8 @@
 <!-- ══ LA MAISON ══ -->
 <section class="section" id="maison">
   <div class="container">
+    <div class="maison-grid">
+    <div class="maison-text">
     <!-- FR -->
     <div data-lang="fr">
       <div class="section-intro reveal">
@@ -291,6 +293,24 @@
         </div>
       </div>
     </div>
+    </div><!-- /maison-text -->
+
+    <!-- PHOTO DE LA MAISON (hiver / été) -->
+    <div class="maison-photo reveal">
+      <img id="maisonPhoto"
+           src="img/maison-hiver.jpg"
+           data-winter="img/maison-hiver.jpg"
+           data-summer="img/maison-ete.jpg"
+           alt="Maison Jacques et Cécile"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="maison-photo-ph" style="display:none">
+        <span>📸</span>
+        <small data-lang="fr">Photo de la maison à venir</small>
+        <small data-lang="en" style="display:none">House photo coming soon</small>
+        <small data-lang="it" style="display:none">Foto della casa in arrivo</small>
+      </div>
+    </div>
+    </div><!-- /maison-grid -->
 
     <!-- LOCATION AVANTAGES -->
     <div class="location-cards reveal mt-3">
@@ -299,12 +319,13 @@
         <div class="prox-grid">
           <div class="prox-item"><span class="prox-icon">⛷</span><span>Départ des pistes</span><strong>150 m</strong></div>
           <div class="prox-item"><span class="prox-icon">🎟</span><span>Caisses remontées mécaniques</span><strong>150 m</strong></div>
-          <div class="prox-item"><span class="prox-icon">🎿</span><span>Écoles de ski</span><strong>200 m</strong></div>
+          <a class="prox-item prox-item--link" href="https://www.esf-montgenevre.com/" target="_blank" rel="noopener"><span class="prox-icon">🎿</span><span>École de Ski Français (ESF)</span><strong>200 m</strong></a>
+          <a class="prox-item prox-item--link" href="https://www.ecoledeski.fr/montgenevre" target="_blank" rel="noopener"><span class="prox-icon">🏂</span><span>École de Ski Internationale (ESI)</span><strong>200 m</strong></a>
           <div class="prox-item"><span class="prox-icon">🧸</span><span>Garderie</span><strong>200 m</strong></div>
           <div class="prox-item"><span class="prox-icon">🏥</span><span>Cabinet médical</span><strong>100 m</strong></div>
           <div class="prox-item"><span class="prox-icon">🛍</span><span>Commerces & restaurants</span><strong>50 m</strong></div>
           <div class="prox-item"><span class="prox-icon">⛪</span><span>Église (face à la maison)</span><strong>0 m</strong></div>
-          <div class="prox-item"><span class="prox-icon">🇮🇹</span><span>Italie (Clavière)</span><strong>3 km</strong></div>
+          <a class="prox-item prox-item--link" href="https://www.claviere.it/" target="_blank" rel="noopener"><span class="prox-icon">🇮🇹</span><span>Italie (Clavière)</span><strong>3 km</strong></a>
         </div>
       </div>
       <div data-lang="en" style="display:none">
@@ -312,12 +333,13 @@
         <div class="prox-grid">
           <div class="prox-item"><span class="prox-icon">⛷</span><span>Ski slope access</span><strong>150 m</strong></div>
           <div class="prox-item"><span class="prox-icon">🎟</span><span>Ski lift ticket office</span><strong>150 m</strong></div>
-          <div class="prox-item"><span class="prox-icon">🎿</span><span>Ski schools</span><strong>200 m</strong></div>
+          <a class="prox-item prox-item--link" href="https://www.esf-montgenevre.com/" target="_blank" rel="noopener"><span class="prox-icon">🎿</span><span>French Ski School (ESF)</span><strong>200 m</strong></a>
+          <a class="prox-item prox-item--link" href="https://www.ecoledeski.fr/montgenevre" target="_blank" rel="noopener"><span class="prox-icon">🏂</span><span>International Ski School (ESI)</span><strong>200 m</strong></a>
           <div class="prox-item"><span class="prox-icon">🧸</span><span>Childcare / nursery</span><strong>200 m</strong></div>
           <div class="prox-item"><span class="prox-icon">🏥</span><span>Medical practice</span><strong>100 m</strong></div>
           <div class="prox-item"><span class="prox-icon">🛍</span><span>Shops & restaurants</span><strong>50 m</strong></div>
           <div class="prox-item"><span class="prox-icon">⛪</span><span>Church (facing the house)</span><strong>0 m</strong></div>
-          <div class="prox-item"><span class="prox-icon">🇮🇹</span><span>Italy (Clavière)</span><strong>3 km</strong></div>
+          <a class="prox-item prox-item--link" href="https://www.claviere.it/" target="_blank" rel="noopener"><span class="prox-icon">🇮🇹</span><span>Italy (Clavière)</span><strong>3 km</strong></a>
         </div>
       </div>
       <div data-lang="it" style="display:none">
@@ -325,12 +347,13 @@
         <div class="prox-grid">
           <div class="prox-item"><span class="prox-icon">⛷</span><span>Accesso alle piste</span><strong>150 m</strong></div>
           <div class="prox-item"><span class="prox-icon">🎟</span><span>Casse degli impianti</span><strong>150 m</strong></div>
-          <div class="prox-item"><span class="prox-icon">🎿</span><span>Scuole di sci</span><strong>200 m</strong></div>
+          <a class="prox-item prox-item--link" href="https://www.esf-montgenevre.com/" target="_blank" rel="noopener"><span class="prox-icon">🎿</span><span>Scuola di Sci Francese (ESF)</span><strong>200 m</strong></a>
+          <a class="prox-item prox-item--link" href="https://www.ecoledeski.fr/montgenevre" target="_blank" rel="noopener"><span class="prox-icon">🏂</span><span>Scuola di Sci Internazionale (ESI)</span><strong>200 m</strong></a>
           <div class="prox-item"><span class="prox-icon">🧸</span><span>Asilo nido</span><strong>200 m</strong></div>
           <div class="prox-item"><span class="prox-icon">🏥</span><span>Studio medico</span><strong>100 m</strong></div>
           <div class="prox-item"><span class="prox-icon">🛍</span><span>Negozi & ristoranti</span><strong>50 m</strong></div>
           <div class="prox-item"><span class="prox-icon">⛪</span><span>Chiesa (di fronte alla casa)</span><strong>0 m</strong></div>
-          <div class="prox-item"><span class="prox-icon">🇮🇹</span><span>Italia (Clavière)</span><strong>3 km</strong></div>
+          <a class="prox-item prox-item--link" href="https://www.claviere.it/" target="_blank" rel="noopener"><span class="prox-icon">🇮🇹</span><span>Italia (Clavière)</span><strong>3 km</strong></a>
         </div>
       </div>
     </div>
