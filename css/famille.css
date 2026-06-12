@@ -59,27 +59,27 @@
   font-size: 1.2rem;
 }
 .combined-grid .calendar-day.combined {
-  min-height: 56px;
-  padding: 6px 4px;
+  min-height: 74px;
+  padding: 8px 5px;
   cursor: default;
   align-items: center;
 }
 .combined-grid .calendar-day.combined .day-num {
   font-size: 0.85rem;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
 .combined-bars {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
   width: 100%;
   padding: 0 2px;
 }
 .combined-bar {
-  height: 4px;
-  border-radius: 2px;
+  height: 9px;
+  border-radius: 3px;
   background: var(--or-clair);
-  opacity: 0.3;
+  opacity: 0.35;
 }
 .combined-bar.status-famille { background: var(--bleu-alpin); opacity: 1; }
 .combined-bar.status-booked  { background: var(--or); opacity: 1; }
@@ -90,14 +90,15 @@
   gap: 1rem 1.25rem;
 }
 .legend-bar {
-  width: 16px;
-  height: 6px;
-  border-radius: 2px;
+  width: 20px;
+  height: 9px;
+  border-radius: 3px;
 }
 
 @media (max-width: 600px) {
-  .combined-grid .calendar-day.combined { min-height: 48px; }
-  .combined-bar { height: 3px; }
+  .combined-grid .calendar-day.combined { min-height: 60px; padding: 6px 3px; }
+  .combined-bar { height: 7px; border-radius: 2px; }
+  .combined-bars { gap: 2px; }
 }
 
 .planning-hint {
@@ -109,10 +110,16 @@
 /* ── PAGINATION ── */
 .pagination {
   display: flex;
+  align-items: center;
   gap: 0.4rem;
   justify-content: center;
   margin-top: 1rem;
   flex-wrap: wrap;
+}
+.pagination-info {
+  font-size: 0.8rem;
+  color: var(--gris);
+  margin-right: 0.5rem;
 }
 .page-btn {
   min-width: 32px;
