@@ -777,3 +777,24 @@ img { max-width: 100%; height: auto; display: block; }
   .gallery { grid-template-columns: 1fr 1fr; }
   .gallery__item:first-child { grid-column: span 2; }
 }
+
+/* WhatsApp button (footer) */
+.whatsapp-btn-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  background: #25D366;
+  color: #fff;
+  border-radius: 2rem;
+  font-size: 0.76rem;
+  font-weight: 500;
+  transition: background 0.2s, transform 0.15s;
+  text-decoration: none;
+  width: fit-content;
+}
+.whatsapp-btn-home:hover {
+  background: #1ebe5d;
+  transform: translateY(-1px);
+}
