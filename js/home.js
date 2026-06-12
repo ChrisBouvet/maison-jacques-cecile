@@ -5,6 +5,19 @@ function setHeroBg(season) {
   el.classList.toggle('summer', season === 'summer');
 }
 
+// ── PHOTO DE LA MAISON (hiver / été) ──
+function setMaisonPhoto(season) {
+  const img = document.getElementById('maisonPhoto');
+  if (!img) return;
+  const url = season === 'summer' ? img.dataset.summer : img.dataset.winter;
+  if (url && img.getAttribute('src') !== url) {
+    // Réaffiche l'image (au cas où elle aurait été masquée par onerror précédemment)
+    img.style.display = '';
+    img.nextElementSibling.style.display = 'none';
+    img.src = url;
+  }
+}
+
 // ── SEASON TOGGLE (Hero) ──
 let currentSeason = 'winter';
 
@@ -27,6 +40,9 @@ document.querySelectorAll('.season-btn').forEach(btn => {
 
     // Update hero background with real Montgenèvre photos
     setHeroBg(season);
+
+    // Update house photo (été / hiver)
+    setMaisonPhoto(season);
   });
 });
 
