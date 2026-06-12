@@ -30,20 +30,45 @@
 <!-- GALLERY -->
 <div class="apt-gallery">
   <div class="apt-gallery__main">
-    <div class="gallery-ph large">
-      <span>📸</span>
-      <span data-lang="fr">Vue panoramique – Appartement 2e étage</span>
-      <span data-lang="en" style="display:none">Panoramic view – 2nd floor apartment</span>
-      <span data-lang="it" style="display:none">Vista panoramica – Appartamento 2° piano</span>
+    <div class="gallery-photo large">
+      <img src="../img/2eme/principale.jpg" alt="Appartement 2e étage" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="gallery-ph large" style="display:none">
+        <span>📸</span>
+        <span data-lang="fr">Vue panoramique – Appartement 2e étage</span>
+        <span data-lang="en" style="display:none">Panoramic view – 2nd floor apartment</span>
+        <span data-lang="it" style="display:none">Vista panoramica – Appartamento 2° piano</span>
+      </div>
     </div>
   </div>
   <div class="apt-gallery__grid">
-    <div class="gallery-ph"><span>📸</span><small data-lang="fr">Séjour lumineux</small><small data-lang="en" style="display:none">Bright living room</small><small data-lang="it" style="display:none">Soggiorno luminoso</small></div>
-    <div class="gallery-ph"><span>📸</span><small data-lang="fr">Cuisine ouverte</small><small data-lang="en" style="display:none">Open kitchen</small><small data-lang="it" style="display:none">Cucina aperta</small></div>
-    <div class="gallery-ph"><span>📸</span><small data-lang="fr">Chambre vue montagne</small><small data-lang="en" style="display:none">Mountain-view bedroom</small><small data-lang="it" style="display:none">Camera vista montagna</small></div>
-    <div class="gallery-ph"><span>📸</span><small data-lang="fr">Vue sur le village</small><small data-lang="en" style="display:none">Village view</small><small data-lang="it" style="display:none">Vista sul villaggio</small></div>
+    <div class="gallery-photo">
+      <img src="../img/2eme/sejour.jpg" alt="Séjour lumineux" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="gallery-ph" style="display:none"><span>📸</span><small data-lang="fr">Séjour lumineux</small><small data-lang="en" style="display:none">Bright living room</small><small data-lang="it" style="display:none">Soggiorno luminoso</small></div>
+    </div>
+    <div class="gallery-photo">
+      <img src="../img/2eme/cuisine.jpg" alt="Cuisine ouverte" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="gallery-ph" style="display:none"><span>📸</span><small data-lang="fr">Cuisine ouverte</small><small data-lang="en" style="display:none">Open kitchen</small><small data-lang="it" style="display:none">Cucina aperta</small></div>
+    </div>
+    <div class="gallery-photo">
+      <img src="../img/2eme/chambre.jpg" alt="Chambre vue montagne" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="gallery-ph" style="display:none"><span>📸</span><small data-lang="fr">Chambre vue montagne</small><small data-lang="en" style="display:none">Mountain-view bedroom</small><small data-lang="it" style="display:none">Camera vista montagna</small></div>
+    </div>
+    <div class="gallery-photo">
+      <img src="../img/2eme/vue-village.jpg" alt="Vue sur le village" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="gallery-ph" style="display:none"><span>📸</span><small data-lang="fr">Vue sur le village</small><small data-lang="en" style="display:none">Village view</small><small data-lang="it" style="display:none">Vista sul villaggio</small></div>
+    </div>
   </div>
 </div>
+
+<!-- PLUS DE PHOTOS (galerie extensible) -->
+<section class="extra-gallery-section" id="extraGallerySection" data-folder="2eme" style="display:none;">
+  <div class="container">
+    <h3 data-lang="fr">Plus de photos</h3>
+    <h3 data-lang="en" style="display:none">More photos</h3>
+    <h3 data-lang="it" style="display:none">Altre foto</h3>
+    <div class="extra-gallery" id="extraGallery"></div>
+  </div>
+</section>
 
 <!-- MAIN CONTENT -->
 <div class="apt-layout container">
