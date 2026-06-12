@@ -294,3 +294,98 @@
   .prox-grid { grid-template-columns: 1fr; }
   .photo-band { grid-template-columns: 1fr 1fr; }
 }
+
+/* WhatsApp button – contact section (dark bg) */
+.whatsapp-btn-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  background: #25D366;
+  color: #fff;
+  border-radius: 2rem;
+  font-size: 0.76rem;
+  font-weight: 500;
+  transition: background 0.2s, transform 0.15s;
+  text-decoration: none;
+  width: fit-content;
+}
+.whatsapp-btn-home:hover {
+  background: #1ebe5d;
+  transform: translateY(-1px);
+}
+
+/* Clickable fact items in facts bar */
+.fact-item--link {
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.15s;
+  cursor: pointer;
+}
+.fact-item--link:hover {
+  opacity: 0.75;
+  transform: translateY(-2px);
+}
+.fact-item--link .fact-label {
+  text-decoration: underline;
+  text-decoration-color: rgba(201,169,110,0.4);
+  text-decoration-thickness: 1px;
+}
+
+/* Clickable proximity items */
+.prox-item--link {
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.prox-item--link:hover {
+  border-color: var(--or);
+  transform: translateX(3px);
+}
+.prox-item--link span:nth-child(2) {
+  text-decoration: underline;
+  text-decoration-color: rgba(201,169,110,0.4);
+  text-decoration-thickness: 1px;
+}
+
+/* ── MAISON GRID (texte + photo) ── */
+.maison-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+.maison-text { min-width: 0; }
+.maison-photo {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--or-clair);
+  aspect-ratio: 4/5;
+}
+.maison-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.5s ease;
+}
+.maison-photo-ph {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--creme);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--gris);
+  font-size: 2rem;
+}
+.maison-photo-ph small { font-size: 0.85rem; }
+
+@media (max-width: 900px) {
+  .maison-grid { grid-template-columns: 1fr; }
+  .maison-photo { aspect-ratio: 16/9; }
+}
