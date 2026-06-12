@@ -22,6 +22,30 @@ function fmtShort(dateStr) {
   return `${d}/${m}`;
 }
 
+const STATUS_LABELS = {
+  fr: { en_attente: "En attente", confirmee: "Confirmée", famille: "Famille", refusee: "Refusée" },
+  en: { en_attente: "Pending",    confirmee: "Confirmed", famille: "Family",  refusee: "Refused" },
+  it: { en_attente: "In attesa",  confirmee: "Confermata", famille: "Famiglia", refusee: "Rifiutata" }
+};
+
+function statusLabel(statut) {
+  const lang = localStorage.getItem("lang") || "fr";
+  return (STATUS_LABELS[lang] || STATUS_LABELS.fr)[statut] || statut || "";
+}
+
+// Libellés courts pour le calendrier combiné
+const APT_SHORT_LABELS = {
+  fr: { rdc: "rdc", famille: "1er", "2eme": "2eme" },
+  en: { rdc: "ground", famille: "1st", "2eme": "2nd" },
+  it: { rdc: "pt", famille: "1°", "2eme": "2°" }
+};
+
+const COMBINED_STATUS_LABELS = {
+  fr: { booked: "loué",    pending: "en attente", famille: "occupé",   free: "libre" },
+  en: { booked: "booked",  pending: "pending",    famille: "occupied", free: "free" },
+  it: { booked: "affittato", pending: "in attesa", famille: "occupato", free: "libero" }
+};
+
 // ══════════════════════════════════════════════════
 //  STORE PARTAGÉ — un seul listener Firestore pour
 //  toute la page (calendriers + tableau récapitulatif)
@@ -129,6 +153,7 @@ export class FirebaseCalendar {
 
         const range = `${fmtShort(resa.start)} → ${fmtShort(resa.end)}`;
         const name  = (resa.tenant || resa.nom || "").trim();
+        const status = statusLabel(resa.statut);
 
         if (this.showNames) {
           if (name) {
@@ -137,7 +162,7 @@ export class FirebaseCalendar {
             label.textContent = name.split(/\s+/)[0];
             cell.appendChild(label);
           }
-          cell.title = name ? `${name} (${range})` : range;
+          cell.title = (name ? `${name} (${range})` : range) + (status ? ` — ${status}` : "");
         } else {
           cell.title = range;
         }
@@ -228,22 +253,23 @@ export class CombinedCalendar {
       const bars = document.createElement("div");
       bars.className = "combined-bars";
 
+      const lang2 = localStorage.getItem("lang") || "fr";
+      const aptLabels    = APT_SHORT_LABELS[lang2] || APT_SHORT_LABELS.fr;
+      const statusLabels = COMBINED_STATUS_LABELS[lang2] || COMBINED_STATUS_LABELS.fr;
+
       const tooltips = [];
       APT_ORDER.forEach(apt => {
         const status = this._statusFor(apt, dateStr);
         const bar = document.createElement("div");
         bar.className = `combined-bar bar-${apt} status-${status}`;
         bars.appendChild(bar);
-        if (status !== "free") {
-          const labels = { famille: "1er", rdc: "RDC", "2eme": "2e" };
-          const statusLabels = { booked: "loué", pending: "en attente", famille: "occupé" };
-          const resa = this._resaFor(apt, dateStr);
-          const name = (resa?.tenant || resa?.nom || "").trim();
-          const suffix = name ? ` — ${name}` : "";
-          tooltips.push(`${labels[apt]}: ${statusLabels[status]}${suffix}`);
-        }
+
+        const resa = this._resaFor(apt, dateStr);
+        const name = (resa?.tenant || resa?.nom || "").trim();
+        const suffix = name ? ` - ${name}` : "";
+        tooltips.push(`${aptLabels[apt]}: ${statusLabels[status]}${suffix}`);
       });
-      if (tooltips.length) cell.title = tooltips.join("\n");
+      cell.title = tooltips.join("\n");
 
       cell.appendChild(bars);
       grid.appendChild(cell);
