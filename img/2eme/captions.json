@@ -1,0 +1,10 @@
+{
+  "principale":  { "fr": "Vue panoramique sur le village et les sommets", "en": "Panoramic view over the village and peaks", "it": "Vista panoramica sul villaggio e le cime" },
+  "sejour":      { "fr": "Séjour lumineux avec double exposition", "en": "Bright living room with dual aspect", "it": "Soggiorno luminoso con doppia esposizione" },
+  "cuisine":     { "fr": "Cuisine ouverte sur le séjour", "en": "Open kitchen onto the living room", "it": "Cucina aperta sul soggiorno" },
+  "chambre-1":   { "fr": "Chambre 1 – vue sur les montagnes", "en": "Bedroom 1 – mountain view", "it": "Camera 1 – vista sulle montagne" },
+  "chambre-2":   { "fr": "Chambre 2", "en": "Bedroom 2", "it": "Camera 2" },
+  "extra-1":     { "fr": "", "en": "", "it": "" },
+  "extra-2":     { "fr": "", "en": "", "it": "" },
+  "extra-3":     { "fr": "", "en": "", "it": "" }
+}
