@@ -1,9 +1,5 @@
-// Script commun aux pages d'appartement (RDC et 2ème)
-// Charge le calendrier Firebase, le formulaire de demande,
-// la galerie "Plus de photos" et la lightbox.
-
 import { initCalendars, initResaForms } from "./calendar-firebase.js";
-import { initExtraGallery, initLightbox } from "./extra-gallery.js";
+import { initExtraGallery, initLightbox, applyMainCaptions } from "./extra-gallery.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   initCalendars();
@@ -12,6 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const section = document.getElementById("extraGallerySection");
   if (section) {
-    initExtraGallery(section.dataset.folder, "extraGallery", "extraGallerySection");
+    const folder = section.dataset.folder;
+    applyMainCaptions(folder);
+    initExtraGallery(folder, "extraGallery", "extraGallerySection");
   }
 });
