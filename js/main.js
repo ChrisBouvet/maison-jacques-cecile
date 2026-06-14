@@ -30,16 +30,27 @@ function setLang(lang) {
   }
 }
 
-document.querySelectorAll('.nav__lang a').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    setLang(a.dataset.langbtn);
-  });
+// Délégation d'événements : fonctionne même si la nav est injectée après (pages rdc/2eme/famille)
+document.addEventListener('click', e => {
+  const a = e.target.closest('.nav__lang a[data-langbtn]');
+  if (!a) return;
+  e.preventDefault();
+  setLang(a.dataset.langbtn);
 });
 
 // Init language from localStorage or browser
 const savedLang = localStorage.getItem('lang') || (navigator.language.startsWith('it') ? 'it' : navigator.language.startsWith('fr') ? 'fr' : 'en');
-setLang(['fr','en','it'].includes(savedLang) ? savedLang : 'fr');
+
+// Sur les pages avec nav injectée, on attend que initNav() ait tourné
+if (document.querySelector('.nav__logo')) {
+  // Nav statique (index.html) : applique tout de suite
+  setLang(['fr','en','it'].includes(savedLang) ? savedLang : 'fr');
+} else {
+  // Nav dynamique (rdc/2eme/famille) : attend le DOMContentLoaded
+  document.addEventListener('DOMContentLoaded', () => {
+    setLang(['fr','en','it'].includes(savedLang) ? savedLang : 'fr');
+  });
+}
 
 // ── ACCORDION ──
 document.querySelectorAll('.accordion-btn').forEach(btn => {
