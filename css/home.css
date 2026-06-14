@@ -295,27 +295,6 @@
   .photo-band { grid-template-columns: 1fr 1fr; }
 }
 
-/* WhatsApp button – contact section (dark bg) */
-.whatsapp-btn-home {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  margin-top: 0.5rem;
-  padding: 0.4rem 0.85rem;
-  background: #25D366;
-  color: #fff;
-  border-radius: 2rem;
-  font-size: 0.76rem;
-  font-weight: 500;
-  transition: background 0.2s, transform 0.15s;
-  text-decoration: none;
-  width: fit-content;
-}
-.whatsapp-btn-home:hover {
-  background: #1ebe5d;
-  transform: translateY(-1px);
-}
-
 /* Clickable fact items in facts bar */
 .fact-item--link {
   text-decoration: none;
@@ -388,4 +367,23 @@
 @media (max-width: 900px) {
   .maison-grid { grid-template-columns: 1fr; }
   .maison-photo { aspect-ratio: 16/9; }
+}
+
+/* Étage cliquable (lien vers la page appartement) */
+.house-floor--link {
+  display: flex;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+.house-floor--link:hover {
+  transform: translateX(8px);
+  border-color: var(--or);
+  background: rgba(201,169,110,0.06);
+}
+.house-floor--link .floor-icon {
+  transition: transform 0.2s;
+}
+.house-floor--link:hover .floor-icon {
+  transform: scale(1.2);
 }
