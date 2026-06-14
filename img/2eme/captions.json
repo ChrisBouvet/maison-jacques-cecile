@@ -4,7 +4,11 @@
   "cuisine":     { "fr": "Cuisine ouverte sur le séjour", "en": "Open kitchen onto the living room", "it": "Cucina aperta sul soggiorno" },
   "chambre-1":   { "fr": "Chambre église – vue sur le janus", "en": "Church room – view of Janus", "it": "Sala della chiesa – vista di Janus" },
   "chambre-2":   { "fr": "Chambre jardin - balcon face aux écrins", "en": "Garden-side room - balcony facing the Écrins", "it": "Camera con vista sul giardino - balcone affacciato sugli Écrins" },
-  "extra-1":     { "fr": "", "en": "", "it": "" },
-  "extra-2":     { "fr": "", "en": "", "it": "" },
-  "extra-3":     { "fr": "", "en": "", "it": "" }
+  "extra-1":     { "fr": "Plan de l'appartement", "en": "Apartment layout", "it": "Disposizione dell'appartamento" },
+  "extra-2":     { "fr": "Pièce à vire lumineuse", "en": "Bright living room", "it": "Soggiorno luminoso" },
+  "extra-3":     { "fr": "Salle de bain", "en": "Bathroom", "it": "Bagno" },
+  "extra-4":     { "fr": "Chambre église – vue sur le janus", "en": "Church room – view of Janus", "it": "Sala della chiesa – vista di Janus" },
+  "extra-5":     { "fr": "Local à skis privé", "en": "Private ski storage", "it": "Deposito sci privato" },
+  "extra-6":     { "fr": "Local à skis privé", "en": "Private ski storage", "it": "Deposito sci privato" },
+  "extra-7":     { "fr": "Chambre jardin - balcon face aux écrins", "en": "Garden-side room - balcony facing the Écrins", "it": "Camera con vista sul giardino - balcone affacciato sugli Écrins" }
 }
