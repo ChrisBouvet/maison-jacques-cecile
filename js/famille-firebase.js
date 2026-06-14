@@ -136,26 +136,41 @@ function renderTable(resas) {
     </tr>
   `).join("");
 
-  renderPagination(totalPages);
+  renderPagination(sorted.length);
 }
 
-function renderPagination(totalPages) {
+function renderPagination(total) {
   const container = document.getElementById("reservationPagination");
   if (!container) return;
-  if (totalPages <= 1) { container.innerHTML = ""; return; }
 
-  let html = `<button class="page-btn" ${_currentPage===1?"disabled":""} onclick="changeResaPage(${_currentPage-1})">←</button>`;
-  for (let i = 1; i <= totalPages; i++) {
-    html += `<button class="page-btn ${i===_currentPage?"active":""}" onclick="changeResaPage(${i})">${i}</button>`;
+  if (total === 0) { container.innerHTML = ""; return; }
+
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  const startN = (_currentPage - 1) * PAGE_SIZE + 1;
+  const endN   = Math.min(_currentPage * PAGE_SIZE, total);
+
+  let html = `<span class="pagination-info">${startN}–${endN} / ${total}</span>`;
+
+  if (totalPages > 1) {
+    html += `<button class="page-btn" data-page="${_currentPage-1}" ${_currentPage===1?"disabled":""}>←</button>`;
+    for (let i = 1; i <= totalPages; i++) {
+      html += `<button class="page-btn ${i===_currentPage?"active":""}" data-page="${i}">${i}</button>`;
+    }
+    html += `<button class="page-btn" data-page="${_currentPage+1}" ${_currentPage===totalPages?"disabled":""}>→</button>`;
   }
-  html += `<button class="page-btn" ${_currentPage===totalPages?"disabled":""} onclick="changeResaPage(${_currentPage+1})">→</button>`;
+
   container.innerHTML = html;
 }
 
-window.changeResaPage = (p) => {
-  _currentPage = p;
+// Délégation d'événements : un seul listener pour tous les boutons de pagination
+document.addEventListener("click", e => {
+  const btn = e.target.closest("#reservationPagination .page-btn");
+  if (!btn || btn.disabled) return;
+  const page = parseInt(btn.dataset.page, 10);
+  if (Number.isNaN(page)) return;
+  _currentPage = page;
   renderTable(window._reservationsCache || []);
-};
+});
 
 // ══════════════════════════════════════════════════
 //  ACTIONS ADMIN
@@ -164,7 +179,7 @@ window.changeResaPage = (p) => {
 // "Valider" : passe une demande en attente en confirmée (ou "famille" si apt = famille)
 window.validateResa = async (id) => {
   const r = (window._reservationsCache || []).find(x => x.id === id);
-  const statut = (r && r.apt === "famille") ? "famille" : "confirmee";
+  const statut = (r && (r.apt === "famille" || r.type === "famille")) ? "famille" : "confirmee";
   try {
     await updateReservation(id, { statut });
     showToast("Réservation validée !", "success");
@@ -206,7 +221,15 @@ window.editResa = (id) => {
   endInput.value   = r.end || "";
 
   form.querySelector("input[name='tenant']").value  = r.tenant || r.nom || "";
+  document.getElementById("adminEmail").value       = r.email || "";
+  document.getElementById("adminPhone").value       = r.phone || "";
   document.getElementById("adminNotes").value       = r.notes || r.message || "";
+  const typeEl = form.querySelector("select[name='type']");
+  if (typeEl) typeEl.value = r.type || "locataire";
+  const origineEl = form.querySelector("select[name='origine']");
+  if (origineEl) { origineEl.value = r.origine || ""; syncOrigineField(form); }
+  const petsEl = form.querySelector("input[name='adminPets']");
+  if (petsEl) petsEl.checked = r.pets || false;
 
   window._editingId = id;
   document.getElementById("adminEditId").value = id;
@@ -228,13 +251,13 @@ window.editResa = (id) => {
   document.querySelector(".admin-form-wrap")?.scrollIntoView({ behavior: "smooth", block: "start" });
 };
 
-// Affiche un récapitulatif en lecture seule des informations fournies
-// par le demandeur (email, téléphone, adultes/enfants, animal, message).
+// Affiche un récapitulatif en lecture seule des informations complémentaires
+// fournies par le demandeur (adultes/enfants, animal, message).
 function renderEditRequestInfo(r) {
   const box = document.getElementById("editRequestInfo");
   if (!box) return;
 
-  const hasRequestInfo = r.email || r.phone || r.adults || r.children || r.pets || r.message;
+  const hasRequestInfo = r.adults || r.children || r.pets || r.message;
   if (!hasRequestInfo) {
     box.style.display = "none";
     box.innerHTML = "";
@@ -250,11 +273,10 @@ function renderEditRequestInfo(r) {
     <h4 data-lang="en" style="display:none">Request details</h4>
     <h4 data-lang="it" style="display:none">Dettagli della richiesta</h4>
     <div class="edit-request-grid">
-      <div><strong data-lang="fr">Email</strong><strong data-lang="en" style="display:none">Email</strong><strong data-lang="it" style="display:none">Email</strong><br>${r.email || "—"}</div>
-      <div><strong data-lang="fr">Téléphone</strong><strong data-lang="en" style="display:none">Phone</strong><strong data-lang="it" style="display:none">Telefono</strong><br>${r.phone || "—"}</div>
       <div><strong data-lang="fr">Adultes</strong><strong data-lang="en" style="display:none">Adults</strong><strong data-lang="it" style="display:none">Adulti</strong><br>${adults}</div>
       <div><strong data-lang="fr">Enfants</strong><strong data-lang="en" style="display:none">Children</strong><strong data-lang="it" style="display:none">Bambini</strong><br>${children}</div>
       <div><strong data-lang="fr">Animal</strong><strong data-lang="en" style="display:none">Pet</strong><strong data-lang="it" style="display:none">Animale</strong><br>${petsLabel}</div>
+      ${r.origine ? `<div><strong data-lang="fr">Origine</strong><strong data-lang="en" style="display:none">Source</strong><strong data-lang="it" style="display:none">Provenienza</strong><br>${r.origine}</div>` : ""}
     </div>
     ${r.message ? `<div class="mt-1"><strong data-lang="fr">Message</strong><strong data-lang="en" style="display:none">Message</strong><strong data-lang="it" style="display:none">Messaggio</strong><p style="margin:0.25rem 0 0;">${r.message}</p></div>` : ""}
   `;
@@ -290,6 +312,13 @@ function applyCurrentLang(container) {
   });
 }
 
+// Affiche le champ "Origine" seulement si type = locataire
+function syncOrigineField(form) {
+  const type = form.querySelector("select[name='type']")?.value || "locataire";
+  const origineGroup = document.getElementById("adminOrigineGroup");
+  if (origineGroup) origineGroup.style.display = type === "locataire" ? "" : "none";
+}
+
 // ══════════════════════════════════════════════════
 //  FORMULAIRE ADMIN (ajout / modification)
 // ══════════════════════════════════════════════════
@@ -304,13 +333,23 @@ function initAdminForm() {
 
   cancelBtn?.addEventListener("click", resetAdminForm);
 
+  // Affiche/masque le champ origine selon le type
+  const typeSelect = form.querySelector("select[name='type']");
+  typeSelect?.addEventListener("change", () => syncOrigineField(form));
+  syncOrigineField(form);
+
   btn.addEventListener("click", async () => {
     const apt    = form.querySelector("select[name='apt']").value;
     const statut = form.querySelector("select[name='statut']").value;
     const start  = form.querySelector("input[name='start']").value;
     const end    = form.querySelector("input[name='end']").value;
-    const tenant = form.querySelector("input[name='tenant']").value;
-    const notes  = document.getElementById("adminNotes")?.value || "";
+    const tenant  = form.querySelector("input[name='tenant']").value;
+    const email   = document.getElementById("adminEmail")?.value.trim() || "";
+    const phone   = document.getElementById("adminPhone")?.value.trim() || "";
+    const notes   = document.getElementById("adminNotes")?.value || "";
+    const type    = form.querySelector("select[name='type']")?.value || "locataire";
+    const origine = type === "locataire" ? (form.querySelector("select[name='origine']")?.value || "") : "";
+    const pets    = form.querySelector("input[name='adminPets']")?.checked || false;
 
     if (!start) { showToast("Veuillez saisir la date d'arrivée.", "error"); return; }
     if (!end)   { showToast("Veuillez saisir la date de départ.", "error"); return; }
@@ -323,8 +362,9 @@ function initAdminForm() {
       const data = {
         apt, start, end,
         nom: tenant, tenant,
+        email, phone,
         statut, notes,
-        type: statut === "famille" ? "family" : "locataire"
+        type, origine, pets
       };
 
       if (editingId) {
@@ -350,9 +390,9 @@ function initAdminForm() {
 window.exportReservations = async () => {
   const { getReservations } = await import("./firebase-db.js");
   const resas = await getReservations();
-  const rows  = [["Appartement","Arrivée","Départ","Locataire","Email","Téléphone","Adultes","Enfants","Animal","Statut","Notes"]];
+  const rows  = [["Appartement","Type","Origine","Arrivée","Départ","Locataire","Email","Téléphone","Adultes","Enfants","Animal","Statut","Notes"]];
   sortReservations(resas).forEach(r => rows.push([
-    APT_LABELS[r.apt]||r.apt, r.start, r.end,
+    APT_LABELS[r.apt]||r.apt, r.type||"", r.origine||"", r.start, r.end,
     r.nom||r.tenant||"", r.email||"", r.phone||"",
     r.adults||"", r.children||"0", r.pets ? "Oui" : "Non",
     r.statut, r.notes||r.message||""
@@ -367,8 +407,20 @@ window.exportReservations = async () => {
 };
 
 // ══════════════════════════════════════════════════
-//  INIT PAGE
+//  MIGRATION FIREBASE : "family" → "famille"
+//  À appeler une seule fois depuis la console admin.
+//  window.migrateTypeFamily()
 // ══════════════════════════════════════════════════
+window.migrateTypeFamily = async () => {
+  const { getReservations, updateReservation } = await import("./firebase-db.js");
+  const resas = await getReservations();
+  const toFix = resas.filter(r => r.type === "family");
+  if (toFix.length === 0) { showToast("Aucune migration nécessaire.", "success"); return; }
+  for (const r of toFix) {
+    await updateReservation(r.id, { type: "famille" });
+  }
+  showToast(`${toFix.length} enregistrement(s) migré(s) : "family" → "famille".`, "success");
+};
 document.addEventListener("DOMContentLoaded", () => {
   // Boutons mot de passe
   ["pwSubmitFr","pwSubmitEn","pwSubmitIt"].forEach(id =>

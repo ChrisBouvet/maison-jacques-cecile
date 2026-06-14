@@ -132,7 +132,7 @@ export class FirebaseCalendar {
         let baseClass;
         if (resa.statut === "en_attente") {
           baseClass = "pending";
-        } else if (resa.type === "family" || resa.statut === "famille") {
+        } else if (resa.type === "famille" || resa.statut === "famille") {
           baseClass = "reserved-family";
         } else {
           baseClass = "booked";
@@ -209,7 +209,7 @@ export class CombinedCalendar {
     const resa = this._resaFor(apt, dateStr);
     if (!resa) return "free";
     if (resa.statut === "en_attente") return "pending";
-    if (apt === "famille" || resa.type === "family" || resa.statut === "famille") return "famille";
+    if (apt === "famille" || resa.type === "famille" || resa.statut === "famille") return "famille";
     return "booked";
   }
 
@@ -366,7 +366,8 @@ export function initResaForms() {
         await addReservation({
           apt, nom, email, phone, start, end, adults, children, pets, message,
           statut: "en_attente",
-          type: apt === "famille" ? "family" : "locataire"
+          type: "locataire",
+          origine: "site web"
         });
         const msgs = { fr: "Demande envoyée ! Nous vous répondrons sous 48h.", en: "Request sent! We'll reply within 48h.", it: "Richiesta inviata! Risponderemo entro 48h." };
         showToast(msgs[lang] || msgs.fr, "success");
