@@ -211,8 +211,9 @@ window.editResa = (id) => {
   const form = document.getElementById("adminResaForm");
   if (!form) return;
 
-  form.querySelector("select[name='apt']").value    = r.apt || "famille";
+  form.querySelector("select[name='apt']").value    = r.apt || "rdc";
   form.querySelector("select[name='statut']").value = r.statut || "confirmee";
+  syncTypeFromApt(form); // ajuste type + origine en fonction de l'apt chargé
 
   const startInput = form.querySelector("input[name='start']");
   const endInput   = form.querySelector("input[name='end']");
@@ -295,6 +296,8 @@ function resetAdminForm() {
   const box = document.getElementById("editRequestInfo");
   if (box) { box.style.display = "none"; box.innerHTML = ""; }
 
+  syncTypeFromApt(document.getElementById("adminResaForm"));
+
   const submitBtn = document.getElementById("adminSubmitBtn");
   submitBtn.innerHTML = `
     <span data-lang="fr">✓ Ajouter la réservation</span>
@@ -319,6 +322,33 @@ function syncOrigineField(form) {
   if (origineGroup) origineGroup.style.display = type === "locataire" ? "" : "none";
 }
 
+// Quand apt = "famille" → force type = "famille" et grise l'option "locataire"
+function syncTypeFromApt(form) {
+  const apt        = document.getElementById("adminAptSelect")?.value;
+  const typeSelect = document.getElementById("adminTypeSelect");
+  if (!typeSelect) return;
+
+  if (apt === "famille") {
+    typeSelect.value = "famille";
+    // Grise l'option locataire
+    typeSelect.querySelectorAll("option[value='locataire']").forEach(o => {
+      o.disabled = true;
+      o.style.color = "var(--gris)";
+    });
+  } else {
+    // Restaure les options locataire
+    typeSelect.querySelectorAll("option[value='locataire']").forEach(o => {
+      o.disabled = false;
+      o.style.color = "";
+    });
+    // Remet locataire par défaut si on repasse à un appt locatif
+    if (typeSelect.value === "famille") typeSelect.value = "locataire";
+  }
+
+  // Resynchronise le champ origine selon le nouveau type
+  syncOrigineField(form);
+}
+
 // ══════════════════════════════════════════════════
 //  FORMULAIRE ADMIN (ajout / modification)
 // ══════════════════════════════════════════════════
@@ -337,6 +367,13 @@ function initAdminForm() {
   const typeSelect = form.querySelector("select[name='type']");
   typeSelect?.addEventListener("change", () => syncOrigineField(form));
   syncOrigineField(form);
+
+  // Quand l'appartement change :
+  // – si "1er étage (famille)" → force type=famille, grise locataire
+  // – sinon → restaure le select type
+  const aptSelect = document.getElementById("adminAptSelect");
+  aptSelect?.addEventListener("change", () => syncTypeFromApt(form));
+  syncTypeFromApt(form);
 
   btn.addEventListener("click", async () => {
     const apt    = form.querySelector("select[name='apt']").value;
