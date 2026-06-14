@@ -1,9 +1,9 @@
 {
-  "principale":  { "fr": "Vue générale de l'appartement du rez-de-chaussée", "en": "Overview of the ground floor apartment", "it": "Vista generale dell'appartamento al piano terra" },
-  "sejour":      { "fr": "Séjour avec coin repas", "en": "Living room with dining area", "it": "Soggiorno con angolo pranzo" },
+  "principale":  { "fr": "Séjour et salle à manger", "en": "Living room and dining room", "it": "Soggiorno e sala da pranzo" },
+  "sejour":      { "fr": "Séjour et salle à manger", "en": "Living room and dining room", "it": "Soggiorno e sala da pranzo" },
   "cuisine":     { "fr": "Cuisine entièrement équipée", "en": "Fully equipped kitchen", "it": "Cucina completamente attrezzata" },
-  "chambre-1":   { "fr": "Chambre 1", "en": "Bedroom 1", "it": "Camera 1" },
-  "chambre-2":   { "fr": "Chambre 2", "en": "Bedroom 2", "it": "Camera 2" },
+  "chambre-1":   { "fr": "Chambre sur jardin", "en": "Room overlooking garden", "it": "Camera con vista sul giardino" },
+  "chambre-2":   { "fr": "Chambre sur rue", "en": "Room on street", "it": "Stanza sulla strada" },
   "extra-1":     { "fr": "", "en": "", "it": "" },
   "extra-2":     { "fr": "", "en": "", "it": "" },
   "extra-3":     { "fr": "", "en": "", "it": "" }
