@@ -4,7 +4,9 @@
   "cuisine":     { "fr": "Cuisine entièrement équipée", "en": "Fully equipped kitchen", "it": "Cucina completamente attrezzata" },
   "chambre-1":   { "fr": "Chambre sur jardin", "en": "Room overlooking garden", "it": "Camera con vista sul giardino" },
   "chambre-2":   { "fr": "Chambre sur rue", "en": "Room on street", "it": "Stanza sulla strada" },
-  "extra-1":     { "fr": "", "en": "", "it": "" },
-  "extra-2":     { "fr": "", "en": "", "it": "" },
-  "extra-3":     { "fr": "", "en": "", "it": "" }
+  "extra-1":     { "fr": "Plan de l'appartement", "en": "Apartment layout", "it": "Disposizione dell'appartamento" },
+  "extra-2":     { "fr": "Séjour et salle à manger", "en": "Living room and dining room", "it": "Soggiorno e sala da pranzo" },
+  "extra-3":     { "fr": "Séjour et salle à manger", "en": "Living room and dining room", "it": "Soggiorno e sala da pranzo" },
+  "extra-4":     { "fr": "Chambre sur jardin", "en": "Room overlooking garden", "it": "Camera con vista sul giardino" },
+  "extra-5":     { "fr": "Chambre sur jardin", "en": "Room overlooking garden", "it": "Camera con vista sul giardino" }
 }
