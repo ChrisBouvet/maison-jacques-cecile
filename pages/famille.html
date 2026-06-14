@@ -223,14 +223,14 @@
               <label data-lang="en" style="display:none">Apartment</label>
               <label data-lang="it" style="display:none">Appartamento</label>
               <select name="apt">
-                <option value="famille" data-lang="fr">1er étage – Famille</option>
                 <option value="rdc" data-lang="fr">RDC – Location</option>
+                <option value="famille" data-lang="fr">1er étage – Famille</option>
                 <option value="2eme" data-lang="fr">2e étage – Location</option>
-                <option value="famille" data-lang="en" style="display:none">1st floor – Family</option>
                 <option value="rdc" data-lang="en" style="display:none">Ground floor – Rental</option>
+                <option value="famille" data-lang="en" style="display:none">1st floor – Family</option>
                 <option value="2eme" data-lang="en" style="display:none">2nd floor – Rental</option>
-                <option value="famille" data-lang="it" style="display:none">1° piano – Famiglia</option>
                 <option value="rdc" data-lang="it" style="display:none">Piano terra – Affitto</option>
+                <option value="famille" data-lang="it" style="display:none">1° piano – Famiglia</option>
                 <option value="2eme" data-lang="it" style="display:none">2° piano – Affitto</option>
               </select>
             </div>
@@ -560,14 +560,14 @@
                   <label data-lang="en" style="display:none">Apartment</label>
                   <label data-lang="it" style="display:none">Appartamento</label>
                   <select name="apt">
-                    <option value="famille" data-lang="fr">1er étage – Famille</option>
                     <option value="rdc" data-lang="fr">RDC – Location</option>
+                    <option value="famille" data-lang="fr">1er étage – Famille</option>
                     <option value="2eme" data-lang="fr">2e étage – Location</option>
-                    <option value="famille" data-lang="en" style="display:none">1st floor – Family</option>
                     <option value="rdc" data-lang="en" style="display:none">Ground floor – Rental</option>
+                    <option value="famille" data-lang="en" style="display:none">1st floor – Family</option>
                     <option value="2eme" data-lang="en" style="display:none">2nd floor – Rental</option>
-                    <option value="famille" data-lang="it" style="display:none">1° piano – Famiglia</option>
                     <option value="rdc" data-lang="it" style="display:none">Piano terra – Affitto</option>
+                    <option value="famille" data-lang="it" style="display:none">1° piano – Famiglia</option>
                     <option value="2eme" data-lang="it" style="display:none">2° piano – Affitto</option>
                   </select>
                 </div>
@@ -610,6 +610,57 @@
                 <label data-lang="en" style="display:none">Tenant / family member name</label>
                 <label data-lang="it" style="display:none">Nome locatario / membro famiglia</label>
                 <input type="text" name="tenant" placeholder="Nom Prénom">
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label data-lang="fr">Type</label>
+                  <label data-lang="en" style="display:none">Type</label>
+                  <label data-lang="it" style="display:none">Tipo</label>
+                  <select name="type">
+                    <option value="locataire" data-lang="fr">Locataire</option>
+                    <option value="famille"   data-lang="fr">Famille</option>
+                    <option value="locataire" data-lang="en" style="display:none">Tenant</option>
+                    <option value="famille"   data-lang="en" style="display:none">Family</option>
+                    <option value="locataire" data-lang="it" style="display:none">Inquilino</option>
+                    <option value="famille"   data-lang="it" style="display:none">Famiglia</option>
+                  </select>
+                </div>
+                <div class="form-group" id="adminOrigineGroup">
+                  <label data-lang="fr">Origine</label>
+                  <label data-lang="en" style="display:none">Source</label>
+                  <label data-lang="it" style="display:none">Provenienza</label>
+                  <select name="origine">
+                    <option value="">—</option>
+                    <option value="site web" data-lang="fr">Site web</option>
+                    <option value="site web" data-lang="en" style="display:none">Website</option>
+                    <option value="site web" data-lang="it" style="display:none">Sito web</option>
+                    <option value="abritel">Abritel</option>
+                    <option value="leboncoin">Le Bon Coin</option>
+                    <option value="connaissances" data-lang="fr">Connaissances</option>
+                    <option value="connaissances" data-lang="en" style="display:none">Acquaintances</option>
+                    <option value="connaissances" data-lang="it" style="display:none">Conoscenti</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Email</label>
+                  <input type="email" id="adminEmail" name="email">
+                </div>
+                <div class="form-group">
+                  <label data-lang="fr">Téléphone</label>
+                  <label data-lang="en" style="display:none">Phone</label>
+                  <label data-lang="it" style="display:none">Telefono</label>
+                  <input type="tel" id="adminPhone" name="phone" placeholder="+33 6 12 34 56 78">
+                </div>
+              </div>
+              <div class="form-group form-group-checkbox">
+                <label>
+                  <input type="checkbox" name="adminPets" id="adminPets">
+                  <span data-lang="fr">Animal de compagnie</span>
+                  <span data-lang="en" style="display:none">Pet</span>
+                  <span data-lang="it" style="display:none">Animale domestico</span>
+                </label>
               </div>
               <div class="form-group">
                 <label data-lang="fr">Notes</label>
