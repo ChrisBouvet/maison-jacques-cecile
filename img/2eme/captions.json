@@ -1,9 +1,9 @@
 {
-  "principale":  { "fr": "Vue panoramique sur le village et les sommets", "en": "Panoramic view over the village and peaks", "it": "Vista panoramica sul villaggio e le cime" },
-  "sejour":      { "fr": "Séjour lumineux avec double exposition", "en": "Bright living room with dual aspect", "it": "Soggiorno luminoso con doppia esposizione" },
+  "principale":  { "fr": "Pièce à vire lumineuse", "en": "Bright living room", "it": "Soggiorno luminoso" },
+  "sejour":      { "fr": "Pièce à vire lumineuse", "en": "Bright living room", "it": "Soggiorno luminoso" },
   "cuisine":     { "fr": "Cuisine ouverte sur le séjour", "en": "Open kitchen onto the living room", "it": "Cucina aperta sul soggiorno" },
-  "chambre-1":   { "fr": "Chambre 1 – vue sur les montagnes", "en": "Bedroom 1 – mountain view", "it": "Camera 1 – vista sulle montagne" },
-  "chambre-2":   { "fr": "Chambre 2", "en": "Bedroom 2", "it": "Camera 2" },
+  "chambre-1":   { "fr": "Chambre église – vue sur le janus", "en": "Church room – view of Janus", "it": "Sala della chiesa – vista di Janus" },
+  "chambre-2":   { "fr": "Chambre jardin - balcon face aux écrins", "en": "Garden-side room - balcony facing the Écrins", "it": "Camera con vista sul giardino - balcone affacciato sugli Écrins" },
   "extra-1":     { "fr": "", "en": "", "it": "" },
   "extra-2":     { "fr": "", "en": "", "it": "" },
   "extra-3":     { "fr": "", "en": "", "it": "" }
