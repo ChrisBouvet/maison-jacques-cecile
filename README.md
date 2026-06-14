@@ -1,10 +1,8 @@
-# Dossier images
+# Photos — Maison Jacques & Cécile (page d'accueil)
 
-Déposez ici les photos de la maison :
+Déposez ici :
 
-- `maison-hiver.jpg` — photo de la maison en hiver (affichée quand le mode ❄ Hiver est actif sur la page d'accueil)
-- `maison-ete.jpg`   — photo de la maison en été (affichée quand le mode ☀ Été est actif)
+- `maison-hiver.jpg` — photo de la maison en hiver (affichée quand ❄ Hiver est actif)
+- `maison-ete.jpg`   — photo de la maison en été  (affichée quand ☀ Été est actif)
 
-Format recommandé : portrait ou carré, au moins 800×1000 px, JPEG.
-
-Tant que ces fichiers ne sont pas présents, un encadré "Photo de la maison à venir" s'affiche automatiquement à leur place.
+La bascule se fait automatiquement avec le bouton hiver/été du hero de la page d'accueil.
