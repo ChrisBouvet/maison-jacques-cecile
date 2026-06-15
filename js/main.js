@@ -19,6 +19,8 @@ if (burger && navLinks) {
 function setLang(lang) {
   localStorage.setItem('lang', lang);
   document.querySelectorAll('[data-lang]').forEach(el => {
+    // Les éléments avec data-season-content sont gérés exclusivement par home.js
+    if (el.dataset.seasonContent !== undefined) return;
     el.style.display = el.dataset.lang === lang ? '' : 'none';
   });
   document.querySelectorAll('.nav__lang a').forEach(a => {
