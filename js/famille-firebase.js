@@ -225,6 +225,10 @@ window.editResa = (id) => {
   document.getElementById("adminEmail").value       = r.email || "";
   document.getElementById("adminPhone").value       = r.phone || "";
   document.getElementById("adminNotes").value       = r.notes || r.message || "";
+  const adultsEl = form.querySelector("select[name='adults']");
+  if (adultsEl && r.adults) adultsEl.value = r.adults;
+  const childrenEl = form.querySelector("select[name='children']");
+  if (childrenEl && r.children !== undefined) childrenEl.value = r.children;
   const typeEl = form.querySelector("select[name='type']");
   if (typeEl) typeEl.value = r.type || "locataire";
   const origineEl = form.querySelector("select[name='origine']");
@@ -380,13 +384,15 @@ function initAdminForm() {
     const statut = form.querySelector("select[name='statut']").value;
     const start  = form.querySelector("input[name='start']").value;
     const end    = form.querySelector("input[name='end']").value;
-    const tenant  = form.querySelector("input[name='tenant']").value;
-    const email   = document.getElementById("adminEmail")?.value.trim() || "";
-    const phone   = document.getElementById("adminPhone")?.value.trim() || "";
-    const notes   = document.getElementById("adminNotes")?.value || "";
-    const type    = form.querySelector("select[name='type']")?.value || "locataire";
-    const origine = type === "locataire" ? (form.querySelector("select[name='origine']")?.value || "") : "";
-    const pets    = form.querySelector("input[name='adminPets']")?.checked || false;
+    const tenant   = form.querySelector("input[name='tenant']").value;
+    const email    = document.getElementById("adminEmail")?.value.trim() || "";
+    const phone    = document.getElementById("adminPhone")?.value.trim() || "";
+    const notes    = document.getElementById("adminNotes")?.value || "";
+    const type     = form.querySelector("select[name='type']")?.value || "locataire";
+    const origine  = type === "locataire" ? (form.querySelector("select[name='origine']")?.value || "") : "";
+    const pets     = form.querySelector("input[name='adminPets']")?.checked || false;
+    const adults   = form.querySelector("select[name='adults']")?.value || "2";
+    const children = form.querySelector("select[name='children']")?.value || "0";
 
     if (!start) { showToast("Veuillez saisir la date d'arrivée.", "error"); return; }
     if (!end)   { showToast("Veuillez saisir la date de départ.", "error"); return; }
@@ -400,6 +406,7 @@ function initAdminForm() {
         apt, start, end,
         nom: tenant, tenant,
         email, phone,
+        adults, children,
         statut, notes,
         type, origine, pets
       };
