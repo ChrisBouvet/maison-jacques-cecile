@@ -244,9 +244,9 @@
               <label data-lang="it" style="display:none">Telefono</label>
               <input type="tel" name="phone" placeholder="+33 6 12 34 56 78">
             </div>
-            <p class="form-hint" data-lang="fr">💡 Merci de renseigner au moins l'un des deux : email ou téléphone.</p>
-            <p class="form-hint" data-lang="en" style="display:none">💡 Please provide at least one: email or phone.</p>
-            <p class="form-hint" data-lang="it" style="display:none">💡 Si prega di indicare almeno uno tra email e telefono.</p>
+            <p class="form-hint" data-lang="fr">💡 Email et téléphone sont optionnels mais au moins l'un des deux est recommandé.</p>
+            <p class="form-hint" data-lang="en" style="display:none">💡 Email and phone are optional but at least one is recommended.</p>
+            <p class="form-hint" data-lang="it" style="display:none">💡 Email e telefono sono opzionali ma almeno uno è raccomandato.</p>
             <div class="form-row">
               <div class="form-group">
                 <label data-lang="fr">Arrivée</label>
@@ -632,14 +632,33 @@
               </div>
               <div class="form-row">
                 <div class="form-group">
-                  <label>Email</label>
+                  <label>Email <span style="color:var(--gris);font-size:0.8rem;" data-lang="fr">(optionnel)</span><span style="color:var(--gris);font-size:0.8rem;" data-lang="en" style="display:none">(optional)</span><span style="color:var(--gris);font-size:0.8rem;" data-lang="it" style="display:none">(opzionale)</span></label>
                   <input type="email" id="adminEmail" name="email">
                 </div>
                 <div class="form-group">
-                  <label data-lang="fr">Téléphone</label>
-                  <label data-lang="en" style="display:none">Phone</label>
-                  <label data-lang="it" style="display:none">Telefono</label>
+                  <label data-lang="fr">Téléphone <span style="color:var(--gris);font-size:0.8rem;">(optionnel)</span></label>
+                  <label data-lang="en" style="display:none">Phone <span style="color:var(--gris);font-size:0.8rem;">(optional)</span></label>
+                  <label data-lang="it" style="display:none">Telefono <span style="color:var(--gris);font-size:0.8rem;">(opzionale)</span></label>
                   <input type="tel" id="adminPhone" name="phone" placeholder="+33 6 12 34 56 78">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label data-lang="fr">Adultes</label>
+                  <label data-lang="en" style="display:none">Adults</label>
+                  <label data-lang="it" style="display:none">Adulti</label>
+                  <select name="adults">
+                    <option>1</option><option selected>2</option><option>3</option>
+                    <option>4</option><option>5</option><option>6</option><option>7</option><option>8</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label data-lang="fr">Enfants</label>
+                  <label data-lang="en" style="display:none">Children</label>
+                  <label data-lang="it" style="display:none">Bambini</label>
+                  <select name="children">
+                    <option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                  </select>
                 </div>
               </div>
               <div class="form-group form-group-checkbox">
