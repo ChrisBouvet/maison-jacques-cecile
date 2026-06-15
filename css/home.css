@@ -387,3 +387,22 @@
 .house-floor--link:hover .floor-icon {
   transform: scale(1.2);
 }
+
+/* Plan des pistes dans la section station */
+.station-photo-wrap {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--or-clair);
+}
+.station-photo-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.station-photo-wrap .station-photo-ph {
+  aspect-ratio: 4/3;
+  margin-bottom: 0;
+}
