@@ -842,3 +842,38 @@ img { max-width: 100%; height: auto; display: block; }
   box-shadow: var(--ombre);
 }
 .card--link .card__title { color: var(--brun); }
+
+/* ── LIGHTBOX (shared) — used on index.html and apartment pages ── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(20,15,10,0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease;
+  padding: 1rem;
+}
+.lightbox.open { opacity: 1; visibility: visible; }
+.lightbox-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  z-index: 2;
+}
+.lightbox-close:hover { background: rgba(255,255,255,0.2); }
