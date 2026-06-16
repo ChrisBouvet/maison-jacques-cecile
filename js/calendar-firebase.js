@@ -2,6 +2,8 @@
 //  CALENDRIER connecté à Firebase
 // ══════════════════════════════════════════════════
 import { subscribeReservations, addReservation, subscribePeriodesFermees, getPeriodesFermees } from "./firebase-db.js";
+
+const MONTHS = {
   fr: ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"],
   en: ["January","February","March","April","May","June","July","August","September","October","November","December"],
   it: ["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"]
