@@ -43,21 +43,21 @@ document.querySelectorAll('.season-btn').forEach(btn => {
 
     // Update house photo (été / hiver)
     setMaisonPhoto(season);
+
+    // Synchronise la section "La Station"
+    setStationSeason(season);
   });
 });
 
-// ── SEASON TABS (Station section) ──
-document.querySelectorAll('.season-tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const tab = btn.dataset.stab;
-    document.querySelectorAll('.season-tab-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.season-tab-content').forEach(c => {
-      c.style.display = c.dataset.stabContent === tab ? '' : 'none';
-      c.classList.toggle('active', c.dataset.stabContent === tab);
-    });
+// ── SEASON TABS (Station section) — commandés par les boutons du hero ──
+function setStationSeason(season) {
+  document.querySelectorAll('.season-tab-content').forEach(c => {
+    c.style.display = c.dataset.stabContent === season ? '' : 'none';
+    c.classList.toggle('active', c.dataset.stabContent === season);
   });
-});
+}
+// Init au chargement
+setStationSeason('winter');
 
 // ── CONTACT FORM ──
 const contactForm = document.getElementById('contactForm');
