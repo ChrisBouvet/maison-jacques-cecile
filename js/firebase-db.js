@@ -68,3 +68,41 @@ export async function updateReservation(id, data) {
 export async function deleteReservation(id) {
   await deleteDoc(doc(db, COL, id));
 }
+
+// ══════════════════════════════════════════════════
+//  PÉRIODES FERMÉES (non ouvertes à la réservation)
+// ══════════════════════════════════════════════════
+const COL_FERME = "periodes_fermees";
+
+export function subscribePeriodesFermees(callback) {
+  const q = query(collection(db, COL_FERME), orderBy("start"));
+  return onSnapshot(q, snap => {
+    callback(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+  }, err => console.error("periodes_fermees snapshot error:", err));
+}
+
+export async function getPeriodesFermees(apt = null) {
+  try {
+    const q = apt
+      ? query(collection(db, COL_FERME), where("apt", "==", apt))
+      : query(collection(db, COL_FERME), orderBy("start"));
+    const snap = await getDocs(q);
+    return snap.docs.map(d => ({ id: d.id, ...d.data() }))
+      .sort((a, b) => (a.start || "").localeCompare(b.start || ""));
+  } catch (e) {
+    console.error("periodes_fermees read error:", e);
+    return [];
+  }
+}
+
+export async function addPeriodeFermee(data) {
+  const ref = await addDoc(collection(db, COL_FERME), {
+    ...data,
+    createdAt: new Date().toISOString()
+  });
+  return ref.id;
+}
+
+export async function deletePeriodeFermee(id) {
+  await deleteDoc(doc(db, COL_FERME, id));
+}

@@ -1,15 +1,12 @@
 // ══════════════════════════════════════════════════
 //  CALENDRIER connecté à Firebase
 // ══════════════════════════════════════════════════
-import { subscribeReservations, addReservation } from "./firebase-db.js";
-
-const MONTHS = {
+import { subscribeReservations, addReservation, subscribePeriodesFermees, getPeriodesFermees } from "./firebase-db.js";
   fr: ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"],
   en: ["January","February","March","April","May","June","July","August","September","October","November","December"],
   it: ["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"]
 };
 
-// Petit hash déterministe pour attribuer une variante de couleur par réservation
 function hashStr(str) {
   let h = 0;
   for (let i = 0; i < str.length; i++) { h = (h << 5) - h + str.charCodeAt(i); h |= 0; }
@@ -23,9 +20,9 @@ function fmtShort(dateStr) {
 }
 
 const STATUS_LABELS = {
-  fr: { en_attente: "En attente", confirmee: "Confirmée", famille: "Famille", refusee: "Refusée" },
-  en: { en_attente: "Pending",    confirmee: "Confirmed", famille: "Family",  refusee: "Refused" },
-  it: { en_attente: "In attesa",  confirmee: "Confermata", famille: "Famiglia", refusee: "Rifiutata" }
+  fr: { en_attente: "En attente", confirmee: "Confirmée", famille: "Famille", refusee: "Refusée", ferme: "Non ouvert" },
+  en: { en_attente: "Pending",    confirmee: "Confirmed", famille: "Family",  refusee: "Refused",  ferme: "Not open" },
+  it: { en_attente: "In attesa",  confirmee: "Confermata", famille: "Famiglia", refusee: "Rifiutata", ferme: "Non aperto" }
 };
 
 function statusLabel(statut) {
@@ -33,7 +30,6 @@ function statusLabel(statut) {
   return (STATUS_LABELS[lang] || STATUS_LABELS.fr)[statut] || statut || "";
 }
 
-// Libellés courts pour le calendrier combiné
 const APT_SHORT_LABELS = {
   fr: { rdc: "rdc", famille: "1er", "2eme": "2eme" },
   en: { rdc: "ground", famille: "1st", "2eme": "2nd" },
@@ -41,16 +37,16 @@ const APT_SHORT_LABELS = {
 };
 
 const COMBINED_STATUS_LABELS = {
-  fr: { booked: "loué",    pending: "en attente", famille: "occupé",   free: "libre" },
-  en: { booked: "booked",  pending: "pending",    famille: "occupied", free: "free" },
-  it: { booked: "affittato", pending: "in attesa", famille: "occupato", free: "libero" }
+  fr: { booked: "loué", pending: "en attente", famille: "occupé", free: "libre", ferme: "non ouvert" },
+  en: { booked: "booked", pending: "pending", famille: "occupied", free: "free", ferme: "not open" },
+  it: { booked: "affittato", pending: "in attesa", famille: "occupato", free: "libero", ferme: "non aperto" }
 };
 
 // ══════════════════════════════════════════════════
-//  STORE PARTAGÉ — un seul listener Firestore pour
-//  toute la page (calendriers + tableau récapitulatif)
+//  STORE PARTAGÉ — réservations + périodes fermées
 // ══════════════════════════════════════════════════
 const _store = { data: [], loaded: false, listeners: new Set(), unsub: null };
+const _storeFerme = { data: [], loaded: false, listeners: new Set(), unsub: null };
 
 function _ensureStore() {
   if (!_store.unsub) {
@@ -60,15 +56,45 @@ function _ensureStore() {
       _store.listeners.forEach(fn => fn(resas));
     });
   }
+  if (!_storeFerme.unsub) {
+    _storeFerme.unsub = subscribePeriodesFermees(periodes => {
+      _storeFerme.data = periodes;
+      _storeFerme.loaded = true;
+      _storeFerme.listeners.forEach(fn => fn(periodes));
+      // Re-déclenche aussi les listeners de réservations pour re-rendre les calendriers
+      _store.listeners.forEach(fn => fn(_store.data));
+    });
+  }
 }
 
-// S'abonne aux changements de réservations (temps réel).
-// Retourne une fonction de désabonnement.
 export function subscribeAll(callback) {
   _ensureStore();
   _store.listeners.add(callback);
   if (_store.loaded) callback(_store.data);
   return () => _store.listeners.delete(callback);
+}
+
+export function subscribePeriodesStore(callback) {
+  _ensureStore();
+  _storeFerme.listeners.add(callback);
+  if (_storeFerme.loaded) callback(_storeFerme.data);
+  return () => _storeFerme.listeners.delete(callback);
+}
+
+// Retourne la période fermée qui couvre dateStr pour un apt donné (ou null)
+export function getPeriodeFermeeForDate(apt, dateStr) {
+  return _storeFerme.data.find(p =>
+    p.start <= dateStr && p.end >= dateStr &&
+    (p.apt === apt || p.apt === "all")
+  ) || null;
+}
+
+// Vérifie si un intervalle [start, end] chevauche une période fermée pour un apt
+export function isRangeFermee(apt, start, end) {
+  return _storeFerme.data.some(p =>
+    (p.apt === apt || p.apt === "all") &&
+    p.start <= end && p.end >= start
+  );
 }
 
 // ══════════════════════════════════════════════════
@@ -128,7 +154,20 @@ export class FirebaseCalendar {
         (this.apt === null || r.apt === this.apt)
       );
 
-      if (resa) {
+      // Période fermée — prioritaire sur les réservations
+      const fermee = getPeriodeFermeeForDate(this.apt || "all", dateStr) ||
+                     (this.apt ? getPeriodeFermeeForDate("all", dateStr) : null);
+
+      if (fermee) {
+        cell.classList.add("ferme");
+        if (fermee.start === dateStr) cell.classList.add("resa-start");
+        if (fermee.end   === dateStr) cell.classList.add("resa-end");
+        const dot = document.createElement("span");
+        dot.className = "day-dot";
+        cell.appendChild(dot);
+        const lang = localStorage.getItem("lang") || "fr";
+        cell.title = STATUS_LABELS[lang]?.ferme || "Non ouvert";
+      } else if (resa) {
         let baseClass;
         if (resa.statut === "en_attente") {
           baseClass = "pending";
@@ -206,6 +245,10 @@ export class CombinedCalendar {
   }
 
   _statusFor(apt, dateStr) {
+    // Période fermée en priorité
+    const fermee = getPeriodeFermeeForDate(apt, dateStr) ||
+                   getPeriodeFermeeForDate("all", dateStr);
+    if (fermee) return "ferme";
     const resa = this._resaFor(apt, dateStr);
     if (!resa) return "free";
     if (resa.statut === "en_attente") return "pending";
@@ -353,6 +396,18 @@ export function initResaForms() {
 
       const btns = form.querySelectorAll("[type='submit']");
       btns.forEach(b => b.disabled = true);
+
+      // Vérifie si les dates chevauchent une période fermée (public uniquement)
+      if (isRangeFermee(apt, start, end)) {
+        const msgs = {
+          fr: "Ces dates ne sont pas encore ouvertes à la réservation. Contactez-nous pour plus d'informations.",
+          en: "These dates are not yet open for booking. Please contact us for more information.",
+          it: "Queste date non sono ancora aperte alle prenotazioni. Contattateci per ulteriori informazioni."
+        };
+        showToast(msgs[lang] || msgs.fr, "error");
+        btns.forEach(b => b.disabled = false);
+        return;
+      }
 
       try {
         await addReservation({

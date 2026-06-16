@@ -1,5 +1,6 @@
-import { addReservation, updateReservation, deleteReservation } from "./firebase-db.js";
-import { initCalendars, initResaForms, subscribeAll, linkArrivalDeparture } from "./calendar-firebase.js";
+import { addReservation, updateReservation, deleteReservation,
+         addPeriodeFermee, deletePeriodeFermee } from "./firebase-db.js";
+import { initCalendars, initResaForms, subscribeAll, subscribePeriodesStore, linkArrivalDeparture } from "./calendar-firebase.js";
 
 // ══════════════════════════════════════════════════
 //  RÔLES & MOTS DE PASSE
@@ -61,6 +62,7 @@ function startFamilleApp(role) {
   subscribeAll(renderTable);
 
   initAdminForm();
+  initPeriodesFermees();
 }
 
 // ══════════════════════════════════════════════════
@@ -449,6 +451,70 @@ window.exportReservations = async () => {
   });
   a.click(); URL.revokeObjectURL(a.href);
 };
+
+// ══════════════════════════════════════════════════
+//  GESTION DES PÉRIODES FERMÉES (onglet Admin)
+// ══════════════════════════════════════════════════
+const APT_LABELS_FERME = { all: "Tous", famille: "1er étage", rdc: "RDC", "2eme": "2ème étage" };
+
+function initPeriodesFermees() {
+  subscribePeriodesStore(renderFermeList);
+
+  const fermeStartEl = document.getElementById("fermeStart");
+  const fermeEndEl   = document.getElementById("fermeEnd");
+  linkArrivalDeparture(fermeStartEl, fermeEndEl);
+
+  document.getElementById("addFermeBtn")?.addEventListener("click", async () => {
+    const apt   = document.getElementById("fermeApt")?.value || "all";
+    const start = fermeStartEl?.value;
+    const end   = fermeEndEl?.value;
+    const label = document.getElementById("fermeLabel")?.value.trim() || "";
+
+    if (!start || !end) { showToast("Veuillez saisir les dates.", "error"); return; }
+    if (start > end)    { showToast("La date de fin doit être après le début.", "error"); return; }
+
+    try {
+      await addPeriodeFermee({ apt, start, end, label });
+      showToast("Période fermée ajoutée.", "success");
+      fermeStartEl.value = "";
+      fermeEndEl.value   = "";
+      fermeEndEl.removeAttribute("min");
+      document.getElementById("fermeLabel").value = "";
+    } catch { showToast("Erreur lors de l'ajout.", "error"); }
+  });
+}
+
+window.deleteFerme = async (id) => {
+  if (!confirm("Supprimer cette période fermée ?")) return;
+  try {
+    await deletePeriodeFermee(id);
+    showToast("Période supprimée.", "success");
+  } catch { showToast("Erreur de suppression.", "error"); }
+};
+
+function renderFermeList(periodes) {
+  const container = document.getElementById("fermeList");
+  if (!container) return;
+  if (!periodes || periodes.length === 0) {
+    container.innerHTML = `<p style="color:var(--gris);font-size:0.88rem;font-style:italic;">Aucune période fermée.</p>`;
+    return;
+  }
+  const sorted = [...periodes].sort((a,b) => (a.start||"").localeCompare(b.start||""));
+  container.innerHTML = `<table class="planning-table" style="margin-bottom:0;">
+    <thead><tr>
+      <th>Appartement</th><th>Du</th><th>Au</th><th>Libellé</th><th></th>
+    </tr></thead>
+    <tbody>${sorted.map(p => `
+      <tr>
+        <td>${APT_LABELS_FERME[p.apt] || p.apt}</td>
+        <td>${fmt(p.start)}</td>
+        <td>${fmt(p.end)}</td>
+        <td style="font-size:0.85rem;color:var(--gris)">${p.label || "—"}</td>
+        <td><button onclick="deleteFerme('${p.id}')" class="btn-action btn-refuse" title="Supprimer">🗑</button></td>
+      </tr>`).join("")}
+    </tbody>
+  </table>`;
+}
 
 // ══════════════════════════════════════════════════
 //  MIGRATION FIREBASE : "family" → "famille"
