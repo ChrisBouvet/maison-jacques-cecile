@@ -154,15 +154,15 @@
         <span class="fact-label">Indipendenti</span>
       </div>
       <div class="fact-sep"></div>
-      <a class="fact-item fact-item--link" href="https://www.vialattea.it" target="_blank" rel="noopener" data-lang="fr">
+      <a class="fact-item fact-item--link" href="https://montgenevre.com/wp-content/uploads/2025/12/Skimap-2025-2026-DEF_compressed.pdf" target="_blank" rel="noopener" data-lang="fr">
         <span class="fact-num">400 km</span>
         <span class="fact-label">De pistes – La Voie Lactée</span>
       </a>
-      <a class="fact-item fact-item--link" href="https://www.vialattea.it" target="_blank" rel="noopener" data-lang="en" style="display:none">
+      <a class="fact-item fact-item--link" href="https://montgenevre.com/wp-content/uploads/2025/12/Skimap-2025-2026-DEF_compressed.pdf" target="_blank" rel="noopener" data-lang="en" style="display:none">
         <span class="fact-num">400 km</span>
         <span class="fact-label">Slopes – Milky Way</span>
       </a>
-      <a class="fact-item fact-item--link" href="https://www.vialattea.it" target="_blank" rel="noopener" data-lang="it" style="display:none">
+      <a class="fact-item fact-item--link" href="https://montgenevre.com/wp-content/uploads/2025/12/Skimap-2025-2026-DEF_compressed.pdf" target="_blank" rel="noopener" data-lang="it" style="display:none">
         <span class="fact-num">400 km</span>
         <span class="fact-label">Piste – Via Lattea</span>
       </a>
@@ -446,21 +446,29 @@
             </div>
           </div>
           <div class="station-aside">
-            <div class="station-photo-wrap" onclick="openSkiMap()" style="cursor:zoom-in;">
-              <img src="img/autres/plan_des_pistes_montgenevre.webp"
-                   alt="Plan des pistes de Montgenèvre"
-                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-              <div class="station-photo-ph" style="display:none;">
-                <span>📸</span>
-                <small data-lang="fr">Les pistes de Montgenèvre</small>
-                <small data-lang="en" style="display:none">Montgenèvre slopes</small>
-                <small data-lang="it" style="display:none">Le piste di Montgenèvre</small>
-              </div>
+            <div class="station-photo-wrap">
+              <a href="https://montgenevre.com/wp-content/uploads/2025/12/plan_mtg_compressed-2.pdf" target="_blank" rel="noopener" title="Ouvrir le plan des pistes (PDF)">
+                <embed src="img/autres/plan_pistes_montgenevre.pdf"
+                       type="application/pdf"
+                       class="plan-pistes-embed"
+                       aria-label="Plan des pistes de Montgenèvre">
+                <div class="plan-pistes-fallback">
+                  <span>📄</span>
+                  <span data-lang="fr">Plan des pistes — cliquer pour ouvrir</span>
+                  <span data-lang="en" style="display:none">Ski map — click to open</span>
+                  <span data-lang="it" style="display:none">Mappa piste — clicca per aprire</span>
+                </div>
+              </a>
+              <a href="https://montgenevre.com/wp-content/uploads/2025/12/plan_mtg_compressed-2.pdf" target="_blank" rel="noopener" class="plan-pistes-link">
+                <span data-lang="fr">↗ Ouvrir le plan officiel (PDF)</span>
+                <span data-lang="en" style="display:none">↗ Open official map (PDF)</span>
+                <span data-lang="it" style="display:none">↗ Apri la mappa ufficiale (PDF)</span>
+              </a>
             </div>
             <div class="station-facts">
               <div class="sfact"><span class="sfact-n">1 860 m</span><span class="sfact-l" data-lang="fr">Altitude village</span><span class="sfact-l" data-lang="en" style="display:none">Village altitude</span><span class="sfact-l" data-lang="it" style="display:none">Altitudine</span></div>
               <div class="sfact"><span class="sfact-n">2 680 m</span><span class="sfact-l" data-lang="fr">Point culminant</span><span class="sfact-l" data-lang="en" style="display:none">Highest point</span><span class="sfact-l" data-lang="it" style="display:none">Punto più alto</span></div>
-              <a class="sfact sfact--link" href="https://www.vialattea.it" target="_blank" rel="noopener"><span class="sfact-n">400 km</span><span class="sfact-l" data-lang="fr">Pistes Voie Lactée ↗</span><span class="sfact-l" data-lang="en" style="display:none">Milky Way slopes ↗</span><span class="sfact-l" data-lang="it" style="display:none">Piste Via Lattea ↗</span></a>
+              <a class="sfact sfact--link" href="https://montgenevre.com/wp-content/uploads/2025/12/Skimap-2025-2026-DEF_compressed.pdf" target="_blank" rel="noopener"><span class="sfact-n">400 km</span><span class="sfact-l" data-lang="fr">Pistes Voie Lactée ↗</span><span class="sfact-l" data-lang="en" style="display:none">Milky Way slopes ↗</span><span class="sfact-l" data-lang="it" style="display:none">Piste Via Lattea ↗</span></a>
               <div class="sfact"><span class="sfact-n">300</span><span class="sfact-l" data-lang="fr">Jours de soleil/an</span><span class="sfact-l" data-lang="en" style="display:none">Sunny days/year</span><span class="sfact-l" data-lang="it" style="display:none">Giorni di sole/anno</span></div>
             </div>
           </div>
@@ -726,19 +734,7 @@
   </div>
 </footer>
 
-<!-- ══ LIGHTBOX PLAN DES PISTES ══ -->
-<div id="skiMapLightbox" class="lightbox" onclick="this.classList.remove('open')">
-  <button class="lightbox-close" onclick="document.getElementById('skiMapLightbox').classList.remove('open')">×</button>
-  <img src="img/autres/plan_des_pistes_montgenevre.webp" alt="Plan des pistes de Montgenèvre" style="max-width:95vw;max-height:92vh;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
-</div>
-<script>
-function openSkiMap() {
-  document.getElementById('skiMapLightbox').classList.add('open');
-}
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') document.getElementById('skiMapLightbox')?.classList.remove('open');
-});
-</script>
+
 
 <div class="toast"></div>
 <script src="js/main.js"></script>
