@@ -196,7 +196,7 @@
 }
 .station-grid {
   display: grid;
-  grid-template-columns: 1fr 340px;
+  grid-template-columns: 1fr 380px;
   gap: 3rem;
   align-items: start;
 }
@@ -429,7 +429,9 @@
 .plan-pistes-embed {
   display: block;
   width: 100%;
-  height: 420px;
+  height: auto;
+  min-height: 480px;
+  aspect-ratio: 3/4;
   border: none;
   pointer-events: none; /* clic géré par le <a> parent */
 }
@@ -449,4 +451,16 @@
 }
 @media (max-width: 600px) {
   .plan-pistes-embed { height: 280px; }
+}
+
+/* sfact inline sous le texte de la station */
+.station-facts--inline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+@media (max-width: 600px) {
+  .station-facts--inline { grid-template-columns: repeat(2, 1fr); }
+  .plan-pistes-embed { min-height: 320px; }
 }
