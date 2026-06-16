@@ -155,3 +155,5 @@
   color: var(--bleu-alpin);
   margin-bottom: 0.2rem;
 }
+
+.combined-bar.status-ferme { background: #e74c3c; opacity: 0.85; }

@@ -877,3 +877,11 @@ img { max-width: 100%; height: auto; display: block; }
   z-index: 2;
 }
 .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+/* ── PÉRIODE FERMÉE (non ouverte à la réservation) ── */
+.calendar-day.ferme {
+  background: rgba(220, 53, 69, 0.10);
+  cursor: default;
+}
+.calendar-day.ferme:hover { background: rgba(220, 53, 69, 0.15); }
+.calendar-day.ferme span.day-dot { display: block; width: 5px; height: 5px; border-radius: 50%; background: #c0392b; }
