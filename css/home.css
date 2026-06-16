@@ -419,3 +419,43 @@
   background: rgba(201,169,110,0.08);
 }
 .sfact--link .sfact-n { color: var(--or); }
+
+/* Plan des pistes PDF */
+.station-photo-wrap a { display: block; text-decoration: none; }
+.plan-pistes-embed {
+  display: block;
+  width: 100%;
+  height: 320px;
+  border: none;
+  pointer-events: none; /* clic géré par le <a> parent */
+}
+.plan-pistes-fallback {
+  display: none; /* affiché via JS si embed échoue */
+  width: 100%;
+  height: 220px;
+  background: var(--creme);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: var(--brun-clair);
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 1rem;
+}
+.plan-pistes-link {
+  display: block !important;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--or) !important;
+  padding: 0.5rem;
+  letter-spacing: 0.04em;
+  background: var(--creme);
+  border-top: 1px solid var(--or-clair);
+  transition: background 0.2s;
+}
+.plan-pistes-link:hover { background: var(--or-clair) !important; }
+@media (max-width: 600px) {
+  .plan-pistes-embed { height: 200px; }
+}
