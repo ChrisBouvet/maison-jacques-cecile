@@ -128,6 +128,7 @@
                 <div class="legend-item"><div class="legend-bar" style="background:var(--or);"></div><span data-lang="fr">Loué</span><span data-lang="en" style="display:none">Booked</span><span data-lang="it" style="display:none">Affittato</span></div>
                 <div class="legend-item"><div class="legend-bar" style="background:var(--bleu-alpin);"></div><span data-lang="fr">Famille</span><span data-lang="en" style="display:none">Family</span><span data-lang="it" style="display:none">Famiglia</span></div>
                 <div class="legend-item"><div class="legend-bar" style="background:#EF9F27;"></div><span data-lang="fr">En attente</span><span data-lang="en" style="display:none">Pending</span><span data-lang="it" style="display:none">In attesa</span></div>
+                <div class="legend-item"><div class="legend-bar" style="background:#e74c3c;"></div><span data-lang="fr">Non ouvert</span><span data-lang="en" style="display:none">Not open</span><span data-lang="it" style="display:none">Non aperto</span></div>
                 <div class="legend-item"><div class="legend-bar" style="background:var(--or-clair);opacity:0.4;"></div><span data-lang="fr">Libre</span><span data-lang="en" style="display:none">Free</span><span data-lang="it" style="display:none">Libero</span></div>
               </div>
             </div>
@@ -688,6 +689,67 @@
                 </button>
               </div>
             </form>
+          </div>
+
+          <!-- PÉRIODES FERMÉES -->
+          <div class="admin-form-wrap mt-3" id="fermeSection">
+            <h4 data-lang="fr" style="color:#c0392b;">🚫 Périodes non ouvertes à la réservation</h4>
+            <h4 data-lang="en" style="display:none;color:#c0392b;">🚫 Periods not open for booking</h4>
+            <h4 data-lang="it" style="display:none;color:#c0392b;">🚫 Periodi non aperti alle prenotazioni</h4>
+            <p data-lang="fr" style="font-size:0.88rem;color:var(--gris);">Ces périodes bloquent les demandes de réservation depuis les pages publiques (RDC et 2ème étage). Elles sont visibles en rouge dans les calendriers.</p>
+            <p data-lang="en" style="display:none;font-size:0.88rem;color:var(--gris);">These periods block booking requests from public pages. They appear in red on the calendars.</p>
+            <p data-lang="it" style="display:none;font-size:0.88rem;color:var(--gris);">Questi periodi bloccano le richieste di prenotazione dalle pagine pubbliche. Appaiono in rosso nei calendari.</p>
+
+            <!-- Liste des périodes fermées -->
+            <div id="fermeList" style="margin-bottom:1.5rem;"></div>
+
+            <!-- Formulaire ajout période fermée -->
+            <div class="form-row">
+              <div class="form-group">
+                <label data-lang="fr">Appartement</label>
+                <label data-lang="en" style="display:none">Apartment</label>
+                <label data-lang="it" style="display:none">Appartamento</label>
+                <select id="fermeApt">
+                  <option value="all" data-lang="fr">Tous les appartements</option>
+                  <option value="rdc" data-lang="fr">RDC</option>
+                  <option value="famille" data-lang="fr">1er étage – Famille</option>
+                  <option value="2eme" data-lang="fr">2ème étage</option>
+                  <option value="all" data-lang="en" style="display:none">All apartments</option>
+                  <option value="rdc" data-lang="en" style="display:none">Ground floor</option>
+                  <option value="famille" data-lang="en" style="display:none">1st floor – Family</option>
+                  <option value="2eme" data-lang="en" style="display:none">2nd floor</option>
+                  <option value="all" data-lang="it" style="display:none">Tutti gli appartamenti</option>
+                  <option value="rdc" data-lang="it" style="display:none">Piano terra</option>
+                  <option value="famille" data-lang="it" style="display:none">1° piano – Famiglia</option>
+                  <option value="2eme" data-lang="it" style="display:none">2° piano</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label data-lang="fr">Du</label>
+                <label data-lang="en" style="display:none">From</label>
+                <label data-lang="it" style="display:none">Dal</label>
+                <input type="date" id="fermeStart">
+              </div>
+              <div class="form-group">
+                <label data-lang="fr">Au</label>
+                <label data-lang="en" style="display:none">To</label>
+                <label data-lang="it" style="display:none">Al</label>
+                <input type="date" id="fermeEnd">
+              </div>
+            </div>
+            <div class="form-group">
+              <label data-lang="fr">Libellé (optionnel)</label>
+              <label data-lang="en" style="display:none">Label (optional)</label>
+              <label data-lang="it" style="display:none">Etichetta (opzionale)</label>
+              <input type="text" id="fermeLabel" placeholder="Ex : Saison hiver 2025-26 pas encore ouverte">
+            </div>
+            <button type="button" id="addFermeBtn" class="btn" style="background:#c0392b;color:#fff;border-color:#c0392b;">
+              <span data-lang="fr">🚫 Ajouter la période fermée</span>
+              <span data-lang="en" style="display:none">🚫 Add closed period</span>
+              <span data-lang="it" style="display:none">🚫 Aggiungi periodo chiuso</span>
+            </button>
           </div>
 
           <div class="admin-export mt-2">
