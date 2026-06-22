@@ -44,6 +44,10 @@ document.querySelectorAll('.season-btn').forEach(btn => {
     // Update house photo (été / hiver)
     setMaisonPhoto(season);
 
+    // Swap photo bands
+    document.getElementById("photoBandWinter").style.display = season === "summer" ? "none" : "";
+    document.getElementById("photoBandSummer").style.display = season === "summer" ? "" : "none";
+
     // Synchronise la section "La Station"
     setStationSeason(season);
   });
@@ -102,4 +106,7 @@ window.setLang = function(lang) {
 };
 
 // Init hero photo on page load
-document.addEventListener('DOMContentLoaded', () => setHeroBg('winter'));
+document.addEventListener('DOMContentLoaded', () => {
+  setHeroBg('winter');
+  // photoBandWinter visible by default, photoBandSummer hidden — already set in HTML
+});
