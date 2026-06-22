@@ -153,7 +153,11 @@
   height: 260px;
 }
 .photo-band__item { overflow: hidden; position: relative; }
-.photo-band__item img { width: 100%; height: 100%; object-fit: cover; }
+.photo-band__item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo-band__item .photo-ph {
+  position: absolute;
+  inset: 0;
+}
 .photo-ph {
   width: 100%;
   height: 100%;
