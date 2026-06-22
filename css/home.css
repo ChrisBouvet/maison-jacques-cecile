@@ -420,25 +420,19 @@
 }
 .sfact--link .sfact-n { color: var(--or); }
 
-/* Plan des pistes PDF — plein cadre, clic = ouvre PDF externe */
-.plan-pistes-outer {
-  display: block;
-  text-decoration: none;
-  cursor: pointer;
-}
-.plan-pistes-embed {
+/* Plan des pistes — image preview, taille naturelle */
+.station-photo-wrap a { display: block; text-decoration: none; }
+.plan-pistes-img {
   display: block;
   width: 100%;
-  height: auto;
-  min-height: 480px;
-  aspect-ratio: 3/4;
-  border: none;
-  pointer-events: none; /* clic géré par le <a> parent */
+  height: auto; /* s'ajuste exactement à la taille de l'image */
+  transition: opacity 0.2s;
 }
+.station-photo-wrap a:hover .plan-pistes-img { opacity: 0.88; }
 .plan-pistes-fallback {
   display: none;
   width: 100%;
-  height: 280px;
+  min-height: 180px;
   background: var(--creme);
   align-items: center;
   justify-content: center;
@@ -447,11 +441,22 @@
   color: var(--brun-clair);
   font-size: 0.95rem;
   text-align: center;
-  padding: 1rem;
+  padding: 1.5rem;
+  cursor: pointer;
 }
-@media (max-width: 600px) {
-  .plan-pistes-embed { height: 280px; }
+.plan-pistes-link {
+  display: block !important;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--or) !important;
+  padding: 0.5rem;
+  letter-spacing: 0.04em;
+  background: var(--creme);
+  border-top: 1px solid var(--or-clair);
+  transition: background 0.2s;
 }
+.plan-pistes-link:hover { background: var(--or-clair) !important; }
 
 /* sfact inline sous le texte de la station */
 .station-facts--inline {
@@ -462,5 +467,4 @@
 }
 @media (max-width: 600px) {
   .station-facts--inline { grid-template-columns: repeat(2, 1fr); }
-  .plan-pistes-embed { min-height: 320px; }
 }
