@@ -361,11 +361,12 @@
 </section>
 
 <!-- ══ PHOTO PLACEHOLDER ══ -->
-<div class="photo-band reveal">
+<!-- Bande photos HIVER -->
+<div class="photo-band reveal" id="photoBandWinter">
   <div class="photo-band__item">
     <img src="img/autres/janus.webp" alt="Le Janus, Montgenèvre"
          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-    <div class="photo-ph" style="display:none"><span>📸</span><small data-lang="fr">Le Janus</small><small data-lang="en" style="display:none">Le Janus</small><small data-lang="it" style="display:none">Il Janus</small></div>
+    <div class="photo-ph" style="display:none"><span>📸</span><small>Le Janus</small></div>
   </div>
   <div class="photo-band__item">
     <img src="img/autres/panneaux.webp" alt="Panneaux Montgenèvre"
@@ -375,12 +376,35 @@
   <div class="photo-band__item">
     <img src="img/autres/zac_obelisque.webp" alt="Zac obélisque, Montgenèvre"
          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-    <div class="photo-ph" style="display:none"><span>📸</span><small data-lang="fr">Zac obélisque</small><small data-lang="en" style="display:none">Zac obelisk</small><small data-lang="it" style="display:none">Zac obelisco</small></div>
+    <div class="photo-ph" style="display:none"><span>📸</span><small>Zac obélisque</small></div>
   </div>
   <div class="photo-band__item">
     <img src="img/autres/plan_enneigé.webp" alt="Plan enneigé, Montgenèvre"
          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
     <div class="photo-ph" style="display:none"><span>📸</span><small data-lang="fr">Plan enneigé</small><small data-lang="en" style="display:none">Snow-covered slope</small><small data-lang="it" style="display:none">Pista innevata</small></div>
+  </div>
+</div>
+<!-- Bande photos ÉTÉ -->
+<div class="photo-band reveal" id="photoBandSummer" style="display:none">
+  <div class="photo-band__item">
+    <img src="img/autres/janus_automne.webp" alt="Le Janus en automne"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <div class="photo-ph" style="display:none"><span>📸</span><small data-lang="fr">Le Janus en automne</small><small data-lang="en" style="display:none">Janus in autumn</small><small data-lang="it" style="display:none">Il Janus in autunno</small></div>
+  </div>
+  <div class="photo-band__item">
+    <img src="img/autres/sainte_marie_fontcouvert.jpg" alt="Sainte-Marie de Font-Couverte"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <div class="photo-ph" style="display:none"><span>📸</span><small>Ste-Marie de Font-Couverte</small></div>
+  </div>
+  <div class="photo-band__item">
+    <img src="img/autres/clarée.jpg" alt="Vallée de la Clarée"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <div class="photo-ph" style="display:none"><span>📸</span><small data-lang="fr">Vallée de la Clarée</small><small data-lang="en" style="display:none">Clarée valley</small><small data-lang="it" style="display:none">Valle della Clarée</small></div>
+  </div>
+  <div class="photo-band__item">
+    <img src="img/autres/plampinet.jpg" alt="Plampinet"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <div class="photo-ph" style="display:none"><span>📸</span><small>Plampinet</small></div>
   </div>
 </div>
 
@@ -531,29 +555,11 @@
             </div>
           </div>
           <div class="station-aside">
-            <div class="summer-gallery">
-              <div class="summer-gallery__main">
-                <img src="img/autres/janus_automne.webp" alt="Le Janus en automne"
-                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="station-photo-ph summer-ph" style="display:none"><span>📸</span><small data-lang="fr">Le Janus en automne</small><small data-lang="en" style="display:none">Janus in autumn</small><small data-lang="it" style="display:none">Il Janus in autunno</small></div>
-              </div>
-              <div class="summer-gallery__grid">
-                <div class="summer-gallery__item">
-                  <img src="img/autres/sainte_marie_fontcouvert.jpg" alt="Sainte-Marie de Font-Couverte"
-                       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                  <div class="station-photo-ph summer-ph" style="display:none"><span>📸</span><small>Ste-Marie de Font-Couverte</small></div>
-                </div>
-                <div class="summer-gallery__item">
-                  <img src="img/autres/clarée.jpg" alt="Vallée de la Clarée"
-                       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                  <div class="station-photo-ph summer-ph" style="display:none"><span>📸</span><small data-lang="fr">Vallée de la Clarée</small><small data-lang="en" style="display:none">Clarée valley</small><small data-lang="it" style="display:none">Valle della Clarée</small></div>
-                </div>
-                <div class="summer-gallery__item">
-                  <img src="img/autres/plampinet.jpg" alt="Plampinet"
-                       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                  <div class="station-photo-ph summer-ph" style="display:none"><span>📸</span><small>Plampinet</small></div>
-                </div>
-              </div>
+            <div class="station-photo-ph summer-ph">
+              <span>📸</span>
+              <small data-lang="fr">Montgenèvre en été</small>
+              <small data-lang="en" style="display:none">Montgenèvre in summer</small>
+              <small data-lang="it" style="display:none">Montgenèvre in estate</small>
             </div>
             <div class="station-facts">
               <div class="sfact"><span class="sfact-n">1 860 m</span><span class="sfact-l" data-lang="fr">Fraîcheur garantie</span><span class="sfact-l" data-lang="en" style="display:none">Guaranteed freshness</span><span class="sfact-l" data-lang="it" style="display:none">Frescura garantita</span></div>
