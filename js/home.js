@@ -19,37 +19,39 @@ function setMaisonPhoto(season) {
 }
 
 // ── SEASON TOGGLE (Hero) ──
-let currentSeason = 'winter';
+const savedSeason = localStorage.getItem('season') || 'winter';
+let currentSeason = savedSeason;
+
+function applySeason(season, save = false) {
+  currentSeason = season;
+  if (save) localStorage.setItem('season', season);
+
+  document.querySelectorAll('.season-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.season === season);
+  });
+
+  document.querySelectorAll('[data-season-content]').forEach(el => {
+    const lang = el.dataset.lang;
+    const activeLang = localStorage.getItem('lang') || 'fr';
+    el.style.display = (el.dataset.seasonContent === season && lang === activeLang) ? '' : 'none';
+  });
+
+  setHeroBg(season);
+  setMaisonPhoto(season);
+
+  const winter = document.getElementById('photoBandWinter');
+  const summer = document.getElementById('photoBandSummer');
+  if (winter) winter.style.display = season === 'summer' ? 'none' : '';
+  if (summer) summer.style.display = season === 'summer' ? '' : 'none';
+
+  setStationSeason(season);
+}
 
 document.querySelectorAll('.season-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const season = btn.dataset.season;
     if (season === currentSeason) return;
-    currentSeason = season;
-
-    document.querySelectorAll('.season-btn').forEach(b => {
-      b.classList.toggle('active', b.dataset.season === season);
-    });
-
-    // Show correct hero content
-    document.querySelectorAll('[data-season-content]').forEach(el => {
-      const lang = el.dataset.lang;
-      const activeLang = localStorage.getItem('lang') || 'fr';
-      el.style.display = (el.dataset.seasonContent === season && lang === activeLang) ? '' : 'none';
-    });
-
-    // Update hero background with real Montgenèvre photos
-    setHeroBg(season);
-
-    // Update house photo (été / hiver)
-    setMaisonPhoto(season);
-
-    // Swap photo bands
-    document.getElementById("photoBandWinter").style.display = season === "summer" ? "none" : "";
-    document.getElementById("photoBandSummer").style.display = season === "summer" ? "" : "none";
-
-    // Synchronise la section "La Station"
-    setStationSeason(season);
+    applySeason(season, true); // true = save to localStorage
   });
 });
 
@@ -99,14 +101,12 @@ if (contactForm) {
 const origSetLang = window.setLang;
 window.setLang = function(lang) {
   if (origSetLang) origSetLang(lang);
-  // Also update season hero content
   document.querySelectorAll('[data-season-content]').forEach(el => {
     el.style.display = (el.dataset.seasonContent === currentSeason && el.dataset.lang === lang) ? '' : 'none';
   });
 };
 
-// Init hero photo on page load
+// Init hero photo on page load — restaure la saison mémorisée
 document.addEventListener('DOMContentLoaded', () => {
-  setHeroBg('winter');
-  // photoBandWinter visible by default, photoBandSummer hidden — already set in HTML
+  applySeason(savedSeason);
 });
