@@ -473,3 +473,29 @@
   .station-facts--inline { grid-template-columns: repeat(2, 1fr); }
 }
 
+
+/* ── CONTACT CENTRÉ (sans formulaire) ── */
+.contact-centered {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.contact-info--centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin-top: 1.5rem;
+}
+.contact-info--centered .contact-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  text-align: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(201,169,110,0.15);
+  width: 100%;
+}
+.contact-info--centered .contact-item:last-child { border-bottom: none; }
+.contact-info--centered .whatsapp-btn-home { margin: 0.4rem auto 0; }
