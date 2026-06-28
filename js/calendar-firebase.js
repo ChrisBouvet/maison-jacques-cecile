@@ -39,9 +39,9 @@ const APT_SHORT_LABELS = {
 };
 
 const COMBINED_STATUS_LABELS = {
-  fr: { booked: "loué", pending: "en attente", famille: "occupé", free: "libre", ferme: "non ouvert" },
-  en: { booked: "booked", pending: "pending", famille: "occupied", free: "free", ferme: "not open" },
-  it: { booked: "affittato", pending: "in attesa", famille: "occupato", free: "libero", ferme: "non aperto" }
+  fr: { booked: "loué", pending: "en attente", famille: "occupé", free: "libre", ferme: "non ouvert", "ferme-pending": "non ouvert — en attente" },
+  en: { booked: "booked", pending: "pending", famille: "occupied", free: "free", ferme: "not open", "ferme-pending": "not open — pending" },
+  it: { booked: "affittato", pending: "in attesa", famille: "occupato", free: "libero", ferme: "non aperto", "ferme-pending": "non aperto — in attesa" }
 };
 
 // ══════════════════════════════════════════════════
@@ -156,56 +156,71 @@ export class FirebaseCalendar {
         (this.apt === null || r.apt === this.apt)
       );
 
-      // Période fermée — prioritaire sur les réservations
+      // Période fermée (peut coexister avec une réservation en attente)
       const fermee = getPeriodeFermeeForDate(this.apt || "all", dateStr) ||
                      (this.apt ? getPeriodeFermeeForDate("all", dateStr) : null);
 
-      if (fermee) {
-        cell.classList.add("ferme");
-        if (fermee.start === dateStr) cell.classList.add("resa-start");
-        if (fermee.end   === dateStr) cell.classList.add("resa-end");
-        const dot = document.createElement("span");
-        dot.className = "day-dot";
-        cell.appendChild(dot);
-        const lang = localStorage.getItem("lang") || "fr";
-        cell.title = STATUS_LABELS[lang]?.ferme || "Non ouvert";
-      } else if (resa) {
-        let baseClass;
-        if (resa.statut === "en_attente") {
-          baseClass = "pending";
-        } else if (resa.type === "famille" || resa.statut === "famille") {
-          baseClass = "reserved-family";
-        } else {
-          baseClass = "booked";
+      const lang = localStorage.getItem("lang") || "fr";
+      const lblFerme   = STATUS_LABELS[lang]?.ferme   || "Non ouvert";
+      const lblAttente = STATUS_LABELS[lang]?.en_attente || "En attente";
+
+      if (fermee || resa) {
+        // Classe de base : fermé prime sur le reste, sauf si on veut aussi montrer en_attente
+        if (fermee) {
+          cell.classList.add("ferme");
+          if (fermee.start === dateStr) cell.classList.add("resa-start");
+          if (fermee.end   === dateStr) cell.classList.add("resa-end");
         }
-        cell.classList.add(baseClass);
 
-        // Variante de couleur par réservation (pour distinguer 2 réservations consécutives du même type)
-        const variant = (hashStr(String(resa.id || resa.start + resa.end)) % 4) + 1;
-        cell.classList.add(`variant-${variant}`);
-
-        // Marque le début / fin du séjour (coins arrondis pour délimiter le bloc)
-        if (resa.start === dateStr) cell.classList.add("resa-start");
-        if (resa.end === dateStr) cell.classList.add("resa-end");
+        if (resa) {
+          if (resa.statut === "en_attente") {
+            // Si fermé ET en attente : cumule les deux classes
+            cell.classList.add("pending");
+          } else if (!fermee) {
+            // Pas fermé : affichage normal selon statut
+            if (resa.type === "famille" || resa.statut === "famille") {
+              cell.classList.add("reserved-family");
+            } else {
+              cell.classList.add("booked");
+            }
+            const variant = (hashStr(String(resa.id || resa.start + resa.end)) % 4) + 1;
+            cell.classList.add(`variant-${variant}`);
+          }
+          if (resa.start === dateStr) cell.classList.add("resa-start");
+          if (resa.end   === dateStr) cell.classList.add("resa-end");
+        }
 
         const dot = document.createElement("span");
         dot.className = "day-dot";
         cell.appendChild(dot);
 
-        const range = `${fmtShort(resa.start)} → ${fmtShort(resa.end)}`;
-        const name  = (resa.tenant || resa.nom || "").trim();
-        const status = statusLabel(resa.statut);
+        // Tooltip et libellé visible
+        if (this.showNames && resa) {
+          const name  = (resa.tenant || resa.nom || "").trim();
+          const range = `${fmtShort(resa.start)} → ${fmtShort(resa.end)}`;
 
-        if (this.showNames) {
           if (name) {
             const label = document.createElement("span");
             label.className = "day-tenant";
             label.textContent = name.split(/\s+/)[0];
             cell.appendChild(label);
           }
-          cell.title = (name ? `${name} (${range})` : range) + (status ? ` — ${status}` : "");
-        } else {
-          cell.title = range;
+
+          if (fermee && resa.statut === "en_attente") {
+            // "non ouvert - en attente <nom>"
+            cell.title = `${lblFerme} — ${lblAttente}${name ? " " + name : ""} (${range})`;
+          } else if (fermee) {
+            cell.title = lblFerme;
+          } else {
+            const status = statusLabel(resa.statut);
+            cell.title = (name ? `${name} (${range})` : range) + (status ? ` — ${status}` : "");
+          }
+        } else if (fermee && resa?.statut === "en_attente") {
+          cell.title = `${lblFerme} — ${lblAttente}`;
+        } else if (fermee) {
+          cell.title = lblFerme;
+        } else if (resa) {
+          cell.title = `${fmtShort(resa.start)} → ${fmtShort(resa.end)}`;
         }
       }
 
@@ -247,11 +262,11 @@ export class CombinedCalendar {
   }
 
   _statusFor(apt, dateStr) {
-    // Période fermée en priorité
     const fermee = getPeriodeFermeeForDate(apt, dateStr) ||
                    getPeriodeFermeeForDate("all", dateStr);
-    if (fermee) return "ferme";
     const resa = this._resaFor(apt, dateStr);
+    if (fermee && resa?.statut === "en_attente") return "ferme-pending";
+    if (fermee) return "ferme";
     if (!resa) return "free";
     if (resa.statut === "en_attente") return "pending";
     if (apt === "famille" || resa.type === "famille" || resa.statut === "famille") return "famille";
@@ -306,13 +321,23 @@ export class CombinedCalendar {
       APT_ORDER.forEach(apt => {
         const status = this._statusFor(apt, dateStr);
         const bar = document.createElement("div");
-        bar.className = `combined-bar bar-${apt} status-${status}`;
+        // "ferme-pending" → barre rouge comme ferme
+        bar.className = `combined-bar bar-${apt} status-${status === "ferme-pending" ? "ferme" : status}`;
         bars.appendChild(bar);
 
         const resa = this._resaFor(apt, dateStr);
         const name = (resa?.tenant || resa?.nom || "").trim();
-        const suffix = name ? ` - ${name}` : "";
-        tooltips.push(`${aptLabels[apt]}: ${statusLabels[status]}${suffix}`);
+
+        if (status === "ferme-pending") {
+          const lblFerme   = statusLabels.ferme   || "non ouvert";
+          const lblAttente = statusLabels.pending  || "en attente";
+          tooltips.push(`${aptLabels[apt]}: ${lblFerme} — ${lblAttente}${name ? " " + name : ""}`);
+        } else if (status !== "free") {
+          const suffix = name ? ` — ${name}` : "";
+          tooltips.push(`${aptLabels[apt]}: ${statusLabels[status] || status}${suffix}`);
+        } else {
+          tooltips.push(`${aptLabels[apt]}: ${statusLabels.free || "libre"}`);
+        }
       });
       cell.title = tooltips.join("\n");
 
