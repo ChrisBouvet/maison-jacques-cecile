@@ -886,6 +886,18 @@ img { max-width: 100%; height: auto; display: block; }
 .calendar-day.ferme:hover { background: rgba(220, 53, 69, 0.15); }
 .calendar-day.ferme span.day-dot { display: block; width: 5px; height: 5px; border-radius: 50%; background: #c0392b; }
 
+/* Fermé + en attente : fond rouge avec point orange */
+.calendar-day.ferme.pending {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(220,53,69,0.10),
+    rgba(220,53,69,0.10) 4px,
+    rgba(239,159,39,0.12) 4px,
+    rgba(239,159,39,0.12) 8px
+  );
+}
+.calendar-day.ferme.pending span.day-dot { background: #e67e22; }
+
 /* Liens dans les listes de fonctionnalités (section station) */
 .feature-link {
   color: var(--or);
