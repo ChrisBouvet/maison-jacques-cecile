@@ -62,7 +62,7 @@ function initFooter() {
         </div>
       </div>
       <div class="footer__bottom">
-        <span>© 2024 Indivision Bouvet · Montgenèvre</span>
+        <span>Indivision Bouvet · Montgenèvre</span>
         <span style="color:rgba(253,250,245,0.35);font-size:0.8rem;">Maison Jacques & Cécile</span>
       </div>
     </div>`;
