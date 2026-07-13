@@ -8,8 +8,7 @@ import { initCalendars, initResaForms, subscribeAll, subscribePeriodesStore, lin
 //  "admin"   → accès complet + onglet Admin
 // ══════════════════════════════════════════════════
 const PASSWORDS = {
-  "bouvet2024": "famille",
-  "bouvetadmin2024": "admin"
+  "bouvet2024": "famille"
 };
 
 function checkPassword() {
@@ -32,23 +31,8 @@ function checkPassword() {
   }
 }
 
-function applyRole(role) {
-  const adminTabBtn = document.getElementById("adminTabBtn");
-  if (!adminTabBtn) return;
-  if (role === "admin") {
-    adminTabBtn.style.display = "";
-  } else {
-    adminTabBtn.style.display = "none";
-    // Si on était sur l'onglet admin (session précédente) et qu'on n'a plus le rôle, basculer sur planning
-    if (adminTabBtn.classList.contains("active")) {
-      document.querySelector('.tab-btn[data-tab="planning"]')?.click();
-    }
-  }
-}
-
 let _started = false;
 function startFamilleApp(role) {
-  applyRole(role);
   if (_started) return;
   _started = true;
 
@@ -57,12 +41,6 @@ function startFamilleApp(role) {
 
   // Formulaire de demande de réservation (onglet Planning)
   initResaForms();
-
-  // Tableau récapitulatif (onglet Admin) — temps réel via store partagé
-  subscribeAll(renderTable);
-
-  initAdminForm();
-  initPeriodesFermees();
 }
 
 // ══════════════════════════════════════════════════
