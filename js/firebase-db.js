@@ -4,7 +4,7 @@
 import { initializeApp }    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore,
          collection, addDoc, getDocs,
-         doc, updateDoc, deleteDoc,
+         doc, getDoc, updateDoc, deleteDoc, setDoc,
          query, orderBy, where,
          onSnapshot }        from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
@@ -105,4 +105,34 @@ export async function addPeriodeFermee(data) {
 
 export async function deletePeriodeFermee(id) {
   await deleteDoc(doc(db, COL_FERME, id));
+}
+
+// ══════════════════════════════════════════════════
+//  AUTH CONFIG — mot de passe famille (hash SHA-256)
+//  Stocké dans Firestore : config/auth { familleHash }
+// ══════════════════════════════════════════════════
+
+// Hash SHA-256 d'un mot de passe (natif navigateur)
+export async function hashPassword(password) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(hashBuffer))
+    .map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// Récupère le hash stocké dans Firestore
+export async function getFamilleHash() {
+  try {
+    const snap = await getDoc(doc(db, "config", "auth"));
+    return snap.exists() ? snap.data().familleHash : null;
+  } catch (e) {
+    console.error("getFamilleHash error:", e);
+    return null;
+  }
+}
+
+// Enregistre un nouveau hash dans Firestore (appelé depuis admin)
+export async function setFamilleHash(hash) {
+  await setDoc(doc(db, "config", "auth"), { familleHash: hash }, { merge: true });
 }

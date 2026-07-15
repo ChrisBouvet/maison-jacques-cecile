@@ -1,38 +1,47 @@
 import { addReservation, updateReservation, deleteReservation,
-         addPeriodeFermee, deletePeriodeFermee } from "./firebase-db.js";
+         addPeriodeFermee, deletePeriodeFermee,
+         hashPassword, getFamilleHash } from "./firebase-db.js";
 import { initCalendars, initResaForms, subscribeAll, subscribePeriodesStore, linkArrivalDeparture } from "./calendar-firebase.js";
 
 // ══════════════════════════════════════════════════
-//  RÔLES & MOTS DE PASSE
-//  "famille" → accès planning / instructions / contacts
-//  "admin"   → accès complet + onglet Admin
+//  AUTHENTIFICATION — mot de passe hashé dans Firestore
 // ══════════════════════════════════════════════════
-const PASSWORDS = {
-  "bouvet2024": "famille"
-};
-
-function checkPassword() {
+async function checkPassword() {
   const input   = document.getElementById("famillePassword");
   const gate    = document.getElementById("passwordGate");
   const content = document.getElementById("privateContent");
+  const errEls  = document.querySelectorAll("#pwError");
   if (!input) return;
 
-  const role = PASSWORDS[input.value];
-  if (role) {
-    gate.style.display = "none";
-    content.classList.add("unlocked");
-    sessionStorage.setItem("famille_auth", "1");
-    sessionStorage.setItem("famille_role", role);
-    startFamilleApp(role);
-  } else {
-    document.querySelectorAll("#pwError").forEach(e => e.style.display = "block");
-    input.value = "";
-    input.focus();
+  const entered = input.value;
+  if (!entered) return;
+
+  // Affiche un indicateur de chargement
+  const btn = document.querySelector("#pwSubmitFr, #pwSubmitEn, #pwSubmitIt");
+
+  try {
+    const enteredHash = await hashPassword(entered);
+    const storedHash  = await getFamilleHash();
+
+    if (storedHash && enteredHash === storedHash) {
+      gate.style.display = "none";
+      content.classList.add("unlocked");
+      sessionStorage.setItem("famille_auth", "1");
+      sessionStorage.setItem("famille_hash", enteredHash);
+      startFamilleApp();
+    } else {
+      errEls.forEach(e => e.style.display = "block");
+      input.value = "";
+      input.focus();
+    }
+  } catch (e) {
+    console.error("checkPassword error:", e);
+    errEls.forEach(el => el.style.display = "block");
   }
 }
 
 let _started = false;
-function startFamilleApp(role) {
+function startFamilleApp() {
   if (_started) return;
   _started = true;
 
@@ -518,18 +527,25 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.key === "Enter") checkPassword();
   });
 
-  // Auto-unlock si déjà authentifié cette session (et rôle valide)
-  const validRoles = Object.values(PASSWORDS); // ["famille", "admin"]
-  const storedRole = sessionStorage.getItem("famille_role");
-  if (sessionStorage.getItem("famille_auth") === "1" && validRoles.includes(storedRole)) {
-    const gate    = document.getElementById("passwordGate");
-    const content = document.getElementById("privateContent");
-    if (gate)    gate.style.display = "none";
-    if (content) content.classList.add("unlocked");
-    startFamilleApp(storedRole);
+  // Auto-unlock si déjà authentifié cette session (vérifie le hash en session)
+  const storedSessionHash = sessionStorage.getItem("famille_hash");
+  if (sessionStorage.getItem("famille_auth") === "1" && storedSessionHash) {
+    // Revérifie le hash contre Firestore pour s'assurer que le mot de passe n'a pas changé
+    getFamilleHash().then(firestoreHash => {
+      if (firestoreHash && storedSessionHash === firestoreHash) {
+        const gate    = document.getElementById("passwordGate");
+        const content = document.getElementById("privateContent");
+        if (gate)    gate.style.display = "none";
+        if (content) content.classList.add("unlocked");
+        startFamilleApp();
+      } else {
+        // Mot de passe changé depuis la dernière session → force reconnexion
+        sessionStorage.removeItem("famille_auth");
+        sessionStorage.removeItem("famille_hash");
+      }
+    });
   } else {
-    // Session invalide ou absente : on s'assure que l'accès reste verrouillé
     sessionStorage.removeItem("famille_auth");
-    sessionStorage.removeItem("famille_role");
+    sessionStorage.removeItem("famille_hash");
   }
 });
