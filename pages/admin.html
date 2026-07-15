@@ -431,7 +431,8 @@
 // ══════════════════════════════════════════════════
 //  FIREBASE AUTH + APP ADMIN
 // ══════════════════════════════════════════════════
-import { initializeApp }        from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { initializeApp, getApps, getApp }
+                                from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
                                 from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc,
@@ -455,7 +456,8 @@ const FIREBASE_CONFIG = {
 
 const ALLOWED_EMAIL = "bouvet.christophe@gmail.com";
 
-const app      = initializeApp(FIREBASE_CONFIG, "admin-app");
+// Réutilise l'app déjà initialisée par firebase-db.js si elle existe
+const app      = getApps().length ? getApp() : initializeApp(FIREBASE_CONFIG);
 const auth     = getAuth(app);
 const provider = new GoogleAuthProvider();
 
