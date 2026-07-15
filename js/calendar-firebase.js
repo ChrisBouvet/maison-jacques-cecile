@@ -178,7 +178,7 @@ export class FirebaseCalendar {
             cell.classList.add("pending");
           } else if (!fermee) {
             // Pas fermé : affichage normal selon statut
-            if (resa.type === "famille" || resa.statut === "famille") {
+            if (resa.type === "famille" || resa.statut === "famille" || resa.apt === "famille") {
               cell.classList.add("reserved-family");
             } else {
               cell.classList.add("booked");
