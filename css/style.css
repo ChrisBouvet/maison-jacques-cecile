@@ -472,22 +472,22 @@ img { max-width: 100%; height: auto; display: block; }
 .calendar-day.ferme span.day-dot { display: block; width: 5px; height: 5px; border-radius: 50%; background: #e74c3c; }
 
 /* Variantes de couleur — pour distinguer 2 réservations consécutives du même type */
-.calendar-day.booked.variant-1 { background: rgba(201,169,110,0.20); }
+.calendar-day.booked.variant-1 { background: rgba(201,169,110,0.30); }
 .calendar-day.booked.variant-1 span.day-dot { background: var(--or); }
-.calendar-day.booked.variant-2 { background: rgba(201,169,110,0.28); }
+.calendar-day.booked.variant-2 { background: rgba(201,169,110,0.12); }
 .calendar-day.booked.variant-2 span.day-dot { background: var(--or); }
-.calendar-day.booked.variant-3 { background: rgba(201,169,110,0.14); }
+.calendar-day.booked.variant-3 { background: rgba(201,169,110,0.30); }
 .calendar-day.booked.variant-3 span.day-dot { background: var(--or); }
-.calendar-day.booked.variant-4 { background: rgba(201,169,110,0.22); }
+.calendar-day.booked.variant-4 { background: rgba(201,169,110,0.12); }
 .calendar-day.booked.variant-4 span.day-dot { background: var(--or); }
 
-.calendar-day.reserved-family.variant-1 { background: rgba(44,74,110,0.14); }
+.calendar-day.reserved-family.variant-1 { background: rgba(44,74,110,0.22); }
 .calendar-day.reserved-family.variant-1 span.day-dot { background: var(--bleu-alpin); }
-.calendar-day.reserved-family.variant-2 { background: rgba(44,74,110,0.20); }
+.calendar-day.reserved-family.variant-2 { background: rgba(44,74,110,0.08); }
 .calendar-day.reserved-family.variant-2 span.day-dot { background: var(--bleu-alpin); }
-.calendar-day.reserved-family.variant-3 { background: rgba(44,74,110,0.10); }
+.calendar-day.reserved-family.variant-3 { background: rgba(44,74,110,0.22); }
 .calendar-day.reserved-family.variant-3 span.day-dot { background: var(--bleu-alpin); }
-.calendar-day.reserved-family.variant-4 { background: rgba(44,74,110,0.17); }
+.calendar-day.reserved-family.variant-4 { background: rgba(44,74,110,0.08); }
 .calendar-day.reserved-family.variant-4 span.day-dot { background: var(--bleu-alpin); }
 
 /* Délimitation visuelle d'un séjour (premier / dernier jour) */
