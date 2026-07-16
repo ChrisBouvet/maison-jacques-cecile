@@ -63,12 +63,9 @@ export async function initExtraGallery(folder, containerId, sectionId) {
   const checks = Array.from({ length: MAX_EXTRA }, (_, idx) => {
     const i = idx + 1;
     const src = `../img/${folder}/extra-${i}.jpg`;
-    return new Promise(resolve => {
-      const img = new Image();
-      img.onload  = () => resolve({ i, src, ok: true });
-      img.onerror = () => resolve({ i, src, ok: false });
-      img.src = src;
-    });
+    return fetch(src, { method: 'HEAD' })
+      .then(res => ({ i, src, ok: res.ok }))
+      .catch(() => ({ i, src, ok: false }));
   });
 
   const found = (await Promise.all(checks))
