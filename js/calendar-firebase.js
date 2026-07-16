@@ -112,11 +112,39 @@ export class FirebaseCalendar {
     this.reservations = [];
     this.unsubscribe = subscribeAll(resas => {
       this.reservations = this.apt ? resas.filter(r => r.apt === this.apt) : resas;
+      this._variantMap = null; // invalidate on data change
       this.render();
     });
   }
 
   destroy() { if (this.unsubscribe) this.unsubscribe(); }
+
+  // Construit une map id→variante garantissant que deux réservations
+  // dont les dates se touchent n'ont jamais la même variante.
+  _buildVariantMap() {
+    const sorted = [...this.reservations].sort((a, b) =>
+      (a.start || "").localeCompare(b.start || "")
+    );
+    const map = {};
+    for (let i = 0; i < sorted.length; i++) {
+      const r    = sorted[i];
+      const prev = sorted[i - 1];
+      if (prev && map[prev.id] !== undefined && prev.end >= r.start) {
+        const forbidden = map[prev.id];
+        let v = (hashStr(String(r.id || r.start + r.end)) % 4) + 1;
+        if (v === forbidden) v = (v % 4) + 1;
+        map[r.id] = v;
+      } else {
+        map[r.id] = (hashStr(String(r.id || r.start + r.end)) % 4) + 1;
+      }
+    }
+    return map;
+  }
+
+  _variantFor(resa) {
+    if (!this._variantMap) this._variantMap = this._buildVariantMap();
+    return this._variantMap[resa.id] || 1;
+  }
 
   render() {
     const grid  = this.el.querySelector(".calendar-grid");
@@ -174,16 +202,14 @@ export class FirebaseCalendar {
 
         if (resa) {
           if (resa.statut === "en_attente") {
-            // Si fermé ET en attente : cumule les deux classes
             cell.classList.add("pending");
           } else if (!fermee) {
-            // Pas fermé : affichage normal selon statut
             if (resa.type === "famille" || resa.statut === "famille" || resa.apt === "famille") {
               cell.classList.add("reserved-family");
             } else {
               cell.classList.add("booked");
             }
-            const variant = (hashStr(String(resa.id || resa.start + resa.end)) % 4) + 1;
+            const variant = this._variantFor(resa);
             cell.classList.add(`variant-${variant}`);
           }
           if (resa.start === dateStr) cell.classList.add("resa-start");
