@@ -422,6 +422,60 @@ export function linkArrivalDeparture(arrivalInput, departureInput) {
 // ══════════════════════════════════════════════════
 //  FORMULAIRE DE DEMANDE (locataires & famille)
 // ══════════════════════════════════════════════════
+// ══════════════════════════════════════════════════
+//  NOTIFICATIONS EMAIL via EmailJS
+// ══════════════════════════════════════════════════
+const EMAILJS_SERVICE_ID  = "service_th3liip";
+const EMAILJS_TEMPLATE_ID = "template_4xpi1jz";
+const EMAILJS_PUBLIC_KEY  = "-Kzua-LjISLCYvD79";
+
+let _emailjsReady = false;
+
+function loadEmailJS() {
+  if (_emailjsReady) return Promise.resolve();
+  return new Promise((resolve, reject) => {
+    if (window.emailjs) { _emailjsReady = true; resolve(); return; }
+    const script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
+    script.onload = () => {
+      window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+      _emailjsReady = true;
+      resolve();
+    };
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+}
+
+const APT_NAMES = {
+  rdc:    "Appartement RDC",
+  famille:"1er étage – Famille",
+  "2eme": "Appartement 2ème étage"
+};
+
+async function sendResaNotification({ apt, nom, email, phone, start, end, adults, children, pets, message }) {
+  try {
+    await loadEmailJS();
+    const fmtDate = d => d ? d.split("-").reverse().join("/") : "—";
+    await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      apt_label:  APT_NAMES[apt] || apt,
+      nom,
+      email:      email || "Non renseigné",
+      phone:      phone || "Non renseigné",
+      arrival:    fmtDate(start),
+      departure:  fmtDate(end),
+      adults,
+      children,
+      pets:       pets ? "Oui" : "Non",
+      message:    message || "—",
+    });
+    console.log("Notification email envoyée.");
+  } catch (err) {
+    // La notification est non bloquante — la réservation est déjà enregistrée
+    console.warn("EmailJS error (non bloquant) :", err);
+  }
+}
+
 export function initResaForms() {
   document.querySelectorAll("form.resa-form").forEach(form => {
     const arrivalInput   = form.querySelector("[name='arrival']");
@@ -432,8 +486,6 @@ export function initResaForms() {
       e.preventDefault();
       const lang = localStorage.getItem("lang") || "fr";
 
-      // L'appartement vient soit d'un <select name="apt"> (page famille),
-      // soit de l'attribut data-apt (pages RDC / 2e étage)
       const aptSelect = form.querySelector("[name='apt']");
       const apt = aptSelect ? aptSelect.value : form.dataset.apt;
 
@@ -469,6 +521,10 @@ export function initResaForms() {
           type: "locataire",
           origine: "site web"
         });
+
+        // Notification email (non bloquante)
+        sendResaNotification({ apt, nom, email, phone, start, end, adults, children, pets, message });
+
         const msgs = { fr: "Demande envoyée ! Nous vous répondrons sous 48h.", en: "Request sent! We'll reply within 48h.", it: "Richiesta inviata! Risponderemo entro 48h." };
         showToast(msgs[lang] || msgs.fr, "success");
         form.reset();
