@@ -225,15 +225,24 @@ export class FirebaseCalendar {
           const name  = (resa.tenant || resa.nom || "").trim();
           const range = `${fmtShort(resa.start)} → ${fmtShort(resa.end)}`;
 
+          // Affiche le nom uniquement sur le jour du milieu du séjour
           if (name) {
-            const label = document.createElement("span");
-            label.className = "day-tenant";
-            label.textContent = name.split(/\s+/)[0];
-            cell.appendChild(label);
+            const startD    = new Date(resa.start);
+            const endD      = new Date(resa.end);
+            const totalDays = Math.round((endD - startD) / 86400000);
+            const midDate   = new Date(startD);
+            midDate.setDate(midDate.getDate() + Math.floor(totalDays / 2));
+            const midStr = midDate.toISOString().slice(0, 10);
+
+            if (dateStr === midStr) {
+              const label = document.createElement("span");
+              label.className = "day-tenant";
+              label.textContent = name.split(/\s+/)[0];
+              cell.appendChild(label);
+            }
           }
 
           if (fermee && resa.statut === "en_attente") {
-            // "non ouvert - en attente <nom>"
             cell.title = `${lblFerme} — ${lblAttente}${name ? " " + name : ""} (${range})`;
           } else if (fermee) {
             cell.title = lblFerme;
