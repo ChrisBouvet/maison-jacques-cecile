@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infos pratiques – Maison Jacques & Cécile · Montgenèvre</title>
+  <meta name="description" content="Informations pratiques pour votre séjour à Montgenèvre : transports, ski, randonnées, activités été.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/apartment.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2272FHHMMW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2272FHHMMW');
+  </script>
+  <style>
+    /* ── INFOS PAGE ── */
+    .infos-hero {
+      background: linear-gradient(135deg, var(--brun) 0%, var(--brun-clair) 100%);
+      color: var(--blanc);
+      padding: 3rem 2rem 2rem;
+      text-align: center;
+    }
+    .infos-hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .infos-hero p  { color: rgba(255,255,255,0.7); font-size: 0.95rem; }
+
+    /* Tabs */
+    .infos-tabs-bar {
+      background: var(--blanc);
+      border-bottom: 1px solid var(--or-clair);
+      display: flex;
+      gap: 0;
+      padding: 0 2rem;
+      overflow-x: auto;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .infos-tab-btn {
+      padding: 1rem 1.5rem;
+      border: none;
+      background: none;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--gris);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .infos-tab-btn:hover { color: var(--brun); }
+    .infos-tab-btn.active { color: var(--brun); border-bottom-color: var(--or); }
+
+    /* Content */
+    .infos-content { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+    .infos-panel   { display: none; }
+    .infos-panel.active { display: block; }
+
+    /* Info sections */
+    .info-section {
+      margin-bottom: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--or-clair);
+    }
+    .info-section:last-child { border-bottom: none; margin-bottom: 0; }
+    .info-section h3 {
+      font-size: 1.3rem;
+      color: var(--brun);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .info-section p, .info-section li {
+      font-size: 0.92rem;
+      color: var(--texte-doux);
+      line-height: 1.7;
+    }
+    .info-section ul { list-style: none; padding: 0; }
+    .info-section ul li::before { content: "◆ "; color: var(--or); font-size: 0.55rem; vertical-align: middle; }
+
+    /* Taxi grid */
+    .taxi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .taxi-col h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--or);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--or-clair);
+    }
+    .taxi-card {
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(201,169,110,0.15);
+    }
+    .taxi-card:last-child { border-bottom: none; }
+    .taxi-card strong { display: block; color: var(--brun-clair); font-size: 0.88rem; margin-bottom: 0.2rem; }
+    .taxi-card a { color: var(--brun); font-size: 0.85rem; text-decoration: none; display: block; }
+    .taxi-card a:hover { color: var(--or); }
+
+    /* Link cards */
+    .link-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem;
+      background: var(--creme);
+      border: 1px solid var(--or-clair);
+      border-radius: var(--radius);
+      text-decoration: none;
+      color: var(--brun-clair);
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .link-card:hover { border-color: var(--or); transform: translateY(-2px); color: var(--brun); }
+    .link-card span:first-child { font-size: 1.4rem; }
+
+    @media (max-width: 600px) {
+      .taxi-grid { grid-template-columns: 1fr; }
+      .infos-tabs-bar { padding: 0 0.5rem; }
+      .infos-tab-btn { padding: 0.9rem 1rem; font-size: 0.82rem; }
+    }
+  </style>
+</head>
+<body>
+<nav class="nav"></nav>
+
+<!-- HERO -->
+<div class="infos-hero">
+  <h1 data-lang="fr">ℹ Infos pratiques</h1>
+  <h1 data-lang="en" style="display:none">ℹ Practical information</h1>
+  <h1 data-lang="it" style="display:none">ℹ Informazioni pratiche</h1>
+  <p data-lang="fr">Tout ce qu'il faut savoir pour préparer votre séjour à Montgenèvre</p>
+  <p data-lang="en" style="display:none">Everything you need to know to prepare your stay in Montgenèvre</p>
+  <p data-lang="it" style="display:none">Tutto quello che c'è da sapere per preparare il vostro soggiorno a Montgenèvre</p>
+</div>
+
+<!-- TABS -->
+<nav class="infos-tabs-bar">
+  <button class="infos-tab-btn active" data-panel="transports">
+    <span data-lang="fr">🚆 Transports</span>
+    <span data-lang="en" style="display:none">🚆 Transport</span>
+    <span data-lang="it" style="display:none">🚆 Trasporti</span>
+  </button>
+  <button class="infos-tab-btn" data-panel="hiver">
+    <span data-lang="fr">⛷ Hiver</span>
+    <span data-lang="en" style="display:none">⛷ Winter</span>
+    <span data-lang="it" style="display:none">⛷ Inverno</span>
+  </button>
+  <button class="infos-tab-btn" data-panel="ete">
+    <span data-lang="fr">☀ Été</span>
+    <span data-lang="en" style="display:none">☀ Summer</span>
+    <span data-lang="it" style="display:none">☀ Estate</span>
+  </button>
+  <button class="infos-tab-btn" data-panel="divers">
+    <span data-lang="fr">📋 Divers</span>
+    <span data-lang="en" style="display:none">📋 Miscellaneous</span>
+    <span data-lang="it" style="display:none">📋 Varie</span>
+  </button>
+</nav>
+
+<div class="infos-content">
+
+  <!-- ══ TRANSPORTS ══ -->
+  <div class="infos-panel active" id="panel-transports">
+
+    <div class="info-section">
+      <h3>🚂 <span data-lang="fr">Train</span><span data-lang="en" style="display:none">Train</span><span data-lang="it" style="display:none">Treno</span></h3>
+      <div data-lang="fr">
+        <p>La gare la plus proche est <strong>Briançon</strong>, à 12 km de Montgenèvre.</p>
+        <ul>
+          <li>Depuis Paris : TGV jusqu'à Valence ou Grenoble, puis train régional jusqu'à Briançon (~6h)</li>
+          <li>Depuis Lyon : train direct ou via Grenoble (~4h)</li>
+          <li>Depuis Turin (Italie) : train jusqu'à Oulx, puis navette ou taxi (~1h30)</li>
+        </ul>
+        <p style="margin-top:0.75rem;">Horaires et réservations :</p>
+      </div>
+      <div data-lang="en" style="display:none">
+        <p>The nearest station is <strong>Briançon</strong>, 12 km from Montgenèvre.</p>
+        <ul>
+          <li>From Paris: TGV to Valence or Grenoble, then regional train to Briançon (~6h)</li>
+          <li>From Lyon: direct or via Grenoble (~4h)</li>
+          <li>From Turin (Italy): train to Oulx, then shuttle or taxi (~1h30)</li>
+        </ul>
+      </div>
+      <div data-lang="it" style="display:none">
+        <p>La stazione più vicina è <strong>Briançon</strong>, a 12 km da Montgenèvre.</p>
+        <ul>
+          <li>Da Parigi: TGV fino a Valence o Grenoble, poi treno regionale fino a Briançon (~6h)</li>
+          <li>Da Lione: diretto o via Grenoble (~4h)</li>
+          <li>Da Torino: treno fino a Oulx, poi navetta o taxi (~1h30)</li>
+        </ul>
+      </div>
+      <div class="link-cards">
+        <a class="link-card" href="https://www.sncf-connect.com" target="_blank" rel="noopener">
+          <span>🚆</span><span>SNCF Connect</span>
+        </a>
+        <a class="link-card" href="https://www.trenitalia.com" target="_blank" rel="noopener">
+          <span>🇮🇹</span><span>Trenitalia</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>🚗 <span data-lang="fr">Voiture</span><span data-lang="en" style="display:none">Car</span><span data-lang="it" style="display:none">Auto</span></h3>
+      <div data-lang="fr">
+        <ul>
+          <li><strong>Depuis Paris</strong> (~7h) : A6 → A43 → sortie Grenoble → N85 → N94 → Montgenèvre</li>
+          <li><strong>Depuis Lyon</strong> (~3h) : A43 → N94 → Montgenèvre</li>
+          <li><strong>Depuis Marseille</strong> (~3h30) : A51 → N94 → Montgenèvre</li>
+          <li><strong>Depuis Turin</strong> (~1h) : A32 → col de Montgenèvre</li>
+          <li><strong>Depuis Milan</strong> (~3h) : A4 → A32 → col de Montgenèvre</li>
+        </ul>
+        <p style="margin-top:0.75rem;">⚠ En hiver, prévoir des chaînes ou pneus neige obligatoires dans les Hautes-Alpes.</p>
+      </div>
+      <div data-lang="en" style="display:none">
+        <ul>
+          <li><strong>From Paris</strong> (~7h): A6 → A43 → Grenoble exit → N85 → N94 → Montgenèvre</li>
+          <li><strong>From Lyon</strong> (~3h): A43 → N94 → Montgenèvre</li>
+          <li><strong>From Marseille</strong> (~3h30): A51 → N94 → Montgenèvre</li>
+          <li><strong>From Turin</strong> (~1h): A32 → Montgenèvre pass</li>
+          <li><strong>From Milan</strong> (~3h): A4 → A32 → Montgenèvre pass</li>
+        </ul>
+        <p style="margin-top:0.75rem;">⚠ In winter, snow chains or winter tyres are mandatory in the Hautes-Alpes.</p>
+      </div>
+      <div data-lang="it" style="display:none">
+        <ul>
+          <li><strong>Da Parigi</strong> (~7h): A6 → A43 → uscita Grenoble → N85 → N94 → Montgenèvre</li>
+          <li><strong>Da Lione</strong> (~3h): A43 → N94 → Montgenèvre</li>
+          <li><strong>Da Torino</strong> (~1h): A32 → colle di Montgenèvre</li>
+          <li><strong>Da Milano</strong> (~3h): A4 → A32 → colle di Montgenèvre</li>
+        </ul>
+        <p style="margin-top:0.75rem;">⚠ In inverno, catene o pneumatici invernali obbligatori nelle Hautes-Alpes.</p>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>🚌 <span data-lang="fr">Navettes</span><span data-lang="en" style="display:none">Shuttles</span><span data-lang="it" style="display:none">Navette</span></h3>
+      <div data-lang="fr">
+        <ul>
+          <li><strong>Briançon ↔ Montgenèvre</strong> : navettes régulières en saison (ligne de bus)</li>
+          <li><strong>Altibus</strong> : navettes depuis les aéroports de Turin, Grenoble, Lyon et Marseille</li>
+          <li><strong>Ben's Bus</strong> : navettes depuis Grenoble et Gap</li>
+        </ul>
+      </div>
+      <div data-lang="en" style="display:none">
+        <ul>
+          <li><strong>Briançon ↔ Montgenèvre</strong>: regular seasonal bus service</li>
+          <li><strong>Altibus</strong>: shuttles from Turin, Grenoble, Lyon and Marseille airports</li>
+          <li><strong>Ben's Bus</strong>: shuttles from Grenoble and Gap</li>
+        </ul>
+      </div>
+      <div data-lang="it" style="display:none">
+        <ul>
+          <li><strong>Briançon ↔ Montgenèvre</strong>: navette regolari in stagione</li>
+          <li><strong>Altibus</strong>: navette dagli aeroporti di Torino, Grenoble, Lione e Marsiglia</li>
+          <li><strong>Ben's Bus</strong>: navette da Grenoble e Gap</li>
+        </ul>
+      </div>
+      <div class="link-cards">
+        <a class="link-card" href="https://www.altibus.com" target="_blank" rel="noopener">
+          <span>🚌</span><span>Altibus</span>
+        </a>
+        <a class="link-card" href="https://www.bensbus.co.uk" target="_blank" rel="noopener">
+          <span>🚌</span><span>Ben's Bus</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>✈ <span data-lang="fr">Avion</span><span data-lang="en" style="display:none">Plane</span><span data-lang="it" style="display:none">Aereo</span></h3>
+      <div data-lang="fr">
+        <ul>
+          <li><strong>Turin-Caselle</strong> (~1h) — aéroport le plus proche, nombreuses liaisons européennes</li>
+          <li><strong>Grenoble-Isère</strong> (~2h) — vols low-cost depuis le Royaume-Uni et l'Europe du Nord</li>
+          <li><strong>Lyon Saint-Exupéry</strong> (~3h) — hub international</li>
+          <li><strong>Marseille-Provence</strong> (~3h30) — hub international</li>
+        </ul>
+        <p style="margin-top:0.75rem;">Des navettes Altibus relient ces aéroports à Montgenèvre en saison.</p>
+      </div>
+      <div data-lang="en" style="display:none">
+        <ul>
+          <li><strong>Turin-Caselle</strong> (~1h) — closest airport, many European connections</li>
+          <li><strong>Grenoble-Isère</strong> (~2h) — low-cost flights from UK and Northern Europe</li>
+          <li><strong>Lyon Saint-Exupéry</strong> (~3h) — international hub</li>
+          <li><strong>Marseille-Provence</strong> (~3h30) — international hub</li>
+        </ul>
+      </div>
+      <div data-lang="it" style="display:none">
+        <ul>
+          <li><strong>Torino-Caselle</strong> (~1h) — aeroporto più vicino, numerosi collegamenti europei</li>
+          <li><strong>Grenoble-Isère</strong> (~2h) — voli low-cost da UK e Nord Europa</li>
+          <li><strong>Lione Saint-Exupéry</strong> (~3h) — hub internazionale</li>
+          <li><strong>Marsiglia-Provence</strong> (~3h30) — hub internazionale</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>🚖 <span data-lang="fr">Taxis</span><span data-lang="en" style="display:none">Taxis</span><span data-lang="it" style="display:none">Taxi</span></h3>
+      <div class="taxi-grid">
+        <div class="taxi-col">
+          <h4 data-lang="fr">Côté français</h4>
+          <h4 data-lang="en" style="display:none">French side</h4>
+          <h4 data-lang="it" style="display:none">Lato francese</h4>
+
+          <div class="taxi-card"><strong>Aschettino Taxi – Briançon</strong><a href="tel:+33695845028">+33 6.95.84.50.28</a></div>
+          <div class="taxi-card"><strong>Taxi de la Station Montgenèvre</strong><a href="tel:+33607067998">+33 6.07.06.79.98</a><a href="tel:+33492219432">+33 4.92.21.94.32</a></div>
+          <div class="taxi-card"><strong>Taxi BN</strong><a href="tel:+33607908020">+33 6.07.90.80.20</a><a href="mailto:bntaxi05@gmail.com">bntaxi05@gmail.com</a></div>
+          <div class="taxi-card"><strong>Snow Cab</strong><a href="tel:+441237669222">+44.123.76.69.222</a><a href="tel:+33177513305">+33 1.77.51.33.05</a></div>
+          <div class="taxi-card"><strong>Taxi Resalp</strong><a href="tel:+33492204750">+33 4 92 20 47 50</a><a href="mailto:taxi@resalp.fr">taxi@resalp.fr</a></div>
+          <div class="taxi-card"><strong>Green-Flash</strong><a href="tel:+33630931332">+33 6.30.93.13.32</a></div>
+          <div class="taxi-card"><strong>Taxi Claude Parat</strong><a href="tel:+33671522749">+33 6.71.52.27.49</a></div>
+          <div class="taxi-card"><strong>Taxi Station Briançon</strong><a href="tel:+33662056725">+33 6.62.05.67.25</a></div>
+          <div class="taxi-card"><strong>Allo Taxi Briançon Serre Che</strong><a href="tel:+33603687647">+33 6.03.68.76.47</a></div>
+          <div class="taxi-card"><strong>A-C Mon Taxi</strong><a href="tel:+33616234056">+33 6.16.23.40.56</a></div>
+          <div class="taxi-card"><strong>Taxi Rémy</strong><a href="tel:+33783251680">+33 7.83.25.16.80</a></div>
+        </div>
+        <div class="taxi-col">
+          <h4 data-lang="fr">Côté italien</h4>
+          <h4 data-lang="en" style="display:none">Italian side</h4>
+          <h4 data-lang="it" style="display:none">Lato italiano</h4>
+
+          <div class="taxi-card"><strong>Autoscontro NCC (Giuseppe)</strong><a href="tel:+393458586291">+39 345 85 86 291</a><a href="mailto:info@autoscontroncc.com">info@autoscontroncc.com</a></div>
+          <div class="taxi-card"><strong>EuropTaxi</strong><a href="tel:+393287578080">+39 328 757 8080</a></div>
+          <div class="taxi-card"><strong>Taxi Oulx</strong><a href="tel:+393923712091">+39 392 371 2091</a></div>
+          <div class="taxi-card"><strong>Ghiotti Gian Piero</strong><a href="tel:+390122831158">+39 012 283 1158</a></div>
+          <div class="taxi-card"><strong>Taxi Cesana</strong><a href="tel:+393501206074">+39 350 120 6074</a></div>
+          <div class="taxi-card"><strong>Roby Taxi</strong><a href="tel:+393715605183">+39 371 560 5183</a></div>
+          <div class="taxi-card"><strong>Sestriere Taxi</strong><a href="tel:+393284518137">+39 328 451 8137</a></div>
+          <div class="taxi-card"><strong>Cristiano</strong><a href="tel:+393358252456">+39 335 825 2456</a></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /transports -->
+
+
+  <!-- ══ HIVER ══ -->
+  <div class="infos-panel" id="panel-hiver">
+
+    <div class="info-section">
+      <h3>🎿 <span data-lang="fr">Domaine skiable</span><span data-lang="en" style="display:none">Ski area</span><span data-lang="it" style="display:none">Comprensorio sciistico</span></h3>
+      <div data-lang="fr">
+        <p>Montgenèvre fait partie du domaine de la <strong>Voie Lactée</strong>, l'un des plus grands domaines skiables d'Europe, partagé entre France et Italie.</p>
+        <ul>
+          <li>400 km de pistes · 1 800 à 2 823 m d'altitude</li>
+          <li>5 stations reliées : Montgenèvre, Clavière, Cesana, Sansicario, Sestrière</li>
+          <li>Site officiel des <strong>Jeux Olympiques d'Hiver 2030</strong></li>
+        </ul>
+      </div>
+      <div data-lang="en" style="display:none">
+        <p>Montgenèvre is part of the <strong>Milky Way</strong> ski area, one of Europe's largest, shared between France and Italy.</p>
+        <ul>
+          <li>400 km of slopes · 1,800 to 2,823 m altitude</li>
+          <li>5 linked resorts: Montgenèvre, Clavière, Cesana, Sansicario, Sestrière</li>
+          <li>Official venue for the <strong>2030 Winter Olympics</strong></li>
+        </ul>
+      </div>
+      <div data-lang="it" style="display:none">
+        <p>Montgenèvre fa parte del comprensorio della <strong>Via Lattea</strong>, uno dei più grandi d'Europa, condiviso tra Francia e Italia.</p>
+        <ul>
+          <li>400 km di piste · da 1.800 a 2.823 m di altitudine</li>
+          <li>5 stazioni collegate: Montgenèvre, Clavière, Cesana, Sansicario, Sestrière</li>
+          <li>Sede ufficiale dei <strong>Giochi Olimpici Invernali 2030</strong></li>
+        </ul>
+      </div>
+      <div class="link-cards">
+        <a class="link-card" href="https://montgenevre.com/wp-content/uploads/2025/12/Skimap-2025-2026-DEF_compressed.pdf" target="_blank" rel="noopener">
+          <span>🗺</span><span data-lang="fr">Plan des pistes</span><span data-lang="en" style="display:none">Ski map</span><span data-lang="it" style="display:none">Mappa piste</span>
+        </a>
+        <a class="link-card" href="https://www.vialattea.it" target="_blank" rel="noopener">
+          <span>🎿</span><span>Via Lattea</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>🎫 <span data-lang="fr">Forfaits</span><span data-lang="en" style="display:none">Ski passes</span><span data-lang="it" style="display:none">Skipass</span></h3>
+      <div data-lang="fr">
+        <ul>
+          <li>Forfait Montgenèvre (domaine local) et forfait Voie Lactée (400 km)</li>
+          <li>Tarifs réduits pour les enfants, seniors et familles</li>
+          <li>Achat en ligne recommandé (réduction)</li>
+        </ul>
+      </div>
+      <div data-lang="en" style="display:none">
+        <ul>
+          <li>Montgenèvre pass (local area) and Milky Way pass (400 km)</li>
+          <li>Reduced rates for children, seniors and families</li>
+          <li>Online purchase recommended (discount)</li>
+        </ul>
+      </div>
+      <div data-lang="it" style="display:none">
+        <ul>
+          <li>Skipass Montgenèvre (area locale) e Via Lattea (400 km)</li>
+          <li>Tariffe ridotte per bambini, anziani e famiglie</li>
+          <li>Acquisto online consigliato (sconto)</li>
+        </ul>
+      </div>
+      <div class="link-cards">
+        <a class="link-card" href="https://montgenevre.com/hiver/ski-alpin/forfaits/" target="_blank" rel="noopener">
+          <span>🎫</span><span data-lang="fr">Acheter en ligne</span><span data-lang="en" style="display:none">Buy online</span><span data-lang="it" style="display:none">Acquista online</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>🏫 <span data-lang="fr">Écoles de ski</span><span data-lang="en" style="display:none">Ski schools</span><span data-lang="it" style="display:none">Scuole di sci</span></h3>
+      <div class="link-cards">
+        <a class="link-card" href="https://www.esf-montgenevre.com/" target="_blank" rel="noopener">
+          <span>🎿</span><span data-lang="fr">ESF Montgenèvre</span><span data-lang="en" style="display:none">ESF (French Ski School)</span><span data-lang="it" style="display:none">ESF Montgenèvre</span>
+        </a>
+        <a class="link-card" href="https://www.ecoledeski.fr/montgenevre" target="_blank" rel="noopener">
+          <span>🏂</span><span data-lang="fr">ESI – École Internationale</span><span data-lang="en" style="display:none">ESI – International School</span><span data-lang="it" style="display:none">ESI – Scuola Internazionale</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>🎿 <span data-lang="fr">Location de matériel</span><span data-lang="en" style="display:none">Equipment rental</span><span data-lang="it" style="display:none">Noleggio attrezzatura</span></h3>
+      <div data-lang="fr">
+        <p>Plusieurs magasins de location au village, à 150 m de la maison. Réservation en ligne recommandée en haute saison.</p>
+        <ul>
+          <li>Skis, snowboards, chaussures, casques, vêtements</li>
+          <li>Matériel enfant disponible</li>
+        </ul>
+      </div>
+      <div data-lang="en" style="display:none">
+        <p>Several rental shops in the village, 150 m from the house. Online booking recommended in peak season.</p>
+        <ul><li>Skis, snowboards, boots, helmets, clothing</li><li>Children's equipment available</li></ul>
+      </div>
+      <div data-lang="it" style="display:none">
+        <p>Diversi negozi di noleggio nel villaggio, a 150 m dalla casa. Prenotazione online consigliata in alta stagione.</p>
+        <ul><li>Sci, snowboard, scarponi, caschi, abbigliamento</li><li>Attrezzatura per bambini disponibile</li></ul>
+      </div>
+      <div class="link-cards">
+        <a class="link-card" href="https://montgenevre.com/hiver/ski-alpin/location-materiel-ski/" target="_blank" rel="noopener">
+          <span>🎿</span><span data-lang="fr">Location sur le site officiel</span><span data-lang="en" style="display:none">Rental on official site</span><span data-lang="it" style="display:none">Noleggio sul sito ufficiale</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>🏔 <span data-lang="fr">Ski de randonnée</span><span data-lang="en" style="display:none">Ski touring</span><span data-lang="it" style="display:none">Scialpinismo</span></h3>
+      <div data-lang="fr">
+        <p>Le massif autour de Montgenèvre offre de nombreuses possibilités de ski de randonnée, de tous niveaux. Guides disponibles localement.</p>
+        <ul>
+          <li>Col de Montgenèvre et ses environs</li>
+          <li>Massif des Écrins accessible depuis Briançon</li>
+          <li>Encadrement par des guides de haute montagne conseillé</li>
+        </ul>
+      </div>
+      <div data-lang="en" style="display:none">
+        <p>The massif around Montgenèvre offers many ski touring opportunities for all levels. Local guides available.</p>
+      </div>
+      <div data-lang="it" style="display:none">
+        <p>Il massiccio intorno a Montgenèvre offre numerose possibilità di scialpinismo per tutti i livelli.</p>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>❄ <span data-lang="fr">Divers hiver</span><span data-lang="en" style="display:none">Winter miscellaneous</span><span data-lang="it" style="display:none">Varie inverno</span></h3>
+      <div data-lang="fr">
+        <ul>
+          <li>Patinoire, luge, raquettes à neige, ski joëring</li>
+          <li>Piscine couverte et espace bien-être</li>
+          <li>Garderie enfants (dès 18 mois) — 150 m de la maison</li>
+        </ul>
+      </div>
+      <div data-lang="en" style="display:none">
+        <ul>
+          <li>Ice rink, sledging, snowshoeing, ski joëring</li>
+          <li>Indoor pool and wellness area</li>
+          <li>Children's nursery (from 18 months) — 150 m from the house</li>
+        </ul>
+      </div>
+      <div data-lang="it" style="display:none">
+        <ul>
+          <li>Pista di pattinaggio, slittino, ciaspolate, ski joëring</li>
+          <li>Piscina coperta e centro benessere</li>
+          <li>Asilo nido (da 18 mesi) — 150 m dalla casa</li>
+        </ul>
+      </div>
+      <div class="link-cards">
+        <a class="link-card" href="https://montgenevre.com/hiver/toutes-les-activites-hiver/" target="_blank" rel="noopener">
+          <span>❄</span><span data-lang="fr">Toutes les activités hiver</span><span data-lang="en" style="display:none">All winter activities</span><span data-lang="it" style="display:none">Tutte le attività invernali</span>
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /hiver -->
+
+
+  <!-- ══ ÉTÉ ══ -->
+  <div class="infos-panel" id="panel-ete">
+
+    <div class="info-section">
+      <h3>🥾 <span data-lang="fr">Randonnées</span><span data-lang="en" style="display:none">Hiking</span><span data-lang="it" style="display:none">Escursioni</span></h3>
+      <div data-lang="fr">
+        <p>Le secteur offre des randonnées pour tous les niveaux, de la promenade familiale aux sommets alpins.</p>
+        <ul>
+          <li><strong>Montgenèvre</strong> — sentiers balisés depuis le village</li>
+          <li><strong>Vallée de la Clarée</strong> — l'une des plus belles vallées des Alpes, non motorisée</li>
+          <li><strong>Parc National des Écrins</strong> — faune alpine, lacs de montagne, glaciers</li>
+        </ul>
+      </div>
+      <div data-lang="en" style="display:none">
+        <p>The area offers hiking for all levels, from family walks to Alpine summits.</p>
+      </div>
+      <div data-lang="it" style="display:none">
+        <p>La zona offre escursioni per tutti i livelli, dalle passeggiate familiari alle vette alpine.</p>
+      </div>
+      <div class="link-cards">
+        <a class="link-card" href="https://montgenevre.com/ete/toutes-les-activites-ete" target="_blank" rel="noopener">
+          <span>🥾</span><span>Montgenèvre</span>
+        </a>
+        <a class="link-card" href="https://www.hautesvallees.com/la-claree/que-faire/en-ete/balades-et-randonnees-en-claree/itineraires-de-randonnees/" target="_blank" rel="noopener">
+          <span>🏔</span><span data-lang="fr">Vallée de la Clarée</span><span data-lang="en" style="display:none">Clarée Valley</span><span data-lang="it" style="display:none">Valle della Clarée</span>
+        </a>
+        <a class="link-card" href="https://destination.ecrins-parcnational.fr/search?practices=4" target="_blank" rel="noopener">
+          <span>🌿</span><span data-lang="fr">Parc des Écrins</span><span data-lang="en" style="display:none">Écrins National Park</span><span data-lang="it" style="display:none">Parco degli Écrins</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>🏃 <span>Trail</span></h3>
+      <div data-lang="fr">
+        <p>Montgenèvre accueille chaque été des épreuves de trail running sur les sentiers du massif. Des parcours balisés pour tous les niveaux permettent de découvrir le territoire autrement.</p>
+      </div>
+      <div data-lang="en" style="display:none">
+        <p>Montgenèvre hosts trail running events every summer. Marked routes for all levels.</p>
+      </div>
+      <div data-lang="it" style="display:none">
+        <p>Montgenèvre ospita ogni estate gare di trail running. Percorsi segnalati per tutti i livelli.</p>
+      </div>
+      <div class="link-cards">
+        <a class="link-card" href="https://montgenevre.com/ete/toutes-les-activites-ete" target="_blank" rel="noopener">
+          <span>🏃</span><span data-lang="fr">Activités trail</span><span data-lang="en" style="display:none">Trail activities</span><span data-lang="it" style="display:none">Attività trail</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>⛳ <span>Golf</span></h3>
+      <div data-lang="fr">
+        <p>Le golf de Montgenèvre est l'un des plus hauts d'Europe, avec un panorama exceptionnel sur les sommets franco-italiens.</p>
+        <ul>
+          <li>9 trous · altitude 1 860 m</li>
+          <li>Location de matériel sur place</li>
+        </ul>
+      </div>
+      <div data-lang="en" style="display:none">
+        <p>Montgenèvre golf course is one of the highest in Europe, with exceptional views over the Franco-Italian peaks.</p>
+        <ul><li>9 holes · altitude 1,860 m</li><li>Equipment rental on site</li></ul>
+      </div>
+      <div data-lang="it" style="display:none">
+        <p>Il campo da golf di Montgenèvre è uno dei più alti d'Europa, con una vista eccezionale.</p>
+        <ul><li>9 buche · altitudine 1.860 m</li><li>Noleggio attrezzatura in loco</li></ul>
+      </div>
+      <div class="link-cards">
+        <a class="link-card" href="https://montgenevre.com/ete/golf/" target="_blank" rel="noopener">
+          <span>⛳</span><span data-lang="fr">Golf de Montgenèvre</span><span data-lang="en" style="display:none">Montgenèvre Golf</span><span data-lang="it" style="display:none">Golf di Montgenèvre</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>🌿 <span data-lang="fr">Parc National des Écrins</span><span data-lang="en" style="display:none">Écrins National Park</span><span data-lang="it" style="display:none">Parco Nazionale degli Écrins</span></h3>
+      <div data-lang="fr">
+        <p>À moins d'une heure de Montgenèvre, le Parc National des Écrins est un espace naturel exceptionnel : glaciers, lacs d'altitude, flore et faune protégées (bouquetins, chamois, aigles).</p>
+        <ul>
+          <li>Accessible depuis Briançon et L'Argentière-la-Bessée</li>
+          <li>Randonnées, via ferrata, escalade, observation de la faune</li>
+          <li>Maison du Parc à Briançon</li>
+        </ul>
+      </div>
+      <div data-lang="en" style="display:none">
+        <p>Less than an hour from Montgenèvre, the Écrins National Park is an exceptional natural space: glaciers, mountain lakes, protected flora and fauna.</p>
+      </div>
+      <div data-lang="it" style="display:none">
+        <p>A meno di un'ora da Montgenèvre, il Parco Nazionale degli Écrins è uno spazio naturale eccezionale: ghiacciai, laghi alpini, flora e fauna protette.</p>
+      </div>
+      <div class="link-cards">
+        <a class="link-card" href="https://www.ecrins-parcnational.fr" target="_blank" rel="noopener">
+          <span>🌿</span><span data-lang="fr">Site du Parc des Écrins</span><span data-lang="en" style="display:none">Écrins Park website</span><span data-lang="it" style="display:none">Sito del Parco degli Écrins</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>🇮🇹 <span data-lang="fr">Italie – Clavière et Val de Suse</span><span data-lang="en" style="display:none">Italy – Clavière and Val di Susa</span><span data-lang="it" style="display:none">Italia – Clavière e Val di Susa</span></h3>
+      <div data-lang="fr">
+        <p>L'Italie est à <strong>3 km</strong> — à pied, à vélo ou en voiture. Clavière et Cesana sont facilement accessibles et offrent commerces, restaurants et un dépaysement garanti.</p>
+        <ul>
+          <li><strong>Clavière</strong> — village frontalier italien avec restaurants et boutiques</li>
+          <li><strong>Sestrière</strong> — station italienne du domaine Voie Lactée (~30 min)</li>
+          <li><strong>Turin</strong> — à 1h, pour une escapade culturelle</li>
+        </ul>
+      </div>
+      <div data-lang="en" style="display:none">
+        <p>Italy is just <strong>3 km</strong> away — on foot, by bike or by car.</p>
+        <ul>
+          <li><strong>Clavière</strong> — Italian border village with restaurants and shops</li>
+          <li><strong>Sestrière</strong> — Italian resort of the Milky Way (~30 min)</li>
+          <li><strong>Turin</strong> — 1h away for a cultural trip</li>
+        </ul>
+      </div>
+      <div data-lang="it" style="display:none">
+        <p>L'Italia è a soli <strong>3 km</strong> — a piedi, in bici o in auto.</p>
+        <ul>
+          <li><strong>Clavière</strong> — paese di confine con ristoranti e negozi</li>
+          <li><strong>Sestrière</strong> — stazione italiana della Via Lattea (~30 min)</li>
+          <li><strong>Torino</strong> — a 1h per una gita culturale</li>
+        </ul>
+      </div>
+      <div class="link-cards">
+        <a class="link-card" href="https://www.claviere.it" target="_blank" rel="noopener">
+          <span>🇮🇹</span><span>Clavière</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>☀ <span data-lang="fr">Divers été</span><span data-lang="en" style="display:none">Summer miscellaneous</span><span data-lang="it" style="display:none">Varie estate</span></h3>
+      <div data-lang="fr">
+        <ul>
+          <li>VTT et vélo électrique — pistes spécifiques balisées</li>
+          <li>Raft et canyoning — sur la Durance et la Guisane (Briançon)</li>
+          <li>Yoga, bien-être — proposés en saison à la station</li>
+          <li>Tournois et animations — programme estival de la station</li>
+          <li>Luge d'été — à la station</li>
+          <li>Lac de Briançon — baignade à 10 km</li>
+        </ul>
+      </div>
+      <div data-lang="en" style="display:none">
+        <ul>
+          <li>Mountain biking and e-bike — marked trails</li>
+          <li>Rafting and canyoning — on the Durance and Guisane rivers (Briançon)</li>
+          <li>Yoga and wellness — offered in season at the resort</li>
+          <li>Summer luge — at the resort</li>
+          <li>Briançon lake — swimming 10 km away</li>
+        </ul>
+      </div>
+      <div data-lang="it" style="display:none">
+        <ul>
+          <li>Mountain bike ed e-bike — percorsi segnalati</li>
+          <li>Rafting e canyoning — sul Durance e Guisane (Briançon)</li>
+          <li>Yoga e benessere — offerti in stagione</li>
+          <li>Slittino estivo — alla stazione</li>
+          <li>Lago di Briançon — balneazione a 10 km</li>
+        </ul>
+      </div>
+      <div class="link-cards">
+        <a class="link-card" href="https://montgenevre.com/ete/toutes-les-activites-ete" target="_blank" rel="noopener">
+          <span>☀</span><span data-lang="fr">Toutes les activités été</span><span data-lang="en" style="display:none">All summer activities</span><span data-lang="it" style="display:none">Tutte le attività estive</span>
+        </a>
+        <a class="link-card" href="https://montgenevre.com/ete/vtt-vae/itineraires-vtt-vae" target="_blank" rel="noopener">
+          <span>🚵</span><span data-lang="fr">VTT – Itinéraires</span><span data-lang="en" style="display:none">Mountain biking routes</span><span data-lang="it" style="display:none">Percorsi MTB</span>
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /ete -->
+
+
+  <!-- ══ DIVERS ══ -->
+  <div class="infos-panel" id="panel-divers">
+
+    <div class="info-section">
+      <h3>🛒 <span data-lang="fr">Commerces</span><span data-lang="en" style="display:none">Shops</span><span data-lang="it" style="display:none">Negozi</span></h3>
+      <div data-lang="fr">
+        <ul>
+          <li>Supérette / épicerie au village (ouverte 7j/7 en saison)</li>
+          <li>Boulangerie, boucherie, fromagerie</li>
+          <li>Boutiques de sport et équipement ski</li>
+          <li>Pharmacie à Montgenèvre</li>
+          <li>Grande surface à Briançon (12 km)</li>
+        </ul>
+      </div>
+      <div data-lang="en" style="display:none">
+        <ul>
+          <li>Village grocery (open 7/7 in season)</li>
+          <li>Bakery, butcher, cheese shop</li>
+          <li>Sports and ski equipment shops</li>
+          <li>Pharmacy in Montgenèvre</li>
+          <li>Supermarket in Briançon (12 km)</li>
+        </ul>
+      </div>
+      <div data-lang="it" style="display:none">
+        <ul>
+          <li>Alimentari nel villaggio (aperto 7/7 in stagione)</li>
+          <li>Panetteria, macelleria, fromagerie</li>
+          <li>Negozi di sport e attrezzatura sci</li>
+          <li>Farmacia a Montgenèvre</li>
+          <li>Supermercato a Briançon (12 km)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>🌡 <span data-lang="fr">Météo</span><span data-lang="en" style="display:none">Weather</span><span data-lang="it" style="display:none">Meteo</span></h3>
+      <div class="link-cards">
+        <a class="link-card" href="https://www.meteofrance.com" target="_blank" rel="noopener">
+          <span>🌡</span><span>Météo France</span>
+        </a>
+        <a class="link-card" href="https://www.mountain-forecast.com/peaks/Col-de-Montgenvre/forecasts/1850" target="_blank" rel="noopener">
+          <span>⛰</span><span data-lang="fr">Prévisions montagne</span><span data-lang="en" style="display:none">Mountain forecast</span><span data-lang="it" style="display:none">Previsioni montagna</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>🏛 <span data-lang="fr">Tourisme local</span><span data-lang="en" style="display:none">Local tourism</span><span data-lang="it" style="display:none">Turismo locale</span></h3>
+      <div class="link-cards">
+        <a class="link-card" href="https://montgenevre.com" target="_blank" rel="noopener">
+          <span>🏔</span><span>Montgenèvre</span>
+        </a>
+        <a class="link-card" href="https://www.briancon-tourisme.fr" target="_blank" rel="noopener">
+          <span>🏰</span><span data-lang="fr">Office de tourisme Briançon</span><span data-lang="en" style="display:none">Briançon Tourism</span><span data-lang="it" style="display:none">Turismo Briançon</span>
+        </a>
+        <a class="link-card" href="https://www.claviere.it" target="_blank" rel="noopener">
+          <span>🇮🇹</span><span>Clavière (IT)</span>
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /divers -->
+
+</div><!-- /infos-content -->
+
+<footer class="footer"></footer>
+
+<script src="../js/main.js" defer></script>
+<script src="../js/nav-partial.js" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  initNav('infos');
+  initFooter();
+
+  // Tab switching
+  document.querySelectorAll('.infos-tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.infos-tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.infos-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      const panel = btn.dataset.panel;
+      document.getElementById('panel-' + panel).classList.add('active');
+    });
+  });
+
+  // Open tab from URL hash e.g. infos.html#hiver
+  const hash = window.location.hash.replace('#', '');
+  if (hash) {
+    const btn = document.querySelector(`.infos-tab-btn[data-panel="${hash}"]`);
+    if (btn) btn.click();
+  }
+});
+</script>
+</body>
+</html>
