@@ -9,7 +9,6 @@ function initNav(activePage) {
     <a class="nav__logo" href="${root}index.html">Jacques <span>&</span> Cécile</a>
     <ul class="nav__links">
       <li><a href="${root}index.html#maison" data-lang="fr">La Maison</a><a href="${root}index.html#maison" data-lang="en" style="display:none">The House</a><a href="${root}index.html#maison" data-lang="it" style="display:none">La Casa</a></li>
-      <li><a href="${root}pages/infos.html" data-lang="fr">Infos</a><a href="${root}pages/infos.html" data-lang="en" style="display:none">Infos</a><a href="${root}pages/infos.html" data-lang="it" style="display:none">Infos</a></li>
       <li><a href="${root}pages/rdc.html" data-lang="fr">Appt. RDC</a><a href="${root}pages/rdc.html" data-lang="en" style="display:none">Ground Apt.</a><a href="${root}pages/rdc.html" data-lang="it" style="display:none">App. PT</a></li>
       <li><a href="${root}pages/2eme.html" data-lang="fr">Appt. 2ème</a><a href="${root}pages/2eme.html" data-lang="en" style="display:none">2nd Floor Apt.</a><a href="${root}pages/2eme.html" data-lang="it" style="display:none">App. 2° Piano</a></li>
       <li><a href="${root}pages/famille.html" data-lang="fr">Famille</a><a href="${root}pages/famille.html" data-lang="en" style="display:none">Family</a><a href="${root}pages/famille.html" data-lang="it" style="display:none">Famiglia</a></li>
