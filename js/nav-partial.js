@@ -20,6 +20,23 @@ function initNav(activePage) {
     </ul>
     <button class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
   `;
+
+  // Burger menu — branche le gestionnaire après injection
+  const burger   = nav.querySelector('.nav__burger');
+  const navLinks = nav.querySelector('.nav__links');
+  const navLang  = nav.querySelector('.nav__lang');
+  if (burger && navLinks) {
+    burger.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      if (navLang) navLang.classList.toggle('mobile-open', isOpen);
+    });
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navLang?.classList.remove('mobile-open');
+      });
+    });
+  }
 }
 
 function initFooter() {
