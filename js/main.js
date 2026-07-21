@@ -12,6 +12,16 @@ const navLinks = document.querySelector('.nav__links');
 if (burger && navLinks) {
   burger.addEventListener('click', () => {
     navLinks.classList.toggle('open');
+    // Sur mobile, affiche les boutons de langue dans le menu ouvert
+    const langEl = document.querySelector('.nav__lang');
+    if (langEl) langEl.classList.toggle('mobile-open', navLinks.classList.contains('open'));
+  });
+  // Ferme le menu au clic sur un lien
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      document.querySelector('.nav__lang')?.classList.remove('mobile-open');
+    });
   });
 }
 
