@@ -19,7 +19,7 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
   font-family: 'Jost', sans-serif;
@@ -28,6 +28,7 @@ body {
   color: var(--texte);
   line-height: 1.75;
   font-size: 16px;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4 {
@@ -805,15 +806,16 @@ img { max-width: 100%; height: auto; display: block; }
 @media (max-width: 768px) {
   .nav {
     padding: 0.9rem 1rem;
-    flex-wrap: nowrap;
     overflow: visible;
   }
-  .nav__logo { font-size: 1.1rem; flex-shrink: 1; min-width: 0; }
-  .nav__links { display: none; }
-  .nav__lang {
-    display: none; /* masquées sur mobile, accessibles via le menu burger */
+  .nav__logo { font-size: 1.1rem; }
+  .nav__links {
+    display: none;
   }
-  .nav__burger { display: block; flex-shrink: 0; }
+  .nav__lang {
+    display: none;
+  }
+  .nav__burger { display: flex; align-items: center; justify-content: center; }
   .nav__links.open {
     display: flex;
     flex-direction: column;
@@ -823,8 +825,8 @@ img { max-width: 100%; height: auto; display: block; }
     padding: 5rem 2rem 2rem;
     box-shadow: var(--ombre);
     z-index: 99;
+    gap: 0.5rem;
   }
-  /* Langue dans le menu ouvert */
   .nav__lang.mobile-open {
     display: flex;
     position: fixed;
