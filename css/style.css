@@ -951,3 +951,10 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--or);
   letter-spacing: 0.02em;
 }
+
+/* Prox-items : certains masqués sur mobile, remplacés par un item groupé */
+.prox-item--mobile { display: none; }
+@media (max-width: 768px) {
+  .prox-item--desktop { display: none; }
+  .prox-item--mobile  { display: flex; }
+}
