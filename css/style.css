@@ -145,7 +145,7 @@ img { max-width: 100%; height: auto; display: block; }
   transition: background 0.5s ease, opacity 0.5s ease;
 }
 .hero__img-placeholder.summer {
-  background: url('../img/autres/Montgen%C3%A8vre_Ete.jpg') center/cover no-repeat;
+  background: url('../img/autres/Montgen%C3%A8vre_Ete.jpg') center top / cover no-repeat;
   opacity: 0.22;
 }
 .hero__content {
