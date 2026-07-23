@@ -140,7 +140,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .hero__img-placeholder {
   position: absolute; inset: 0;
-  background: url('../img/autres/Montgen%C3%A8vre_Hivers.jpg') center/cover no-repeat;
+  background: url('../img/autres/Montgen%C3%A8vre_Hiver.jpg') center/cover no-repeat;
   opacity: 0.28;
   transition: background 0.5s ease, opacity 0.5s ease;
 }
