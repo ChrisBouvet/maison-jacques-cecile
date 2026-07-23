@@ -316,7 +316,12 @@
 }
 
 /* Clickable proximity items */
-.prox-item--link {
+/* Prox-items groupés sur mobile */
+.prox-item.prox-item--mobile { display: none !important; }
+@media (max-width: 768px) {
+  .prox-item.prox-item--desktop { display: none !important; }
+  .prox-item.prox-item--mobile  { display: flex !important; }
+}
   text-decoration: none;
   color: inherit;
   transition: border-color 0.2s, transform 0.15s;
