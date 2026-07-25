@@ -201,7 +201,8 @@
         <span class="section__tag">La Maison</span>
         <h2 class="section__title">Une maison de village<br><em>au cœur de Montgenèvre</em></h2>
         <div class="divider"></div>
-        <p class="section__lead">Maison de village traditionnelle, idéalement située face à l'église, dans la rue la plus calme du centre et à 150 m des pistes et commerces. Trois niveaux, trois appartements indépendants dont deux en location.</p>
+        <p class="section__lead" data-season-content="winter">Maison de village traditionnelle, idéalement située face à l'église, dans la rue la plus calme du centre et à 150 m des pistes et commerces. Trois niveaux, trois appartements indépendants dont deux en location.</p>
+        <p class="section__lead" data-season-content="summer" style="display:none">Maison de village traditionnelle, idéalement située face à l'église, dans la rue centrale et calme du village. À proximité des commerces. Trois niveaux, trois appartements indépendants dont deux en location.</p>
       </div>
       <div class="house-layout reveal">
         <a href="pages/rdc.html" class="house-floor rental-floor house-floor--link">
@@ -236,7 +237,8 @@
         <span class="section__tag">The House</span>
         <h2 class="section__title">A village house<br><em>in the heart of Montgenèvre</em></h2>
         <div class="divider"></div>
-        <p class="section__lead">Traditional village house, ideally located facing the church, on the quietest street in the centre. Three independent apartments, each with its own character.</p>
+        <p class="section__lead" data-season-content="winter">Traditional village house, ideally located facing the church, on the quietest and closest street to the slopes. Three levels, three independent apartments, two of which are available for rental.</p>
+        <p class="section__lead" data-season-content="summer" style="display:none">Traditional village house, ideally located facing the church, on the quiet central street of the village. Close to shops. Three levels, three independent apartments, two of which are available for rental.</p>
       </div>
       <div class="house-layout reveal">
         <a href="pages/rdc.html" class="house-floor rental-floor house-floor--link">
@@ -271,7 +273,8 @@
         <span class="section__tag">La Casa</span>
         <h2 class="section__title">Una casa di paese<br><em>nel cuore di Montgenèvre</em></h2>
         <div class="divider"></div>
-        <p class="section__lead">Casa di paese tradizionale, situata idealmente di fronte alla chiesa, nella strada più tranquilla del centro. Tre appartamenti indipendenti, ognuno con il proprio carattere.</p>
+        <p class="section__lead" data-season-content="winter">Casa di paese tradizionale, situata idealmente di fronte alla chiesa, nella via più tranquilla del centro a 150 m dalle piste. Tre livelli, tre appartamenti indipendenti di cui due in affitto.</p>
+        <p class="section__lead" data-season-content="summer" style="display:none">Casa di paese tradizionale, situata idealmente di fronte alla chiesa, nella via centrale e tranquilla del villaggio. Vicino ai negozi. Tre livelli, tre appartamenti indipendenti di cui due in affitto.</p>
       </div>
       <div class="house-layout reveal">
         <a href="pages/rdc.html" class="house-floor rental-floor house-floor--link">
@@ -565,11 +568,17 @@
             </div>
           </div>
           <div class="station-aside">
-            <div class="station-photo-ph summer-ph">
-              <span>📸</span>
-              <small data-lang="fr">Montgenèvre en été</small>
-              <small data-lang="en" style="display:none">Montgenèvre in summer</small>
-              <small data-lang="it" style="display:none">Montgenèvre in estate</small>
+            <div class="station-photo-wrap">
+              <img src="img/autres/montgenevre-ete-station.jpg"
+                   alt="Montgenèvre en été"
+                   class="plan-pistes-img"
+                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="station-photo-ph summer-ph" style="display:none">
+                <span>📸</span>
+                <small data-lang="fr">Montgenèvre en été</small>
+                <small data-lang="en" style="display:none">Montgenèvre in summer</small>
+                <small data-lang="it" style="display:none">Montgenèvre in estate</small>
+              </div>
             </div>
             <div class="station-facts">
               <div class="sfact"><span class="sfact-n">1 860 m</span><span class="sfact-l" data-lang="fr">Fraîcheur garantie</span><span class="sfact-l" data-lang="en" style="display:none">Guaranteed freshness</span><span class="sfact-l" data-lang="it" style="display:none">Frescura garantita</span></div>
