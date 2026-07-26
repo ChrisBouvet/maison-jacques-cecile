@@ -504,7 +504,7 @@ export function initResaForms() {
         // Notification email (non bloquante)
         sendResaNotification({ apt, nom, email, phone, start, end, adults, children, pets, message });
 
-        const msgs = { fr: "Demande envoyée ! Nous vous répondrons sous 48h.", en: "Request sent! We'll reply within 48h.", it: "Richiesta inviata! Risponderemo entro 48h." };
+        const msgs = { fr: "Demande envoyée ! Nous vous répondrons au plus vite.", en: "Request sent! We'll get back to you as soon as possible.", it: "Richiesta inviata! Vi risponderemo al più presto." };
         showToast(msgs[lang] || msgs.fr, "success");
         form.reset();
         departureInput.removeAttribute("min");
