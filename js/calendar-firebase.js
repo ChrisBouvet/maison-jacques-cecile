@@ -194,25 +194,22 @@ export class FirebaseCalendar {
       const lblAttente = STATUS_LABELS[lang]?.en_attente || "En attente";
 
       if (fermee || resa) {
-        // Classe de base : fermé prime sur le reste, sauf si on veut aussi montrer en_attente
         if (fermee) {
+          // Période fermée — prime sur tout, y compris en attente
           cell.classList.add("ferme");
           if (fermee.start === dateStr) cell.classList.add("resa-start");
           if (fermee.end   === dateStr) cell.classList.add("resa-end");
-        }
-
-        if (resa) {
+        } else if (resa) {
+          // Pas de période fermée : affichage normal selon statut
           if (resa.statut === "en_attente") {
             cell.classList.add("pending");
-          } else if (!fermee) {
-            if (resa.type === "famille" || resa.statut === "famille" || resa.apt === "famille") {
-              cell.classList.add("reserved-family");
-            } else {
-              cell.classList.add("booked");
-            }
-            const variant = this._variantFor(resa);
-            cell.classList.add(`variant-${variant}`);
+          } else if (resa.type === "famille" || resa.statut === "famille" || resa.apt === "famille") {
+            cell.classList.add("reserved-family");
+          } else {
+            cell.classList.add("booked");
           }
+          const variant = this._variantFor(resa);
+          cell.classList.add(`variant-${variant}`);
           if (resa.start === dateStr) cell.classList.add("resa-start");
           if (resa.end   === dateStr) cell.classList.add("resa-end");
         }
@@ -222,30 +219,21 @@ export class FirebaseCalendar {
         cell.appendChild(dot);
 
         // Tooltip et libellé visible
-        if (this.showNames && resa) {
+        if (fermee) {
+          // Période fermée : tooltip simple, pas de nom locataire
+          cell.title = lblFerme;
+        } else if (this.showNames && resa) {
           const name  = (resa.tenant || resa.nom || "").trim();
           const range = `${fmtShort(resa.start)} → ${fmtShort(resa.end)}`;
 
-          // Affiche le nom sur chaque jour du séjour
           if (name) {
             const label = document.createElement("span");
             label.className = "day-tenant";
             label.textContent = name.split(/\s+/)[0];
             cell.appendChild(label);
           }
-
-          if (fermee && resa.statut === "en_attente") {
-            cell.title = `${lblFerme} — ${lblAttente}${name ? " " + name : ""} (${range})`;
-          } else if (fermee) {
-            cell.title = lblFerme;
-          } else {
-            const status = statusLabel(resa.statut);
-            cell.title = (name ? `${name} (${range})` : range) + (status ? ` — ${status}` : "");
-          }
-        } else if (fermee && resa?.statut === "en_attente") {
-          cell.title = `${lblFerme} — ${lblAttente}`;
-        } else if (fermee) {
-          cell.title = lblFerme;
+          const status = statusLabel(resa.statut);
+          cell.title = (name ? `${name} (${range})` : range) + (status ? ` — ${status}` : "");
         } else if (resa) {
           cell.title = `${fmtShort(resa.start)} → ${fmtShort(resa.end)}`;
         }
@@ -291,9 +279,8 @@ export class CombinedCalendar {
   _statusFor(apt, dateStr) {
     const fermee = getPeriodeFermeeForDate(apt, dateStr) ||
                    getPeriodeFermeeForDate("all", dateStr);
+    if (fermee) return "ferme"; // fermé prime sur tout, y compris en_attente
     const resa = this._resaFor(apt, dateStr);
-    if (fermee && resa?.statut === "en_attente") return "ferme-pending";
-    if (fermee) return "ferme";
     if (!resa) return "free";
     if (resa.statut === "en_attente") return "pending";
     if (apt === "famille" || resa.type === "famille" || resa.statut === "famille") return "famille";
@@ -348,23 +335,13 @@ export class CombinedCalendar {
       APT_ORDER.forEach(apt => {
         const status = this._statusFor(apt, dateStr);
         const bar = document.createElement("div");
-        // "ferme-pending" → barre rouge comme ferme
-        bar.className = `combined-bar bar-${apt} status-${status === "ferme-pending" ? "ferme" : status}`;
+        bar.className = `combined-bar bar-${apt} status-${status}`;
         bars.appendChild(bar);
 
         const resa = this._resaFor(apt, dateStr);
         const name = (resa?.tenant || resa?.nom || "").trim();
-
-        if (status === "ferme-pending") {
-          const lblFerme   = statusLabels.ferme   || "non ouvert";
-          const lblAttente = statusLabels.pending  || "en attente";
-          tooltips.push(`${aptLabels[apt]}: ${lblFerme} — ${lblAttente}${name ? " " + name : ""}`);
-        } else if (status !== "free") {
-          const suffix = name ? ` — ${name}` : "";
-          tooltips.push(`${aptLabels[apt]}: ${statusLabels[status] || status}${suffix}`);
-        } else {
-          tooltips.push(`${aptLabels[apt]}: ${statusLabels.free || "libre"}`);
-        }
+        const suffix = (status !== "ferme" && name) ? ` — ${name}` : "";
+        tooltips.push(`${aptLabels[apt]}: ${statusLabels[status] || status}${suffix}`);
       });
       cell.title = tooltips.join("\n");
 
