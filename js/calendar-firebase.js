@@ -111,8 +111,9 @@ export class FirebaseCalendar {
     this.current.setDate(1);
     this.reservations = [];
     this.unsubscribe = subscribeAll(resas => {
-      this.reservations = this.apt ? resas.filter(r => r.apt === this.apt) : resas;
-      this._variantMap = null; // invalidate on data change
+      const active = resas.filter(r => r.statut !== "refusee");
+      this.reservations = this.apt ? active.filter(r => r.apt === this.apt) : active;
+      this._variantMap = null;
       this.render();
     });
   }
@@ -274,7 +275,7 @@ export class CombinedCalendar {
     this.current.setDate(1);
     this.reservations = [];
     this.unsubscribe = subscribeAll(resas => {
-      this.reservations = resas;
+      this.reservations = resas.filter(r => r.statut !== "refusee");
       this.render();
     });
   }
