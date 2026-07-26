@@ -22,9 +22,9 @@ function fmtShort(dateStr) {
 }
 
 const STATUS_LABELS = {
-  fr: { en_attente: "En attente", confirmee: "Confirmée", famille: "Famille", refusee: "Refusée", ferme: "Non ouvert" },
-  en: { en_attente: "Pending",    confirmee: "Confirmed", famille: "Family",  refusee: "Refused",  ferme: "Not open" },
-  it: { en_attente: "In attesa",  confirmee: "Confermata", famille: "Famiglia", refusee: "Rifiutata", ferme: "Non aperto" }
+  fr: { en_attente: "En attente", confirmee: "Non disponible", famille: "Non disponible", refusee: "Refusée", ferme: "Non encore ouvert à la location" },
+  en: { en_attente: "Pending",    confirmee: "Not available",  famille: "Not available",  refusee: "Refused",  ferme: "Not yet open for booking" },
+  it: { en_attente: "In attesa",  confirmee: "Non disponibile", famille: "Non disponibile", refusee: "Rifiutata", ferme: "Non ancora aperto alle prenotazioni" }
 };
 
 function statusLabel(statut) {
@@ -39,9 +39,9 @@ const APT_SHORT_LABELS = {
 };
 
 const COMBINED_STATUS_LABELS = {
-  fr: { booked: "loué", pending: "en attente", famille: "occupé", free: "libre", ferme: "non ouvert", "ferme-pending": "non ouvert — en attente" },
-  en: { booked: "booked", pending: "pending", famille: "occupied", free: "free", ferme: "not open", "ferme-pending": "not open — pending" },
-  it: { booked: "affittato", pending: "in attesa", famille: "occupato", free: "libero", ferme: "non aperto", "ferme-pending": "non aperto — in attesa" }
+  fr: { booked: "non disponible", pending: "en attente", famille: "non disponible", free: "libre", ferme: "non encore ouvert", "ferme-pending": "non encore ouvert — en attente" },
+  en: { booked: "not available",  pending: "pending",    famille: "not available",   free: "free",  ferme: "not yet open",    "ferme-pending": "not yet open — pending" },
+  it: { booked: "non disponibile", pending: "in attesa", famille: "non disponibile", free: "libero", ferme: "non ancora aperto", "ferme-pending": "non ancora aperto — in attesa" }
 };
 
 // ══════════════════════════════════════════════════
