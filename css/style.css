@@ -472,32 +472,32 @@ img { max-width: 100%; height: auto; display: block; }
 .calendar-day.empty { cursor: default; background: none; }
 
 /* Statut de base */
-.calendar-day.booked { background: rgba(201,169,110,0.18); }
-.calendar-day.booked span.day-dot { display: block; width: 5px; height: 5px; border-radius: 50%; background: var(--or); }
-.calendar-day.reserved-family { background: rgba(44,74,110,0.12); }
-.calendar-day.reserved-family span.day-dot { display: block; width: 5px; height: 5px; border-radius: 50%; background: var(--bleu-alpin); }
+.calendar-day.booked { background: rgba(107,66,38,0.12); }
+.calendar-day.booked span.day-dot { display: block; width: 5px; height: 5px; border-radius: 50%; background: var(--brun-clair); }
+.calendar-day.reserved-family { background: rgba(107,66,38,0.12); }
+.calendar-day.reserved-family span.day-dot { display: block; width: 5px; height: 5px; border-radius: 50%; background: var(--brun-clair); }
 .calendar-day.pending { background: rgba(239,159,39,0.15); }
 .calendar-day.pending span.day-dot { display: block; width: 5px; height: 5px; border-radius: 50%; background: #EF9F27; }
 .calendar-day.ferme span.day-dot { display: block; width: 5px; height: 5px; border-radius: 50%; background: #e74c3c; }
 
 /* Variantes de couleur — pour distinguer 2 réservations consécutives du même type */
-.calendar-day.booked.variant-1 { background: rgba(201,169,110,0.30); }
-.calendar-day.booked.variant-1 span.day-dot { background: var(--or); }
-.calendar-day.booked.variant-2 { background: rgba(201,169,110,0.12); }
-.calendar-day.booked.variant-2 span.day-dot { background: var(--or); }
-.calendar-day.booked.variant-3 { background: rgba(201,169,110,0.30); }
-.calendar-day.booked.variant-3 span.day-dot { background: var(--or); }
-.calendar-day.booked.variant-4 { background: rgba(201,169,110,0.12); }
-.calendar-day.booked.variant-4 span.day-dot { background: var(--or); }
+.calendar-day.booked.variant-1 { background: rgba(107,66,38,0.18); }
+.calendar-day.booked.variant-1 span.day-dot { background: var(--brun-clair); }
+.calendar-day.booked.variant-2 { background: rgba(107,66,38,0.08); }
+.calendar-day.booked.variant-2 span.day-dot { background: var(--brun-clair); }
+.calendar-day.booked.variant-3 { background: rgba(107,66,38,0.18); }
+.calendar-day.booked.variant-3 span.day-dot { background: var(--brun-clair); }
+.calendar-day.booked.variant-4 { background: rgba(107,66,38,0.08); }
+.calendar-day.booked.variant-4 span.day-dot { background: var(--brun-clair); }
 
-.calendar-day.reserved-family.variant-1 { background: rgba(44,74,110,0.22); }
-.calendar-day.reserved-family.variant-1 span.day-dot { background: var(--bleu-alpin); }
-.calendar-day.reserved-family.variant-2 { background: rgba(44,74,110,0.08); }
-.calendar-day.reserved-family.variant-2 span.day-dot { background: var(--bleu-alpin); }
-.calendar-day.reserved-family.variant-3 { background: rgba(44,74,110,0.22); }
-.calendar-day.reserved-family.variant-3 span.day-dot { background: var(--bleu-alpin); }
-.calendar-day.reserved-family.variant-4 { background: rgba(44,74,110,0.08); }
-.calendar-day.reserved-family.variant-4 span.day-dot { background: var(--bleu-alpin); }
+.calendar-day.reserved-family.variant-1 { background: rgba(107,66,38,0.18); }
+.calendar-day.reserved-family.variant-1 span.day-dot { background: var(--brun-clair); }
+.calendar-day.reserved-family.variant-2 { background: rgba(107,66,38,0.08); }
+.calendar-day.reserved-family.variant-2 span.day-dot { background: var(--brun-clair); }
+.calendar-day.reserved-family.variant-3 { background: rgba(107,66,38,0.18); }
+.calendar-day.reserved-family.variant-3 span.day-dot { background: var(--brun-clair); }
+.calendar-day.reserved-family.variant-4 { background: rgba(107,66,38,0.08); }
+.calendar-day.reserved-family.variant-4 span.day-dot { background: var(--brun-clair); }
 
 /* Délimitation visuelle d'un séjour (premier / dernier jour) */
 .calendar-day.resa-start { border-radius: 6px 0 0 6px; }
