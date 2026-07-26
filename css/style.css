@@ -491,39 +491,39 @@ body.page-rdc .calendar-day.reserved-family span.day-dot,
 body.page-2eme .calendar-day.reserved-family span.day-dot { background: var(--brun-clair); }
 
 /* Variantes de couleur — pour distinguer 2 réservations consécutives du même type */
-.calendar-day.booked.variant-1 { background: rgba(201,169,110,0.30); }
+.calendar-day.booked.variant-1 { background: rgba(201,169,110,0.32); }
 .calendar-day.booked.variant-1 span.day-dot { background: var(--or); }
-.calendar-day.booked.variant-2 { background: rgba(201,169,110,0.12); }
+.calendar-day.booked.variant-2 { background: rgba(201,169,110,0.10); }
 .calendar-day.booked.variant-2 span.day-dot { background: var(--or); }
-.calendar-day.booked.variant-3 { background: rgba(201,169,110,0.30); }
+.calendar-day.booked.variant-3 { background: rgba(201,169,110,0.32); }
 .calendar-day.booked.variant-3 span.day-dot { background: var(--or); }
-.calendar-day.booked.variant-4 { background: rgba(201,169,110,0.12); }
+.calendar-day.booked.variant-4 { background: rgba(201,169,110,0.10); }
 .calendar-day.booked.variant-4 span.day-dot { background: var(--or); }
 
-.calendar-day.reserved-family.variant-1 { background: rgba(44,74,110,0.22); }
+.calendar-day.reserved-family.variant-1 { background: rgba(44,74,110,0.26); }
 .calendar-day.reserved-family.variant-1 span.day-dot { background: var(--bleu-alpin); }
 .calendar-day.reserved-family.variant-2 { background: rgba(44,74,110,0.08); }
 .calendar-day.reserved-family.variant-2 span.day-dot { background: var(--bleu-alpin); }
-.calendar-day.reserved-family.variant-3 { background: rgba(44,74,110,0.22); }
+.calendar-day.reserved-family.variant-3 { background: rgba(44,74,110,0.26); }
 .calendar-day.reserved-family.variant-3 span.day-dot { background: var(--bleu-alpin); }
 .calendar-day.reserved-family.variant-4 { background: rgba(44,74,110,0.08); }
 .calendar-day.reserved-family.variant-4 span.day-dot { background: var(--bleu-alpin); }
 
 /* Variantes rdc/2eme : couleur unifiée brun */
 body.page-rdc .calendar-day.booked.variant-1, body.page-2eme .calendar-day.booked.variant-1,
-body.page-rdc .calendar-day.reserved-family.variant-1, body.page-2eme .calendar-day.reserved-family.variant-1 { background: rgba(107,66,38,0.18); }
+body.page-rdc .calendar-day.reserved-family.variant-1, body.page-2eme .calendar-day.reserved-family.variant-1 { background: rgba(107,66,38,0.22); }
 body.page-rdc .calendar-day.booked.variant-1 span.day-dot, body.page-2eme .calendar-day.booked.variant-1 span.day-dot,
 body.page-rdc .calendar-day.reserved-family.variant-1 span.day-dot, body.page-2eme .calendar-day.reserved-family.variant-1 span.day-dot { background: var(--brun-clair); }
 body.page-rdc .calendar-day.booked.variant-2, body.page-2eme .calendar-day.booked.variant-2,
-body.page-rdc .calendar-day.reserved-family.variant-2, body.page-2eme .calendar-day.reserved-family.variant-2 { background: rgba(107,66,38,0.08); }
+body.page-rdc .calendar-day.reserved-family.variant-2, body.page-2eme .calendar-day.reserved-family.variant-2 { background: rgba(107,66,38,0.07); }
 body.page-rdc .calendar-day.booked.variant-2 span.day-dot, body.page-2eme .calendar-day.booked.variant-2 span.day-dot,
 body.page-rdc .calendar-day.reserved-family.variant-2 span.day-dot, body.page-2eme .calendar-day.reserved-family.variant-2 span.day-dot { background: var(--brun-clair); }
 body.page-rdc .calendar-day.booked.variant-3, body.page-2eme .calendar-day.booked.variant-3,
-body.page-rdc .calendar-day.reserved-family.variant-3, body.page-2eme .calendar-day.reserved-family.variant-3 { background: rgba(107,66,38,0.18); }
+body.page-rdc .calendar-day.reserved-family.variant-3, body.page-2eme .calendar-day.reserved-family.variant-3 { background: rgba(107,66,38,0.22); }
 body.page-rdc .calendar-day.booked.variant-3 span.day-dot, body.page-2eme .calendar-day.booked.variant-3 span.day-dot,
 body.page-rdc .calendar-day.reserved-family.variant-3 span.day-dot, body.page-2eme .calendar-day.reserved-family.variant-3 span.day-dot { background: var(--brun-clair); }
 body.page-rdc .calendar-day.booked.variant-4, body.page-2eme .calendar-day.booked.variant-4,
-body.page-rdc .calendar-day.reserved-family.variant-4, body.page-2eme .calendar-day.reserved-family.variant-4 { background: rgba(107,66,38,0.08); }
+body.page-rdc .calendar-day.reserved-family.variant-4, body.page-2eme .calendar-day.reserved-family.variant-4 { background: rgba(107,66,38,0.07); }
 body.page-rdc .calendar-day.booked.variant-4 span.day-dot, body.page-2eme .calendar-day.booked.variant-4 span.day-dot,
 body.page-rdc .calendar-day.reserved-family.variant-4 span.day-dot, body.page-2eme .calendar-day.reserved-family.variant-4 span.day-dot { background: var(--brun-clair); }
 
