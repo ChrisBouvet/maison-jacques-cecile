@@ -480,8 +480,9 @@ export function initResaForms() {
       const btns = form.querySelectorAll("[type='submit']");
       btns.forEach(b => b.disabled = true);
 
-      // Vérifie si les dates chevauchent une période fermée (public uniquement)
-      if (isRangeFermee(apt, start, end)) {
+      // Vérifie si les dates chevauchent une période fermée
+      // (ignoré pour le formulaire de la page famille)
+      if (!form.dataset.bypassFerme && isRangeFermee(apt, start, end)) {
         const msgs = {
           fr: "Ces dates ne sont pas encore ouvertes à la réservation. Contactez-nous pour plus d'informations.",
           en: "These dates are not yet open for booking. Please contact us for more information.",
