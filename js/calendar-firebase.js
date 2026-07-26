@@ -121,7 +121,8 @@ export class FirebaseCalendar {
   destroy() { if (this.unsubscribe) this.unsubscribe(); }
 
   // Construit une map id→variante garantissant que deux réservations
-  // dont les dates se touchent n'ont jamais la même variante.
+  // consécutives qui se touchent ont toujours des variantes de luminosité différentes.
+  // Variantes 1&3 = foncé, 2&4 = clair — on alterne entre les deux groupes.
   _buildVariantMap() {
     const sorted = [...this.reservations].sort((a, b) =>
       (a.start || "").localeCompare(b.start || "")
@@ -131,12 +132,13 @@ export class FirebaseCalendar {
       const r    = sorted[i];
       const prev = sorted[i - 1];
       if (prev && map[prev.id] !== undefined && prev.end >= r.start) {
-        const forbidden = map[prev.id];
-        let v = (hashStr(String(r.id || r.start + r.end)) % 4) + 1;
-        if (v === forbidden) v = (v % 4) + 1;
-        map[r.id] = v;
+        // Alterne entre groupe foncé (1,3) et clair (2,4)
+        const prevV = map[prev.id];
+        const prevIsDark = (prevV === 1 || prevV === 3);
+        // Choisit dans le groupe opposé
+        map[r.id] = prevIsDark ? 2 : 1;
       } else {
-        map[r.id] = (hashStr(String(r.id || r.start + r.end)) % 4) + 1;
+        map[r.id] = (hashStr(String(r.id || r.start + r.end)) % 2 === 0) ? 1 : 2;
       }
     }
     return map;
