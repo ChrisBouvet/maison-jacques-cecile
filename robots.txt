@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /pages/admin.html
+Disallow: /pages/famille.html
+
+Sitemap: https://maison-jacques-cecile.fr/sitemap.xml
