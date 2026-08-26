@@ -27,6 +27,9 @@ const FALLBACK = [
   { zone: "A", start: "2026-07-04", end: "2026-09-01" },
   { zone: "B", start: "2026-07-04", end: "2026-09-01" },
   { zone: "C", start: "2026-07-04", end: "2026-09-01" },
+  { zone: "A", start: "2026-10-17", end: "2026-11-02" },
+  { zone: "B", start: "2026-10-17", end: "2026-11-02" },
+  { zone: "C", start: "2026-10-17", end: "2026-11-02" },
 ];
 
 let _periods = null;
