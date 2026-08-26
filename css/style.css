@@ -549,6 +549,12 @@ body.page-rdc .calendar-day.reserved-family.variant-4 span.day-dot, body.page-2e
 
 .calendar-day.today { font-weight: 500; color: var(--brun); }
 .calendar-day.today .day-num { background: var(--brun); color: var(--blanc); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+
+.vac-zones { display: flex; gap: 2px; justify-content: center; margin-top: 2px; height: 6px; }
+.vac-dot { width: 5px; height: 5px; border-radius: 50%; }
+.vac-A { background: #1D9E75; }
+.vac-B { background: #EF9F27; }
+.vac-C { background: #7F77DD; }
 .calendar-legend {
   display: flex;
   gap: 1.5rem;
