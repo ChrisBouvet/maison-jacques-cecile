@@ -2,6 +2,7 @@
 //  CALENDRIER connecté à Firebase
 // ══════════════════════════════════════════════════
 import { subscribeReservations, addReservation, subscribePeriodesFermees, getPeriodesFermees } from "./firebase-db.js";
+import { loadVacances, zonesForDate } from "./vacances-scolaires.js";
 
 const MONTHS = {
   fr: ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"],
@@ -264,6 +265,7 @@ export class CombinedCalendar {
     this.current = new Date();
     this.current.setDate(1);
     this.reservations = [];
+    loadVacances().then(() => this.render());
     this.unsubscribe = subscribeAll(resas => {
       this.reservations = resas.filter(r => r.statut !== "refusee");
       this.render();
@@ -348,6 +350,22 @@ export class CombinedCalendar {
       cell.title = tooltips.join("\n");
 
       cell.appendChild(bars);
+
+      const zones = zonesForDate(dateStr);
+      if (zones.length) {
+        const vacRow = document.createElement("div");
+        vacRow.className = "vac-zones";
+        zones.forEach(z => {
+          const dot = document.createElement("span");
+          dot.className = `vac-dot vac-${z}`;
+          vacRow.appendChild(dot);
+        });
+        cell.appendChild(vacRow);
+
+        const vacLabels = { A: "Zone A", B: "Zone B", C: "Zone C" };
+        cell.title += (cell.title ? "\n" : "") + "Vacances scolaires : " + zones.map(z => vacLabels[z]).join(", ");
+      }
+
       grid.appendChild(cell);
     }
   }
