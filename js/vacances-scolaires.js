@@ -27,9 +27,22 @@ const FALLBACK = [
   { zone: "A", start: "2026-07-04", end: "2026-09-01" },
   { zone: "B", start: "2026-07-04", end: "2026-09-01" },
   { zone: "C", start: "2026-07-04", end: "2026-09-01" },
+  // Année scolaire 2026-2027 (arrêté du 22 octobre 2025)
   { zone: "A", start: "2026-10-17", end: "2026-11-02" },
   { zone: "B", start: "2026-10-17", end: "2026-11-02" },
   { zone: "C", start: "2026-10-17", end: "2026-11-02" },
+  { zone: "A", start: "2026-12-19", end: "2027-01-04" },
+  { zone: "B", start: "2026-12-19", end: "2027-01-04" },
+  { zone: "C", start: "2026-12-19", end: "2027-01-04" },
+  { zone: "C", start: "2027-02-06", end: "2027-02-22" },
+  { zone: "A", start: "2027-02-13", end: "2027-03-01" },
+  { zone: "B", start: "2027-02-20", end: "2027-03-08" },
+  { zone: "C", start: "2027-04-03", end: "2027-04-19" },
+  { zone: "A", start: "2027-04-10", end: "2027-04-26" },
+  { zone: "B", start: "2027-04-17", end: "2027-05-03" },
+  { zone: "A", start: "2027-07-03", end: "2027-09-02" },
+  { zone: "B", start: "2027-07-03", end: "2027-09-02" },
+  { zone: "C", start: "2027-07-03", end: "2027-09-02" },
 ];
 
 let _periods = null;
@@ -57,9 +70,11 @@ function writeCache(data) {
 
 async function fetchFromApi() {
   const zones = ["Zone A", "Zone B", "Zone C"];
+  const today = new Date().toISOString().slice(0, 10);
   const results = [];
   for (const zone of zones) {
-    const url = `${API_URL}?limit=20&refine=zones:"${zone}"&refine=population:"Élèves"`;
+    const url = `${API_URL}?limit=20&refine=zones:"${zone}"&refine=population:"Élèves"`
+      + `&where=end_date>="${today}"&order_by=start_date asc`;
     const res = await fetch(url);
     if (!res.ok) throw new Error("API vacances scolaires indisponible");
     const json = await res.json();
