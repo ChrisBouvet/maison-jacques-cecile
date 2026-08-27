@@ -5,7 +5,7 @@
 // ══════════════════════════════════════════════════
 
 const API_URL = "https://data.education.gouv.fr/api/explore/v2.1/catalog/datasets/fr-en-calendrier-scolaire/records";
-const CACHE_KEY = "vacances_scolaires_cache_v1";
+const CACHE_KEY = "vacances_scolaires_cache_v2";
 const CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 jours
 
 // Filet de sécurité si l'API est injoignable (hors-ligne, quota, etc.)
@@ -74,7 +74,7 @@ async function fetchFromApi() {
   const results = [];
   for (const zone of zones) {
     const url = `${API_URL}?limit=20&refine=zones:"${zone}"&refine=population:"Élèves"`
-      + `&where=end_date>="${today}"&order_by=start_date asc`;
+      + `&where=end_date>=date'${today}'&order_by=start_date asc`;
     const res = await fetch(url);
     if (!res.ok) throw new Error("API vacances scolaires indisponible");
     const json = await res.json();
@@ -88,6 +88,7 @@ async function fetchFromApi() {
       }
     });
   }
+  if (!results.length) throw new Error("API vacances scolaires : réponse vide");
   return results;
 }
 
