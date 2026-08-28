@@ -986,3 +986,11 @@ body.page-rdc .calendar-day.reserved-family.variant-4 span.day-dot, body.page-2e
   letter-spacing: 0.02em;
 }
 
+/* Sous-libellé dans une carte de contact (ex. "Fuel" / "Entretien chaudière") */
+.emergency-card__sub {
+  font-size: 0.75rem;
+  color: var(--brun-clair);
+  margin-top: 4px;
+}
+.emergency-card__sub + .emergency-card__num { margin-top: 0; }
+
