@@ -5,7 +5,7 @@
 // ══════════════════════════════════════════════════
 
 const API_URL = "https://data.education.gouv.fr/api/explore/v2.1/catalog/datasets/fr-en-calendrier-scolaire/records";
-const CACHE_KEY = "vacances_scolaires_cache_v3";
+const CACHE_KEY = "vacances_scolaires_cache_v4";
 const CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 jours
 
 // Filet de sécurité si l'API est injoignable (hors-ligne, quota, etc.)
@@ -68,13 +68,25 @@ function writeCache(data) {
   }
 }
 
+// Calcule le libellé "AAAA-AAAA" de l'année scolaire en cours à la date donnée
+// (la rentrée a lieu fin août / début septembre : mois >= 7 => nouvelle année scolaire)
+function anneeScolaire(d) {
+  const y = d.getMonth() >= 7 ? d.getFullYear() : d.getFullYear() - 1;
+  return `${y}-${y + 1}`;
+}
+
 async function fetchFromApi() {
   const zones = ["Zone A", "Zone B", "Zone C"];
-  const today = new Date().toISOString().slice(0, 10);
+  const now = new Date();
+  const today = now.toISOString().slice(0, 10);
+  const anneeActuelle = anneeScolaire(now);
+  const anneeSuivante = anneeScolaire(new Date(now.getFullYear() + 1, now.getMonth(), 1));
+
   const results = [];
   for (const zone of zones) {
     const url = `${API_URL}?limit=99&refine=zones:"${zone}"`
-      + `&refine=population:"Élèves"&refine=population:"-"`;
+      + `&refine=population:"Élèves"&refine=population:"-"`
+      + `&refine=annee_scolaire:"${anneeActuelle}"&refine=annee_scolaire:"${anneeSuivante}"`;
     const res = await fetch(url);
     if (!res.ok) throw new Error("API vacances scolaires indisponible");
     const json = await res.json();
