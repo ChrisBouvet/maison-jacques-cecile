@@ -200,7 +200,6 @@
 
       <!-- Tableau récap -->
       <h4 style="margin-bottom:0.75rem;">Récapitulatif des réservations</h4>
-      <p class="planning-hint">💡 Les demandes en attente apparaissent en premier, puis tri chronologique décroissant.</p>
       <div style="overflow-x:auto;">
         <table class="planning-table" id="reservationTable">
           <thead>
@@ -547,12 +546,14 @@ function statusBadge(statut) {
 
 function fmt(d) { if (!d) return "—"; const [y,m,j]=d.split("-"); return `${j}/${m}/${y}`; }
 
+const STATUT_ORDER = { en_attente: 0, famille: 1, confirmee: 2, refusee: 3 };
+
 function sortReservations(resas) {
   return [...resas].sort((a, b) => {
-    const ap = a.statut === "en_attente" ? 0 : 1;
-    const bp = b.statut === "en_attente" ? 0 : 1;
+    const ap = STATUT_ORDER[a.statut] ?? 4;
+    const bp = STATUT_ORDER[b.statut] ?? 4;
     if (ap !== bp) return ap - bp;
-    return (b.start || "").localeCompare(a.start || "");
+    return (a.start || "").localeCompare(b.start || "");
   });
 }
 
