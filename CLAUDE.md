@@ -25,10 +25,12 @@ There is no linter or automated test suite. Verify changes by loading the affect
 - `index.html` — home page, public, full nav/footer inline.
 - `pages/rdc.html`, `pages/2eme.html` — public apartment pages, each with its own gallery + calendar + booking form.
 - `pages/famille.html` — password-gated family area (combined calendar, per-apartment calendars, admin table). Excluded from `robots.txt`.
-- `pages/admin.html` — reservation admin/management UI. Also excluded from `robots.txt`.
+- `pages/admin.html` — reservation admin/management UI. Also excluded from `robots.txt`. Unlike the other pages, its logic is a large inline `<script type="module">` (not a separate JS file): it gates access with Firebase Auth Google sign-in, imports helpers from `calendar-firebase.js`/`firebase-db.js`, lazy-loads Chart.js from jsDelivr for stats, and is where the family password hash (`config/auth`) is set.
 - `pages/infos.html` — practical info page.
 
-**Nav/footer injection**: `pages/*.html` (apartment/family pages) contain empty `<nav class="nav">`/`<footer class="footer">` shells; `js/nav-partial.js` (`initNav()`/`initFooter()`) injects the actual markup at runtime with `root = '../'` relative paths, since these pages live one directory below the site root. `index.html` has its nav/footer hardcoded inline instead (it's already at root). When editing nav or footer content/links, **both** `index.html`'s inline markup and `js/nav-partial.js`'s injected templates must be updated to stay in sync.
+`js/famille.js` is legacy and not loaded by any page (it holds an old hardcoded plaintext password check). The family page uses `js/famille-firebase.js`. Don't extend `famille.js`.
+
+**Nav/footer injection**: `pages/*.html` (apartment, family and infos pages) contain empty `<nav class="nav">`/`<footer class="footer">` shells; `js/nav-partial.js` (`initNav()`/`initFooter()`) injects the actual markup at runtime with `root = '../'` relative paths, since these pages live one directory below the site root. `index.html` has its nav/footer hardcoded inline instead (it's already at root). When editing nav or footer content/links, **both** `index.html`'s inline markup and `js/nav-partial.js`'s injected templates must be updated to stay in sync.
 
 **i18n**: No i18n framework. Every translatable string is duplicated three times inline as sibling elements tagged `data-lang="fr"|"en"|"it"`, with all but the active language given `style="display:none"`. `js/main.js`'s `setLang(lang)` toggles visibility by walking all `[data-lang]` elements and stores the choice in `localStorage['lang']`. Elements with `data-season-content` are the exception — those are managed exclusively by `js/home.js` (season-dependent content), and `setLang` explicitly skips them. When adding new user-facing text, add all three `data-lang` variants, not just French.
 
@@ -37,7 +39,9 @@ There is no linter or automated test suite. Verify changes by loading the affect
 - `periodes_fermees` — date ranges not yet open for booking, `apt` can be a specific apartment or `"all"`.
 - `config/auth` — single doc holding `familleHash`, a SHA-256 hash of the family password used to gate `pages/famille.html` (client-side check only — see `firestore.rules`, security posture is explicitly "good enough for family use", not hardened auth).
 
-Firestore security rules are in `firestore.rules` at repo root — this is documentation/source-of-truth to paste into the Firebase console (`console.firebase.google.com` → Firestore → Rules), it is not deployed automatically by any CI. Read `firestore.rules` before changing anything about who can read/write reservations.
+The Firebase SDK (v10.12.0) is imported straight from the `www.gstatic.com/firebasejs/` CDN. The Firebase web config in `firebase-db.js` is public client config and isn't a secret.
+
+Firestore security rules are in `firestore.rules` at repo root. The file is meant to be pasted into the Firebase console (`console.firebase.google.com` → Firestore → Rules) and is not deployed automatically by any CI. Note that it currently only covers `reservations`, while the code also reads and writes `periodes_fermees` and `config/auth`, so the live console rules must differ from this file. Read `firestore.rules` (and ask about the live rules) before changing anything about who can read/write data.
 
 **Calendar rendering** (`js/calendar-firebase.js`) is the core shared module:
 - Maintains an in-memory store (`_store`/`_storeFerme`) fed by Firestore's `onSnapshot` realtime listeners, so all calendars on a page update live without polling.
@@ -47,12 +51,12 @@ Firestore security rules are in `firestore.rules` at repo root — this is docum
 
 **School holiday zones** (`js/vacances-scolaires.js`): fetches French Zone A/B/C school holiday dates from the `data.education.gouv.fr` API, cached in `localStorage` for 7 days, with a hardcoded `FALLBACK` array used if the API is unreachable. The fallback only covers a few years — when it starts running short, extend the array with newly published official dates rather than removing the fallback mechanism.
 
-**Photo galleries** (`js/extra-gallery.js`): each apartment has a fixed set of "named" photos (`principale`, `sejour`, `cuisine`, `chambre-1`, `chambre-2`, plus a few `extra-N`) captioned via a per-folder `img/{rdc,2eme}/captions.json` (keyed by filename stem, each with `fr`/`en`/`it` captions), and an open-ended "extra" gallery for any additional images dropped in the same folder. Adding a new named photo requires both dropping the image file in `img/{rdc,2eme}/` and adding its caption entry to that folder's `captions.json`.
+**Photo galleries** (`js/extra-gallery.js`): each apartment has a fixed set of "named" photos (`principale`, `sejour`, `cuisine`, `chambre-1`, `chambre-2`, hardcoded in the page HTML) captioned via a per-folder `img/{rdc,2eme}/captions.json` (keyed by filename stem, each with `fr`/`en`/`it` captions). Static hosting can't list directories, so the "extra" gallery finds images by sending `HEAD` requests for `extra-1.jpg` … `extra-30.jpg` (gaps allowed; `.jpg` only, max 30). Adding a photo means dropping the file with the exact name in `img/{rdc,2eme}/` and adding its caption entry to that folder's `captions.json`. Each image folder has a `README.md` explaining this naming to non-developers.
 
 ## Conventions specific to this repo
 
 - CSS is split by scope: `css/style.css` (shared/global), `css/home.css` (home page only), `css/apartment.css` (rdc/2eme pages), `css/famille.css` (family page). Check which stylesheet a page includes before adding rules.
-- JS files are loaded as native ES modules (`<script type="module">`) and import each other directly by relative path — no bundler resolves imports, so import paths must be exact and browser-loadable as-is.
+- Two kinds of script loading coexist. `main.js`, `nav-partial.js` and `home.js` are classic (non-module) scripts that expose globals such as `setLang`/`initNav`. The Firebase-backed files (`apartment-firebase.js`, `famille-firebase.js`, `calendar-firebase.js`, `firebase-db.js`, `extra-gallery.js`, `vacances-scolaires.js`) are ES modules that import each other by relative path. No bundler resolves imports, so import paths must be exact and browser-loadable as-is, and you shouldn't add `import`/`export` to the classic scripts without changing their `<script>` tags on every page.
 - Reservation `statut` values (`en_attente`, `confirmee`, `refusee`, `famille`) and calendar day CSS state classes (`pending`, `booked`, `reserved-family`, `ferme`) are used consistently across `calendar-firebase.js` and `famille-firebase.js` — keep new status handling consistent with the existing switch/if chains in both files rather than introducing a parallel status vocabulary.
 - Dates are always plain `YYYY-MM-DD` strings (not `Date` objects) in Firestore documents and comparisons, so they sort/compare lexicographically — preserve this format when adding new date fields.
 
