@@ -150,6 +150,18 @@
     }
     .link-card:hover { border-color: var(--or); transform: translateY(-2px); color: var(--brun); }
     .link-card span:first-child { font-size: 1.4rem; }
+    .link-card--reco {
+      position: relative;
+      border: 1px solid var(--or);
+      border-left: 3px solid var(--or);
+    }
+    .link-card--reco .taxi-badge {
+      position: absolute;
+      top: -0.6rem;
+      right: 0.75rem;
+      margin-bottom: 0;
+    }
+    .link-card--reco .taxi-badge span { font-size: inherit; }
 
     @media (max-width: 600px) {
       .taxi-grid { grid-template-columns: 1fr; }
@@ -436,11 +448,12 @@
     <div class="info-section">
       <h3>🏫 <span data-lang="fr">Écoles de ski</span><span data-lang="en" style="display:none">Ski schools</span><span data-lang="it" style="display:none">Scuole di sci</span></h3>
       <div class="link-cards">
+        <a class="link-card link-card--reco" href="https://www.ecoledeski.fr/montgenevre" target="_blank" rel="noopener">
+          <span>🏂</span><span data-lang="fr">ESI – École Internationale</span><span data-lang="en" style="display:none">ESI – International School</span><span data-lang="it" style="display:none">ESI – Scuola Internazionale</span>
+          <span class="taxi-badge">★ <span data-lang="fr">Je recommande</span><span data-lang="en" style="display:none">I recommend</span><span data-lang="it" style="display:none">Lo consiglio</span></span>
+        </a>
         <a class="link-card" href="https://www.esf-montgenevre.com/" target="_blank" rel="noopener">
           <span>🎿</span><span data-lang="fr">ESF Montgenèvre</span><span data-lang="en" style="display:none">ESF (French Ski School)</span><span data-lang="it" style="display:none">ESF Montgenèvre</span>
-        </a>
-        <a class="link-card" href="https://www.ecoledeski.fr/montgenevre" target="_blank" rel="noopener">
-          <span>🏂</span><span data-lang="fr">ESI – École Internationale</span><span data-lang="en" style="display:none">ESI – International School</span><span data-lang="it" style="display:none">ESI – Scuola Internazionale</span>
         </a>
       </div>
     </div>
@@ -463,7 +476,7 @@
         <ul><li>Sci, snowboard, scarponi, caschi, abbigliamento</li><li>Attrezzatura per bambini disponibile</li></ul>
       </div>
       <div class="link-cards">
-        <a class="link-card" href="https://montgenevre.com/hiver/ski-alpin/location-materiel-ski/" target="_blank" rel="noopener">
+        <a class="link-card" href="https://montgenevre.com/hiver/commerces-services/magasins-de-sport" target="_blank" rel="noopener">
           <span>🎿</span><span data-lang="fr">Location sur le site officiel</span><span data-lang="en" style="display:none">Rental on official site</span><span data-lang="it" style="display:none">Noleggio sul sito ufficiale</span>
         </a>
       </div>
