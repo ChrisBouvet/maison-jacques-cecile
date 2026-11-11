@@ -195,7 +195,7 @@
     <span data-lang="en" style="display:none">⛷ Winter</span>
     <span data-lang="it" style="display:none">⛷ Inverno</span>
   </button>
-  <button class="infos-tab-btn" data-panel="ete">
+  <button class="infos-tab-btn" data-panel="ete" hidden>
     <span data-lang="fr">☀ Été</span>
     <span data-lang="en" style="display:none">☀ Summer</span>
     <span data-lang="it" style="display:none">☀ Estate</span>
@@ -794,7 +794,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Open tab from URL hash e.g. infos.html#hiver
   const hash = window.location.hash.replace('#', '');
   if (hash) {
-    const btn = document.querySelector(`.infos-tab-btn[data-panel="${hash}"]`);
+    const btn = document.querySelector(`.infos-tab-btn[data-panel="${hash}"]:not([hidden])`);
     if (btn) btn.click();
   }
 });
