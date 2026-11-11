@@ -11,6 +11,7 @@ function initNav(activePage) {
       <li><a href="${root}index.html#maison" data-lang="fr">La Maison</a><a href="${root}index.html#maison" data-lang="en" style="display:none">The House</a><a href="${root}index.html#maison" data-lang="it" style="display:none">La Casa</a></li>
       <li><a href="${root}pages/rdc.html" data-lang="fr">Appt. RDC</a><a href="${root}pages/rdc.html" data-lang="en" style="display:none">Ground Apt.</a><a href="${root}pages/rdc.html" data-lang="it" style="display:none">App. PT</a></li>
       <li><a href="${root}pages/2eme.html" data-lang="fr">Appt. 2ème</a><a href="${root}pages/2eme.html" data-lang="en" style="display:none">2nd Floor Apt.</a><a href="${root}pages/2eme.html" data-lang="it" style="display:none">App. 2° Piano</a></li>
+      <li><a href="${root}pages/infos.html" data-lang="fr">Infos pratiques</a><a href="${root}pages/infos.html" data-lang="en" style="display:none">Practical info</a><a href="${root}pages/infos.html" data-lang="it" style="display:none">Info pratiche</a></li>
       <li><a href="${root}pages/famille.html" data-lang="fr">Famille</a><a href="${root}pages/famille.html" data-lang="en" style="display:none">Family</a><a href="${root}pages/famille.html" data-lang="it" style="display:none">Famiglia</a></li>
     </ul>
     <ul class="nav__lang">
@@ -65,6 +66,7 @@ function initFooter() {
           <ul class="footer__links">
             <li><a href="${root}pages/rdc.html" data-lang="fr">Appartement RDC</a><a href="${root}pages/rdc.html" data-lang="en" style="display:none">Ground Floor Apt.</a><a href="${root}pages/rdc.html" data-lang="it" style="display:none">App. Piano Terra</a></li>
             <li><a href="${root}pages/2eme.html" data-lang="fr">Appartement 2e étage</a><a href="${root}pages/2eme.html" data-lang="en" style="display:none">2nd Floor Apt.</a><a href="${root}pages/2eme.html" data-lang="it" style="display:none">App. 2° Piano</a></li>
+            <li><a href="${root}pages/infos.html" data-lang="fr">Infos pratiques</a><a href="${root}pages/infos.html" data-lang="en" style="display:none">Practical info</a><a href="${root}pages/infos.html" data-lang="it" style="display:none">Info pratiche</a></li>
             <li><a href="${root}pages/famille.html" data-lang="fr">Espace famille</a><a href="${root}pages/famille.html" data-lang="en" style="display:none">Family area</a><a href="${root}pages/famille.html" data-lang="it" style="display:none">Area famiglia</a></li>
           </ul>
         </div>
