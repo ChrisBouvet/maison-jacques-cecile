@@ -19,15 +19,6 @@
   </script>
   <style>
     /* ── INFOS PAGE ── */
-    .infos-hero {
-      background: linear-gradient(135deg, var(--brun) 0%, var(--brun-clair) 100%);
-      color: var(--blanc);
-      padding: 3rem 2rem 2rem;
-      text-align: center;
-    }
-    .infos-hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    .infos-hero p  { color: rgba(255,255,255,0.7); font-size: 0.95rem; }
-
     /* Tabs */
     .infos-tabs-bar {
       background: var(--blanc);
@@ -173,15 +164,22 @@
 <body>
 <nav class="nav"></nav>
 
-<!-- HERO -->
-<div class="infos-hero">
-  <h1 data-lang="fr">ℹ Infos pratiques</h1>
-  <h1 data-lang="en" style="display:none">ℹ Practical information</h1>
-  <h1 data-lang="it" style="display:none">ℹ Informazioni pratiche</h1>
-  <p data-lang="fr">Tout ce qu'il faut savoir pour préparer votre séjour à Montgenèvre</p>
-  <p data-lang="en" style="display:none">Everything you need to know to prepare your stay in Montgenèvre</p>
-  <p data-lang="it" style="display:none">Tutto quello che c'è da sapere per preparare il vostro soggiorno a Montgenèvre</p>
-</div>
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container--narrow">
+    <p class="page-hero__breadcrumb"><a href="../index.html">Accueil</a> / <span data-lang="fr">Infos pratiques</span><span data-lang="en" style="display:none">Practical information</span><span data-lang="it" style="display:none">Informazioni pratiche</span></p>
+    <span class="section__tag" data-lang="fr">Préparer son séjour</span>
+    <span class="section__tag" data-lang="en" style="display:none">Plan your stay</span>
+    <span class="section__tag" data-lang="it" style="display:none">Preparare il soggiorno</span>
+    <h1 data-lang="fr">Infos<br><em>pratiques</em></h1>
+    <h1 data-lang="en" style="display:none">Practical<br><em>information</em></h1>
+    <h1 data-lang="it" style="display:none">Informazioni<br><em>pratiche</em></h1>
+    <div class="divider" style="margin:1.5rem auto;"></div>
+    <p class="hero-desc" data-lang="fr">Tout ce qu'il faut savoir pour préparer votre séjour à Montgenèvre</p>
+    <p class="hero-desc" data-lang="en" style="display:none">Everything you need to know to prepare your stay in Montgenèvre</p>
+    <p class="hero-desc" data-lang="it" style="display:none">Tutto quello che c'è da sapere per preparare il vostro soggiorno a Montgenèvre</p>
+  </div>
+</section>
 
 <!-- TABS -->
 <nav class="infos-tabs-bar">
@@ -779,6 +777,13 @@
 document.addEventListener('DOMContentLoaded', () => {
   initNav('infos');
   initFooter();
+
+  // Sticky tabs: stick just below the fixed nav (whose height varies with screen width)
+  const nav = document.querySelector('.nav');
+  const tabsBar = document.querySelector('.infos-tabs-bar');
+  const placeTabsBar = () => { tabsBar.style.top = nav.offsetHeight + 'px'; };
+  placeTabsBar();
+  window.addEventListener('resize', placeTabsBar);
 
   // Tab switching
   document.querySelectorAll('.infos-tab-btn').forEach(btn => {
